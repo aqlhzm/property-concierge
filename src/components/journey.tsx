@@ -133,7 +133,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
         </div>
 
         {/* Desktop legibility: darken the left (copy) and the bottom (progress) */}
-        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(9,14,11,0.82)_0%,rgba(9,14,11,0.5)_30%,transparent_58%)] md:block" />
+        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(9,14,11,0.9)_0%,rgba(9,14,11,0.72)_26%,rgba(9,14,11,0.28)_46%,transparent_60%)] md:block" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-48 bg-gradient-to-t from-[rgba(9,14,11,0.85)] to-transparent md:block" />
         <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-36 bg-gradient-to-b from-[rgba(9,14,11,0.7)] to-transparent md:block" />
 
