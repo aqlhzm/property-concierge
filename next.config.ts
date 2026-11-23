@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       // HD photography (upscaled, owner's Higgsfield media storage)
       new URL("https://d2ol7oe51mr4n9.cloudfront.net/user_2wyjxahmz9PtKeHoIbEemDKyafc/**"),
     ],
-    qualities: [75, 85],
+    qualities: [75, 85, 90],
     formats: ["image/avif", "image/webp"],
     // Local visual QA only: lets the browser fetch remote images directly.
     unoptimized: process.env.LOCAL_QA === "1",
