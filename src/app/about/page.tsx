@@ -43,21 +43,31 @@ export default function AboutPage() {
       {/* Full screen profile hero, after the owner's reference: photo fills the screen,
           progressive blur keeps the photo's colour, content stacks at the bottom. */}
       <section className="relative isolate flex h-[100svh] min-h-[640px] flex-col justify-end overflow-hidden">
+        {/* Desktop ambient: same photo, heavily blurred, fills the wide screen */}
+        <Image
+          src={site.aboutPortrait}
+          alt=""
+          fill
+          quality={75}
+          sizes="100vw"
+          className="-z-40 hidden scale-110 object-cover opacity-80 blur-[48px] md:block"
+        />
+        {/* Main photo: fills the phone screen; whole portrait, centred, on wide screens */}
         <Image
           src={site.aboutPortrait}
           alt={`${site.consultantName}, ${site.consultantTitle}, holding a house key`}
           fill
           priority
           quality={90}
-          sizes="100vw"
-          className="-z-30 object-cover object-[50%_12%]"
+          sizes="(min-width: 768px) 80vh, 100vw"
+          className="-z-30 object-cover object-[50%_12%] md:object-contain md:object-top"
         />
-        {/* Progressive blur: three layers, each stronger and lower */}
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black_45%,transparent_62%)]" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[10px] [mask-image:linear-gradient(to_top,black_32%,transparent_52%)]" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[26px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_18%,transparent_42%)]" />
+        {/* Progressive blur: three layers, each stronger and lower; starts just under the face */}
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[28px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_36%,transparent_56%)]" />
         {/* Tint for legibility; keeps the wall's sage colour rather than going black */}
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.72)_0%,rgba(12,28,21,0.5)_30%,rgba(12,28,21,0.12)_55%,transparent_70%)]" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.8)_0%,rgba(12,28,21,0.62)_34%,rgba(12,28,21,0.36)_54%,rgba(12,28,21,0.1)_68%,transparent_78%)]" />
         <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/30 to-transparent" />
 
         <div className="hero-copy mx-auto w-full max-w-[460px] px-5 pb-[calc(88px+env(safe-area-inset-bottom))] text-center md:pb-10">
