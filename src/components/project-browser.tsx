@@ -53,7 +53,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
             defaultValue={q}
             key={q}
             placeholder="Area, home type, development"
-            className="field !pl-11"
+            className="field !pl-11 focus:!border-white/35 focus-visible:!outline-none"
             onKeyDown={(e) => {
               if (e.key === "Enter") update({ q: e.currentTarget.value.trim() });
             }}

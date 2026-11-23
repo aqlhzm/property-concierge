@@ -24,7 +24,7 @@ export function SearchBar({ className = "" }: { className?: string }) {
           e.preventDefault();
           go(q);
         }}
-        className="glass flex h-16 items-center gap-3 rounded-full pr-2 pl-5"
+        className="glass flex h-16 items-center gap-3 rounded-full pr-2 pl-5 transition-[border-color,box-shadow] duration-200 focus-within:border-white/35 focus-within:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_30px_-12px_rgba(0,0,0,0.6)]"
       >
         <Search aria-hidden size={20} className="shrink-0 text-muted" />
         <label htmlFor="home-search" className="sr-only">
@@ -36,7 +36,7 @@ export function SearchBar({ className = "" }: { className?: string }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search by area, home type or development"
-          className="h-full min-w-0 flex-1 bg-transparent text-[16px] text-text placeholder:text-muted focus:outline-none"
+          className="h-full min-w-0 flex-1 bg-transparent text-[16px] text-text placeholder:text-muted focus:!outline-none focus-visible:!outline-none"
           autoComplete="off"
           enterKeyHint="search"
         />
