@@ -138,13 +138,13 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
         <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-36 bg-gradient-to-b from-[rgba(9,14,11,0.7)] to-transparent md:block" />
 
         {/* Chapters */}
-        <div className="absolute inset-x-0 bottom-[calc(108px+env(safe-area-inset-bottom))] mx-auto max-w-6xl px-5 sm:px-8 md:top-1/2 md:bottom-auto md:-translate-y-1/2">
+        <div className="absolute inset-x-0 top-[calc(92px+56.25vw+12px)] mx-auto max-w-6xl px-5 sm:px-8 md:top-1/2 md:-translate-y-1/2">
           <div className="relative min-h-[230px] md:min-h-[300px] md:max-w-[440px]">
             {steps.map((s, i) => (
               <article
                 key={s.n}
                 aria-hidden={i !== active || done}
-                className={`film-chapter absolute inset-x-0 bottom-0 md:top-0 md:bottom-auto ${i === active && !done ? "is-active" : i < active || done ? "is-past" : ""}`}
+                className={`film-chapter absolute inset-x-0 top-0 ${i === active && !done ? "is-active" : i < active || done ? "is-past" : ""}`}
               >
                 <div className="flex items-center gap-3">
                   <span className="font-display text-[46px] leading-none text-emerald-text tabular md:text-[64px]">{s.n}</span>
@@ -162,7 +162,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
             ))}
 
             {/* Finale: the home is finished; the keys are next */}
-            <div aria-hidden={!done} className={`film-chapter absolute inset-x-0 bottom-0 md:top-0 md:bottom-auto ${done ? "is-active" : ""}`}>
+            <div aria-hidden={!done} className={`film-chapter absolute inset-x-0 top-0 ${done ? "is-active" : ""}`}>
               <span className="grid size-12 place-items-center rounded-full bg-[#f6e2ad]/15 text-[#f6e2ad] ring-1 ring-[#f6e2ad]/40">
                 <KeyRound size={22} />
               </span>
