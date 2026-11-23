@@ -6,7 +6,6 @@ import type { GalleryImage, Project, Spec } from "./types";
  * Floor plans are still hosted on Base44 media storage; photography is HD (see IMAGES).
  */
 
-const MEDIA = "https://media.base44.com/images/public/6b03e14baf639027c969822b";
 
 /**
  * HD imagery: the Base44 originals were only 800 to 1000px wide, so they were upscaled to 4K
@@ -32,6 +31,9 @@ export const IMAGES = {
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
+  /** Link previews (Open Graph), 1200x630 JPEG under 110KB so WhatsApp and Facebook show them */
+  ogDefault: `${HD}/75bf974c-1d36-4cd4-8e16-7222cc473e92.jpg`,
+  ogAbout: `${HD}/8e83fb6a-d931-4d65-bcc0-6093355ccae9.jpg`,
   /** Journey film (scroll-scrubbed): blueprint of Wellington Garden Homes becoming the finished render. Short GOP for smooth seeking. */
   journeyFilm: `${HD}/edae5c31-ee9b-47bb-b865-720d1f9d0e4f.mp4`,
   journeyFilmSmall: `${HD}/c984ebfc-d35e-4f7b-962e-283c91b5b293.mp4`,
@@ -41,7 +43,15 @@ export const IMAGES = {
   journeyStill: `${HD}/eab0ceb2-b75c-4090-81f1-83bec111517a.webp`,
 } as const;
 
-export const MEDIA_BASE = MEDIA;
+/** Link preview per development (1200x630 JPEG, labelled "Artist's impression") */
+export const OG_BY_SLUG: Record<string, string> = {
+  "wellington-garden-terrace": `${HD}/331f0c17-521c-4bcc-988b-34da0c72c29f.jpg`,
+  "wellington-garden-homes": `${HD}/e1a47948-7341-4e3f-aca0-9d6a4d858d52.jpg`,
+  "norton-garden": `${HD}/e08cdf74-7133-41a8-bcb6-7f2bbd5e8d31.jpg`,
+};
+
+/** Base for floor plans: owner's media storage (moved off Base44, 24 Nov 2026; byte-identical copies). */
+export const MEDIA_BASE = HD;
 
 const gazebo: GalleryImage = {
   url: IMAGES.gazebo,

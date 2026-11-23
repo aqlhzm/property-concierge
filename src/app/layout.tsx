@@ -8,22 +8,21 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
+import { IMAGES } from "@/data/projects";
+import { SITE_URL, openGraph } from "@/lib/site";
 import { SiteFooter } from "@/components/footer";
 import { MobileTabBar, SiteHeader } from "@/components/nav";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://property-concierge.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "PROPERTY CONCIERGE by aqilgotkeys",
     template: "%s · PROPERTY CONCIERGE",
   },
   description:
     "Premium property advisory by Aqil Hazim. Discover, compare and plan your next home, from first enquiry to receiving your keys.",
-  openGraph: {
-    siteName: "PROPERTY CONCIERGE by aqilgotkeys",
-    type: "website",
-    locale: "en_MY",
-  },
+  openGraph: openGraph(IMAGES.ogDefault, "PROPERTY CONCIERGE by aqilgotkeys: Stargazer's Gazebo at Wellington Garden"),
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

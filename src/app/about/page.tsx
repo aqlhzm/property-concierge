@@ -9,11 +9,14 @@ import { site } from "@/data/content";
 import { units } from "@/data/units";
 import { allProjects } from "@/lib/data";
 import { formatNum } from "@/lib/format";
+import { IMAGES } from "@/data/projects";
+import { openGraph } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `About ${site.consultantName}`,
   description: site.serviceApproach,
-  openGraph: { images: [{ url: site.aboutPortrait }] },
+  openGraph: openGraph(IMAGES.ogAbout, `${site.consultantName}, ${site.consultantTitle}`),
+  twitter: { card: "summary_large_image" },
 };
 
 const PRINCIPLES = [

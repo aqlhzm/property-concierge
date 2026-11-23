@@ -12,9 +12,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   images: {
     remotePatterns: [
-      // Floor plans (migrated from Base44)
-      new URL("https://media.base44.com/images/public/6b03e14baf639027c969822b/**"),
-      // HD photography (upscaled, owner's Higgsfield media storage)
+      // All images: HD photography and floor plans on the owner's media storage
       new URL("https://d2ol7oe51mr4n9.cloudfront.net/user_2wyjxahmz9PtKeHoIbEemDKyafc/**"),
     ],
     qualities: [75, 85, 90],

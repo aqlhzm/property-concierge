@@ -33,7 +33,7 @@ All project data lives in `src/data/` and was migrated from the Base44 app on 23
 
 - **Norton Garden** has `showPrice: false` — its advertising permit ended 10/08/2025. Reconfirm with the developer before showing a price.
 - Wellington Terrace: only Types T2, T3, T5 are detailed in the brochure.
-- Images are still hosted on Base44 media storage (`media.base44.com`). Move them to Vercel Blob or `public/` before the Base44 app is retired.
+- All images (HD renders, portraits, 22 floor plans, the journey film and link previews) are on the owner's media storage (`d2ol7oe51mr4n9.cloudfront.net`). Floor plans were moved off Base44 on 24 Nov 2026 as byte-identical copies; nothing depends on Base44 any more.
 
 To update content, edit the files in `src/data/` and push — Vercel redeploys automatically.
 
@@ -45,6 +45,14 @@ Schema: [`supabase/migrations/0001_leads.sql`](supabase/migrations/0001_leads.sq
 - The only way in is `public.submit_lead(payload jsonb)` (security definer, insert-only, enforces consent).
 - The Next.js server calls it with the publishable key, kept server-side (`SUPABASE_PUBLISHABLE_KEY`, no `NEXT_PUBLIC_` prefix).
 - View leads in the Supabase dashboard → Table editor → `leads`.
+- **Verified end to end on 24 Nov 2026:** a test enquiry from the live site arrived with every field (intent, project, UTM, consent text and version); the test row was then deleted.
+
+## Sharing and search
+
+- `robots.txt` and `sitemap.xml` are generated (`src/app/robots.ts`, `src/app/sitemap.ts`). `/privacy` stays `noindex` until the final notice is in.
+- Every page has a 1200x630 JPEG link preview (home, each development, About) so WhatsApp and Facebook show an image.
+- Home screen icon: `src/app/apple-icon.tsx`.
+- Canonical URL comes from `NEXT_PUBLIC_SITE_URL` (`src/lib/site.ts`).
 
 ## Local development
 

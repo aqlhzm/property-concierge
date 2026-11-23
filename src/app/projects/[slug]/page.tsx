@@ -10,6 +10,8 @@ import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects, getFaqs, getNearby, getProject, getUnits } from "@/lib/data";
 import { formatDate, formatRM, sqftRange } from "@/lib/format";
 import { wazeHref } from "@/lib/whatsapp";
+import { IMAGES, OG_BY_SLUG } from "@/data/projects";
+import { openGraph } from "@/lib/site";
 
 export function generateStaticParams() {
   return allProjects.map((p) => ({ slug: p.slug }));
@@ -22,7 +24,8 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   return {
     title: `${p.name} ${p.productName}`,
     description: `${p.productLabel} at ${p.township}, ${p.location}. ${p.tagline}`,
-    openGraph: { images: [{ url: p.heroImage.url }] },
+    openGraph: openGraph(OG_BY_SLUG[p.slug] ?? IMAGES.ogDefault, `${p.name} ${p.productName}, artist\u2019s impression`),
+    twitter: { card: "summary_large_image" },
   };
 }
 
