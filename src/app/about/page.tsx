@@ -2,6 +2,7 @@ import { CalendarDays, ChevronDown, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { PortraitMotion } from "@/components/portrait-motion";
 import { WhatsAppIcon } from "@/components/whatsapp";
 import { whatsappHref } from "@/lib/whatsapp";
 import { site } from "@/data/content";
@@ -60,6 +61,12 @@ export default function AboutPage() {
             priority
             quality={90}
             sizes="(min-width: 768px) 82vh, 100vw"
+            className="object-cover object-[50%_12%] md:object-top"
+          />
+          {/* Same photo, moving subtly; fades in over the still once playing */}
+          <PortraitMotion
+            large={site.aboutPortraitVideo.large}
+            small={site.aboutPortraitVideo.small}
             className="object-cover object-[50%_12%] md:object-top"
           />
         </div>
