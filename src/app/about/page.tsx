@@ -52,16 +52,19 @@ export default function AboutPage() {
           sizes="100vw"
           className="-z-40 hidden scale-110 object-cover opacity-80 blur-[48px] md:block"
         />
-        {/* Main photo: fills the phone screen; whole portrait, centred, on wide screens */}
-        <Image
-          src={site.aboutPortrait}
-          alt={`${site.consultantName}, ${site.consultantTitle}, holding a house key`}
-          fill
-          priority
-          quality={90}
-          sizes="(min-width: 768px) 80vh, 100vw"
-          className="-z-30 object-cover object-[50%_12%] md:object-contain md:object-top"
-        />
+        {/* Main photo: fills the phone screen; on wide screens the whole portrait sits centred
+            and its side edges fade into the blurred ambient copy */}
+        <div className="absolute inset-0 -z-30 md:inset-x-auto md:left-1/2 md:aspect-[3291/4096] md:h-full md:-translate-x-1/2 md:[mask-image:linear-gradient(to_right,transparent,black_16%,black_84%,transparent)]">
+          <Image
+            src={site.aboutPortrait}
+            alt={`${site.consultantName}, ${site.consultantTitle}, holding a house key`}
+            fill
+            priority
+            quality={90}
+            sizes="(min-width: 768px) 80vh, 100vw"
+            className="object-cover object-[50%_12%] md:object-top"
+          />
+        </div>
         {/* Progressive blur: three layers, each stronger and lower; starts just under the face */}
         <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)]" />
         <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)]" />
