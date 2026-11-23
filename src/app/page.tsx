@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/content";
 import { IMAGES } from "@/data/projects";
+import { Journey, type JourneyStep } from "@/components/journey";
 import { ImageBadge, ProjectCard } from "@/components/project-card";
 import { SearchBar } from "@/components/search-bar";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects } from "@/lib/data";
 
-const JOURNEY = [
+const JOURNEY: JourneyStep[] = [
   { n: "01", title: "Discover", body: "Developments matched to your budget, location and lifestyle.", online: true },
   { n: "02", title: "Understand", body: "Unit plans, specifications, comparisons and estimates in one place.", online: true },
   { n: "03", title: "Qualify", body: "A clear read on readiness, eligibility and what you can comfortably afford.", online: false },
@@ -112,26 +113,7 @@ export default function HomePage() {
         <h2 id="journey-title" className="mt-2 max-w-2xl font-display text-[34px] leading-tight sm:text-[40px]">
           From first discovery to receiving your keys
         </h2>
-        <ol className="mt-10 grid gap-px overflow-hidden rounded-[20px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {JOURNEY.map((s) => (
-            <li key={s.n} className="flex flex-col gap-3 bg-surface p-6">
-              <div className="flex items-center justify-between">
-                <span className="font-display text-[22px] text-sage tabular">{s.n}</span>
-                <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${s.online ? "bg-forest text-emerald-text" : "bg-sage-deep text-sage-text"}`}>
-                  {s.online ? "On this site" : "With Aqil"}
-                </span>
-              </div>
-              <h3 className="text-[18px] font-medium">{s.title}</h3>
-              <p className="text-[14px] text-muted">{s.body}</p>
-            </li>
-          ))}
-          <li className="flex flex-col justify-between gap-4 bg-[linear-gradient(135deg,rgba(28,74,55,0.6),rgba(47,61,51,0.6))] p-6">
-            <p className="text-[15px]">Ready to start? Tell Aqil what you need and he will shortlist for you.</p>
-            <Link href="/enquire" className="btn btn-primary self-start">
-              Get a recommendation
-            </Link>
-          </li>
-        </ol>
+        <Journey steps={JOURNEY} />
       </section>
 
       {/* Consultant */}
