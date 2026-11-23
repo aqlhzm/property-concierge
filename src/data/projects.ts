@@ -31,6 +31,8 @@ export const IMAGES = {
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
+  /** Home hero nature sound: birdsong + soft breeze, 24.5s seamless loop. FLAC (lossless, gapless) despite the .mp3 name the store assigns; decoded by Web Audio. */
+  heroAmbience: `${HD}/fabf5b05-6b88-474f-ae20-c3033a4a7bdd.mp3`,
   /** Link previews (Open Graph), 1200x630 JPEG under 110KB so WhatsApp and Facebook show them */
   ogDefault: `${HD}/75bf974c-1d36-4cd4-8e16-7222cc473e92.jpg`,
   ogAbout: `${HD}/8e83fb6a-d931-4d65-bcc0-6093355ccae9.jpg`,
