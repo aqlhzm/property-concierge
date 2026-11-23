@@ -53,6 +53,8 @@ export const site = {
   consultantName: "Aqil Hazim",
   consultantTitle: "Property Consultant",
   consultantPortrait: IMAGES.portrait,
+  /** About page portrait: owner-supplied keys photo, lighting graded and upscaled to 4K */
+  aboutPortrait: IMAGES.portraitKeys,
   /** Owner to supply a verified biography. Leave empty rather than inventing one. */
   consultantBio: "",
   serviceApproach:

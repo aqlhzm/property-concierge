@@ -21,6 +21,8 @@ export const IMAGES = {
   wellingtonTerrace: `${HD}/6d81629e-efa6-4b86-be94-89ce0325be62.webp`,
   norton: `${HD}/cd79d036-11b5-4d7a-ab5b-b9f0e7152ab4.webp`,
   portrait: `${HD}/41eeccf2-e265-4d21-a032-5f9c9b498fe5.webp`,
+  /** Owner-supplied keys photo: cropped waist to just above the head (4:5), lighting graded, upscaled to 4K */
+  portraitKeys: `${HD}/120b6b04-3156-4b78-9d84-5625b521806d.webp`,
 } as const;
 
 export const MEDIA_BASE = MEDIA;

@@ -21,6 +21,7 @@ Built from the ui-ux-pro-max skill (v2.15.0) and adjusted to the owner's brief.
 - Photography upscaled to 4K and served as 2560px WebP at quality 85.
 - Buttons are Apple-style **Liquid Glass**: light underlay + low-alpha tint (more see-through, owner feedback) + `backdrop-filter: blur(10px) saturate(190%)`, a specular highlight along the top edge and a light rim. Primary is tinted emerald, secondary is tinted sage; selected tabs use the emerald glass (`.pill-active`). White text (with a soft text shadow) measures ≥ 11:1 on the dark page, ≥ 8:1 on dark hero areas and about 4.4:1 over mid-tone photo areas. Solid fallbacks under `prefers-reduced-transparency`. (Replaced the gradient pills from the palette reference, 23 Nov.)
 - Wordmark enlarged: PROPERTY CONCIERGE 13/15px in the header, 18/20px in the footer.
+- About page: owner's keys portrait (cropped waist to just above the head, 4:5, lighting graded by hand, then 4K upscale; 3291×4096 WebP) inside an arch window with a Liquid Glass frame (`.glass-frame`), emerald and sage ambient glow, and a floating glass caption "From first enquiry to your keys".
 - No dashes in UI copy: ranges read "X to Y"; em dashes replaced with commas or full stops. Official identifiers (permit numbers, company numbers, phase codes) keep their original format.
 
 ## Colour tokens (platform)

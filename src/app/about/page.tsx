@@ -1,3 +1,4 @@
+import { KeyRound } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,7 @@ import { formatNum } from "@/lib/format";
 export const metadata: Metadata = {
   title: `About ${site.consultantName}`,
   description: site.serviceApproach,
-  openGraph: { images: [{ url: site.consultantPortrait }] },
+  openGraph: { images: [{ url: site.aboutPortrait }] },
 };
 
 const PRINCIPLES = [
@@ -39,20 +40,45 @@ export default function AboutPage() {
 
   return (
     <div>
-      <section className="relative isolate flex min-h-[86svh] items-end overflow-hidden">
-        <Image src={site.consultantPortrait} quality={85} alt={`Portrait of ${site.consultantName}`} fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" />
-        {/* Mobile: copy spans the full width, so darken more evenly */}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.74)_26%,rgba(9,14,11,0.5)_56%,rgba(9,14,11,0.2)_85%)] sm:hidden" />
-        {/* Larger screens: lighter overlay so glass buttons show the photo, darker behind the copy on the left */}
-        <div className="absolute inset-0 -z-10 hidden bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.6)_18%,rgba(9,14,11,0.26)_44%,rgba(9,14,11,0.06)_80%)] sm:block" />
-        <div className="absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_70%_70%_at_0%_80%,rgba(9,14,11,0.62),transparent_70%)] sm:block" />
-        <div className="hero-copy mx-auto w-full max-w-6xl px-5 pb-12 sm:px-8">
-          <p className="eyebrow rise">{site.consultantTitle}</p>
-          <h1 className="rise-2 mt-2 font-display text-[52px] leading-none sm:text-[80px]">{site.consultantName}</h1>
-          <p className="rise-2 mt-3 text-[17px] text-muted">{site.serviceAreas.join(" · ")}</p>
-          <div className="rise-3 mt-6 flex flex-wrap gap-3">
-            <WhatsAppLink context="general">WhatsApp Aqil</WhatsAppLink>
-            <ShareButton title={`${site.consultantName} · PROPERTY CONCIERGE`} className="btn btn-ghost" />
+      <section className="relative isolate overflow-hidden pt-28 pb-14 sm:pt-32 lg:pb-20">
+        {/* Ambient emerald and sage light */}
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_50%_at_78%_38%,rgba(52,196,140,0.16),transparent_70%),radial-gradient(ellipse_45%_45%_at_15%_85%,rgba(169,186,157,0.12),transparent_70%)]" />
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
+          {/* Framed portrait: arch window in a Liquid Glass frame */}
+          <figure className="rise relative mx-auto w-full max-w-[400px] lg:order-2 lg:max-w-[460px]">
+            <div aria-hidden className="absolute -inset-8 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(52,196,140,0.32),rgba(169,186,157,0.14)_55%,transparent)] blur-2xl" />
+            <div className="glass-frame rounded-t-[999px] rounded-b-[36px] p-2.5 sm:p-3">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[28px]">
+                <Image
+                  src={site.aboutPortrait}
+                  alt={`${site.consultantName}, ${site.consultantTitle}, holding a house key`}
+                  fill
+                  priority
+                  quality={90}
+                  sizes="(min-width: 1024px) 460px, (min-width: 640px) 400px, 92vw"
+                  className="object-cover object-top"
+                />
+                <div aria-hidden className="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12),inset_0_-60px_80px_-40px_rgba(9,14,11,0.55)]" />
+              </div>
+            </div>
+            <figcaption className="glass-photo absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2.5 whitespace-nowrap rounded-full py-2 pr-4 pl-2 text-[13px] text-white sm:left-[-1.25rem] sm:translate-x-0">
+              <span className="pill-active grid size-8 place-items-center rounded-full">
+                <KeyRound aria-hidden size={16} />
+              </span>
+              From first enquiry to your keys
+            </figcaption>
+          </figure>
+
+          <div className="lg:order-1">
+            <p className="eyebrow rise">{site.consultantTitle}</p>
+            <h1 className="rise-2 mt-3 font-display text-[52px] leading-[0.95] sm:text-[76px]">{site.consultantName}</h1>
+            <p className="rise-2 mt-1 font-signature text-[34px] leading-tight text-sage-text sm:text-[40px]">{site.brandSignature}</p>
+            <p className="rise-3 mt-5 max-w-lg text-[17px] text-muted">{site.serviceApproach}</p>
+            <p className="rise-3 mt-3 text-[14px] text-subtle">{site.serviceAreas.join(" · ")}</p>
+            <div className="rise-3 mt-8 flex flex-wrap gap-3">
+              <WhatsAppLink context="general">WhatsApp Aqil</WhatsAppLink>
+              <ShareButton title={`${site.consultantName} · PROPERTY CONCIERGE`} className="btn btn-ghost" />
+            </div>
           </div>
         </div>
       </section>
@@ -73,9 +99,6 @@ export default function AboutPage() {
           <p className="eyebrow">Approach</p>
           <p className="mt-4 font-display text-[26px] leading-snug">{site.serviceApproach}</p>
           {site.consultantBio && <p className="mt-5 text-[16px] text-muted">{site.consultantBio}</p>}
-          <div className="mt-8">
-            <p className="font-signature text-[42px] leading-none text-emerald-text">aqilgotkeys</p>
-          </div>
         </div>
         <ul className="grid gap-5">
           {PRINCIPLES.map((p, i) => (
