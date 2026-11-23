@@ -1,9 +1,10 @@
 "use client";
 
-import { Building2, Calculator, GitCompareArrows, Home, UserRound } from "lucide-react";
+import { Building2, Calculator, GitCompareArrows, Home, UserRound, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Wordmark } from "./brand";
+import { ShareButton } from "./share-button";
 
 const items = [
   { href: "/", label: "Home", icon: Home },
@@ -19,8 +20,18 @@ function isActive(pathname: string, href: string) {
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const immersive = pathname === "/about";
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6">
+    <>
+      {immersive && (
+        <div className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 pt-[max(1rem,env(safe-area-inset-top))] md:hidden">
+          <Link href="/" aria-label="Close and go home" className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white">
+            <X aria-hidden size={20} />
+          </Link>
+          <ShareButton title="Aqil Hazim · PROPERTY CONCIERGE" iconOnly className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white" />
+        </div>
+      )}
+    <header className={`pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6 ${immersive ? "hidden md:block" : ""}`}>
       <div className="glass pointer-events-auto mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full pl-5 pr-2">
         <Wordmark />
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
@@ -48,6 +59,7 @@ export function SiteHeader() {
         </Link>
       </div>
     </header>
+    </>
   );
 }
 
