@@ -22,12 +22,6 @@
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-  /* Gradients sampled from the owner's palette reference (23 Nov) */
-  --grad-emerald: linear-gradient(180deg, #a7c9b9 0%, #7bb9a2 48%, #53aa8f 100%);
-  --grad-emerald-hover: linear-gradient(180deg, #b6d4c6 0%, #86c3ac 48%, #5db598 100%);
-  --grad-sage: linear-gradient(180deg, #c8d1bc 0%, #9eb49b 50%, #78997e 100%);
-  --grad-sage-hover: linear-gradient(180deg, #d3dbc8 0%, #a9bea6 50%, #83a489 100%);
-  --btn-ink: #06231a;
 
   /* Project accents (overridden per development, all within the green family) */
   --p-accent: var(--sage-text);
@@ -138,34 +132,77 @@ body {
   .btn:active {
     transform: scale(0.97);
   }
-  /* Button colours follow the owner's palette reference: soft vertical gradients, dark ink text */
-  .btn-primary {
-    background: var(--grad-emerald);
-    color: var(--btn-ink);
+  /* Apple-style Liquid Glass buttons.
+     Layers: dark underlay (legibility over photos) + tint + backdrop blur,
+     a specular highlight along the top edge, and a light rim. */
+  .btn-primary,
+  .btn-ghost,
+  .pill-active {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.45),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.08),
-      0 10px 24px -12px rgba(83, 170, 143, 0.75);
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0.5px rgba(255, 255, 255, 0.12),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 10px 28px -14px rgba(0, 0, 0, 0.7);
+    transition:
+      transform 220ms var(--spring),
+      background 220ms var(--ease),
+      box-shadow 220ms var(--ease);
+  }
+  /* specular highlight */
+  .btn-primary::before,
+  .btn-ghost::before,
+  .pill-active::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 55%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+  }
+  .btn-primary {
+    background:
+      linear-gradient(180deg, rgba(123, 185, 162, 0.55), rgba(52, 160, 120, 0.42)),
+      rgba(8, 14, 11, 0.42);
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0.5px rgba(255, 255, 255, 0.14),
+      inset 0 0 0 1px rgba(167, 220, 195, 0.28),
+      0 10px 30px -12px rgba(52, 196, 140, 0.45);
   }
   .btn-primary:hover {
-    background: var(--grad-emerald-hover);
+    background:
+      linear-gradient(180deg, rgba(140, 200, 176, 0.62), rgba(60, 176, 132, 0.5)),
+      rgba(8, 14, 11, 0.4);
   }
   .btn-ghost {
-    background: var(--grad-sage);
-    color: var(--btn-ink);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.4),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.08),
-      0 10px 24px -14px rgba(120, 153, 126, 0.7);
+    background:
+      linear-gradient(180deg, rgba(214, 224, 204, 0.2), rgba(158, 180, 155, 0.1)),
+      rgba(8, 14, 11, 0.45);
   }
   .btn-ghost:hover {
-    background: var(--grad-sage-hover);
+    background:
+      linear-gradient(180deg, rgba(214, 224, 204, 0.28), rgba(158, 180, 155, 0.16)),
+      rgba(8, 14, 11, 0.42);
   }
-  /* Selected pills (tabs, toggles) share the emerald gradient */
+  .btn-primary:active,
+  .btn-ghost:active {
+    transform: scale(0.96);
+  }
+  /* Selected pills (tabs, toggles) */
   .pill-active {
-    background: var(--grad-emerald);
-    color: var(--btn-ink);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    background:
+      linear-gradient(180deg, rgba(123, 185, 162, 0.5), rgba(52, 160, 120, 0.36)),
+      rgba(8, 14, 11, 0.35);
   }
 
   .field {
@@ -231,6 +268,17 @@ body {
 }
 
 @media (prefers-reduced-transparency: reduce) {
+  .btn-primary,
+  .pill-active {
+    background: #2f7a5c;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .btn-ghost {
+    background: #34433a;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .glass-photo {
     background: rgba(10, 16, 12, 0.92);
     -webkit-backdrop-filter: none;

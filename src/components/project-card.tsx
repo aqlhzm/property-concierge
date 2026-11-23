@@ -54,7 +54,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         </div>
         <span
           aria-hidden
-          className="glass-photo absolute top-3 right-3 grid size-10 place-items-center rounded-full text-white transition-[transform,background-color] duration-300 ease-spring group-hover:rotate-45 group-hover:bg-[#7bb9a2] group-hover:text-[#06231a]"
+          className="glass-photo absolute top-3 right-3 grid size-10 place-items-center rounded-full text-white transition-[transform,background-color] duration-300 ease-spring group-hover:rotate-45 group-hover:bg-[rgba(70,170,130,0.55)]"
         >
           <ArrowUpRight size={18} />
         </span>
