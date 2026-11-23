@@ -471,109 +471,220 @@ body {
   }
 }
 
-/* ── Concierge journey: progress story ───────────────────────────────────────
-   Final state is the default; the starting state applies only once JS sets
-   data-ready on the list (so no JS / reduced motion shows everything at once).
-   --td: when this step's bar starts filling (queued in order by JS)
-   --rd: content reveal stagger within one batch (60ms)
-   --step: time for the bar to cross one step (linear = constant progress) */
-.journey-step {
-  position: relative;
-  overflow: hidden;
+/* ── Concierge journey: "watch your home come together" ─────────────────────
+   A blueprint that draws itself as the reader scrolls. Every element's finished
+   state is ".on"; the component renders everything on without JS. */
+.bp-canvas {
+  background:
+    radial-gradient(70% 60% at 50% 70%, rgba(52, 196, 140, 0.1), transparent 70%),
+    linear-gradient(rgba(143, 217, 182, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(143, 217, 182, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(180deg, #0f1813, #0b120e);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.bp-label {
+  animation: bp-label-in 520ms var(--ease) both;
+}
+@keyframes bp-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Lines draw themselves (stroke offset), dimension lines in sage */
+.bp-line {
+  fill: none;
+  stroke: var(--emerald-text);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 3px rgba(52, 196, 140, 0.45));
+  opacity: 0;
   transition:
-    background-color 300ms var(--ease),
-    box-shadow 300ms var(--ease);
+    stroke-dashoffset 1100ms var(--ease),
+    opacity 200ms var(--ease);
 }
-.journey-step:hover {
-  box-shadow: inset 0 0 0 1px rgba(95, 220, 166, 0.16);
+.bp-line.dim {
+  stroke: var(--sage);
+  stroke-width: 1.2;
+  filter: none;
 }
-.journey-track {
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(52, 196, 140, 0.35), var(--emerald) 55%, #9be8c6);
-  box-shadow: 0 0 10px rgba(52, 196, 140, 0.55);
+.bp-line.on {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+.bp-guide {
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  opacity: 0;
+  transition: opacity 700ms var(--ease);
+}
+.bp-guide.on {
+  opacity: 0.6;
+}
+
+/* The pin drops onto the lot, then leaves once the walls rise */
+.bp-pin {
+  opacity: 0;
+  transform: translateY(-26px);
+  transition:
+    opacity 400ms var(--ease),
+    transform 800ms var(--spring);
+}
+.bp-pin.on {
+  opacity: 1;
+  transform: none;
+}
+.bp-solid {
+  fill: rgba(52, 196, 140, 0.18);
+  stroke: var(--emerald-text);
+  stroke-width: 1.7;
+}
+.bp-hole {
+  fill: #0d1611;
+  stroke: var(--emerald-text);
+  stroke-width: 1.4;
+}
+
+/* Lights come on in the windows (a viewing) */
+.bp-light {
+  fill: #f6e2ad;
+  opacity: 0;
+  transition: opacity 900ms var(--ease);
+}
+.bp-light.on {
+  opacity: 0.55;
+}
+
+/* Signed: a seal stamps in */
+.bp-seal {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(1.6) rotate(-14deg);
+  transition:
+    opacity 300ms var(--ease) 500ms,
+    transform 700ms var(--spring) 500ms;
+}
+.bp-seal.on {
+  opacity: 1;
+  transform: none;
+}
+.bp-seal-ring {
+  fill: rgba(52, 196, 140, 0.14);
+  stroke: var(--emerald-text);
+  stroke-width: 1.6;
+}
+.bp-seal-tick {
+  fill: none;
+  stroke: var(--emerald-text);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Construction progress fills (constant rate) */
+.bp-track {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+}
+.bp-track.on {
+  opacity: 1;
+}
+.bp-progress {
+  fill: var(--emerald-text);
+  transform-box: fill-box;
   transform-origin: left center;
-}
-.journey-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
-  background: var(--emerald-text);
-  box-shadow:
-    0 0 0 3px rgba(52, 196, 140, 0.16),
-    0 0 12px rgba(52, 196, 140, 0.7);
-}
-.journey-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(90% 70% at 15% 10%, rgba(95, 220, 166, 0.22), transparent 70%);
-}
-.journey-cta .journey-body {
-  position: relative;
-}
-
-/* Starting state (JS on, step not yet seen) */
-.journey[data-ready] .journey-step:not([data-inview]) .journey-body {
-  opacity: 0;
-  transform: translateY(18px);
-}
-.journey[data-ready] .journey-step:not([data-inview]) .journey-track {
   transform: scaleX(0);
+  transition: transform 1600ms linear 300ms;
 }
-.journey[data-ready] .journey-step:not([data-inview]) .journey-dot {
-  transform: scale(0);
-  opacity: 0;
-}
-.journey[data-ready] .journey-step:not([data-inview]) .journey-num {
-  color: var(--sage);
-}
-.journey[data-ready] .journey-step:not([data-inview]) .journey-glow {
-  opacity: 0;
-}
-.journey[data-ready] .journey-step:not([data-inview]) .journey-key {
-  opacity: 0;
-  transform: rotate(-40deg) scale(0.6);
+.bp-progress.on {
+  transform: scaleX(1);
 }
 
-/* Arrival (step seen): content first, then the bar reaches it, then the checkpoint */
-.journey[data-ready] .journey-step[data-inview] .journey-body {
+/* Handover: the door swings open on warm light, the keys turn in above the home */
+.bp-fade {
+  opacity: 0;
+  transition: opacity 900ms var(--ease);
+}
+.bp-fade.on {
+  opacity: 1;
+}
+.bp-door {
+  fill: #13201a;
+  stroke: var(--emerald-text);
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: left center;
+  opacity: 0;
   transition:
-    opacity 600ms var(--ease) var(--rd, 0ms),
-    transform 800ms var(--spring) var(--rd, 0ms);
+    opacity 600ms var(--ease) 500ms,
+    transform 1200ms var(--spring) 150ms;
 }
-.journey[data-ready] .journey-step[data-inview] .journey-track {
-  transition: transform var(--step) linear var(--td, 0ms);
+.bp-door.shown {
+  opacity: 1;
 }
-.journey[data-ready] .journey-step[data-inview] .journey-dot {
+.bp-door.on {
+  transform: perspective(200px) rotateY(-62deg);
+}
+.bp-key {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: translateY(14px) rotate(-70deg) scale(0.5);
   transition:
-    transform 520ms var(--spring) calc(var(--td, 0ms) + var(--step)),
-    opacity 200ms var(--ease) calc(var(--td, 0ms) + var(--step));
+    opacity 400ms var(--ease) 600ms,
+    transform 1100ms var(--spring) 600ms;
 }
-.journey[data-ready] .journey-step[data-inview] .journey-num {
-  transition: color 400ms var(--ease) calc(var(--td, 0ms) + var(--step));
+.bp-key.on {
+  opacity: 1;
+  transform: none;
 }
-/* The payoff: the bar reaches the last cell, the key turns in, the card warms up */
-.journey[data-ready] .journey-step[data-inview] .journey-key {
+.bp-key-line {
+  fill: none;
+  stroke: #f6e2ad;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(246, 226, 173, 0.7));
+}
+
+/* Progress segments under the drawing */
+.bp-seg {
+  background: linear-gradient(90deg, var(--emerald), var(--emerald-text));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 600ms var(--ease);
+}
+.bp-seg.on {
+  transform: scaleX(1);
+}
+
+/* Chapters: the current one is clear, the others step back */
+.bp-chapter {
+  opacity: 0.28;
+  transform: translateY(14px);
   transition:
-    transform 900ms var(--spring) calc(var(--td, 0ms) + var(--step)),
-    opacity 300ms var(--ease) calc(var(--td, 0ms) + var(--step));
+    opacity 500ms var(--ease),
+    transform 700ms var(--spring);
 }
-.journey[data-ready] .journey-step[data-inview] .journey-glow {
-  transition: opacity 1200ms var(--ease) calc(var(--td, 0ms) + var(--step));
+.bp-chapter.is-active {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .journey .journey-body,
-  .journey .journey-track,
-  .journey .journey-dot,
-  .journey .journey-num,
-  .journey .journey-key,
-  .journey .journey-glow {
-    opacity: 1 !important;
-    transform: none !important;
+  .journey-bp *,
+  .journey-bp *::before {
     transition: none !important;
+    animation: none !important;
   }
 }
