@@ -22,6 +22,13 @@
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
+  /* Gradients sampled from the owner's palette reference (23 Nov) */
+  --grad-emerald: linear-gradient(180deg, #a7c9b9 0%, #7bb9a2 48%, #53aa8f 100%);
+  --grad-emerald-hover: linear-gradient(180deg, #b6d4c6 0%, #86c3ac 48%, #5db598 100%);
+  --grad-sage: linear-gradient(180deg, #c8d1bc 0%, #9eb49b 50%, #78997e 100%);
+  --grad-sage-hover: linear-gradient(180deg, #d3dbc8 0%, #a9bea6 50%, #83a489 100%);
+  --btn-ink: #06231a;
+
   /* Project accents (overridden per development, all within the green family) */
   --p-accent: var(--sage-text);
 
@@ -49,7 +56,7 @@
 
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
-  --font-signature: "Herr Von Muellerhoff", cursive;
+  --font-signature: "Mr Dafoe", cursive;
 
   --ease-apple: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
@@ -131,19 +138,34 @@ body {
   .btn:active {
     transform: scale(0.97);
   }
+  /* Button colours follow the owner's palette reference: soft vertical gradients, dark ink text */
   .btn-primary {
-    background: var(--emerald);
-    color: var(--on-emerald);
+    background: var(--grad-emerald);
+    color: var(--btn-ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+      0 10px 24px -12px rgba(83, 170, 143, 0.75);
   }
   .btn-primary:hover {
-    background: #4fd29d;
+    background: var(--grad-emerald-hover);
   }
   .btn-ghost {
-    border: 1px solid var(--line-strong);
-    color: var(--text);
+    background: var(--grad-sage);
+    color: var(--btn-ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+      0 10px 24px -14px rgba(120, 153, 126, 0.7);
   }
   .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--grad-sage-hover);
+  }
+  /* Selected pills (tabs, toggles) share the emerald gradient */
+  .pill-active {
+    background: var(--grad-emerald);
+    color: var(--btn-ink);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
   }
 
   .field {
@@ -177,15 +199,6 @@ body {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
       0 12px 32px -14px rgba(0, 0, 0, 0.7);
-  }
-
-  .btn-sage {
-    background: var(--sage-deep);
-    color: var(--sage-text);
-    border: 1px solid rgba(191, 205, 179, 0.18);
-  }
-  .btn-sage:hover {
-    background: #38483c;
   }
 
   /* Premium press: spring scale + soft sheen sweep */

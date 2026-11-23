@@ -48,7 +48,7 @@ export default function AboutPage() {
           <p className="rise-2 mt-3 text-[17px] text-muted">{site.serviceAreas.join(" · ")}</p>
           <div className="rise-3 mt-6 flex flex-wrap gap-3">
             <WhatsAppLink context="general">WhatsApp Aqil</WhatsAppLink>
-            <ShareButton title={`${site.consultantName} · PROPERTY CONCIERGE`} className="glass btn text-text" />
+            <ShareButton title={`${site.consultantName} · PROPERTY CONCIERGE`} className="btn btn-ghost" />
           </div>
         </div>
       </section>

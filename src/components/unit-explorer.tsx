@@ -32,7 +32,7 @@ function PlanViewer({ unit, projectName }: { unit: UnitType; projectName: string
                 setZoom(1);
               }}
               className={`min-h-10 rounded-full px-4 text-[14px] font-medium transition-colors duration-200 ${
-                floor === f ? "bg-emerald text-on-emerald" : "text-muted hover:text-text"
+                floor === f ? "pill-active" : "text-muted hover:text-text"
               }`}
             >
               {f === "ground" ? "Ground floor" : "First floor"}
@@ -110,7 +110,7 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
             aria-selected={u.id === unit.id}
             onClick={() => setActiveId(u.id)}
             className={`min-h-11 shrink-0 rounded-full border px-5 text-[14px] font-medium transition-colors duration-200 ${
-              u.id === unit.id ? "border-transparent bg-emerald text-on-emerald" : "border-white/15 text-muted hover:text-text"
+              u.id === unit.id ? "pill-active border-transparent" : "border-line-strong text-muted hover:text-text"
             }`}
           >
             Type {u.code}
@@ -181,7 +181,7 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
             >
               <WhatsAppIcon size={18} /> Ask about Type {unit.code}
             </a>
-            <a href={`/enquire?project=${project.slug}&unit=${unit.id}&intent=viewing`} className="btn border border-white/15 hover:bg-white/5">
+            <a href={`/enquire?project=${project.slug}&unit=${unit.id}&intent=viewing`} className="btn btn-ghost">
               Arrange a viewing
             </a>
           </div>

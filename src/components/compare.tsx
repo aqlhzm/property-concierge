@@ -83,7 +83,7 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
                   on ? "border-transparent bg-forest text-text" : "border-line-strong text-muted hover:text-text"
                 }`}
               >
-                <span className={`grid size-5 place-items-center rounded-full ${on ? "bg-emerald text-on-emerald" : "border border-line-strong"}`}>
+                <span className={`grid size-5 place-items-center rounded-full ${on ? "pill-active" : "border border-line-strong"}`}>
                   {on && <Check aria-hidden size={13} strokeWidth={3} />}
                 </span>
                 {p.name} {p.productName}

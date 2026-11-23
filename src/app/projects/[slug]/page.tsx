@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             >
               Ask Aqil about this project
             </WhatsAppLink>
-            <Link href={`/enquire?project=${project.slug}&intent=viewing`} className="btn border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-line">
+            <Link href={`/enquire?project=${project.slug}&intent=viewing`} className="btn btn-ghost">
               <CalendarDays aria-hidden size={17} /> Arrange a viewing
             </Link>
           </div>
@@ -240,10 +240,10 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <p className="mt-3 text-[15px]">{project.salesGallery.address}</p>
           <p className="mt-2 text-[14px] text-muted">{project.salesGallery.hours}</p>
           <div className="mt-auto flex flex-wrap gap-3 pt-6">
-            <a href={wazeHref(project.salesGallery.wazeQuery)} target="_blank" rel="noopener noreferrer" className="btn border border-white/15 hover:bg-white/5">
+            <a href={wazeHref(project.salesGallery.wazeQuery)} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               <Navigation aria-hidden size={17} /> Open in Waze
             </a>
-            <a href={`tel:${project.salesGallery.phone.replace(/\s/g, "")}`} className="btn border border-white/15 hover:bg-white/5">
+            <a href={`tel:${project.salesGallery.phone.replace(/\s/g, "")}`} className="btn btn-ghost">
               <Phone aria-hidden size={17} /> {project.salesGallery.phone}
             </a>
           </div>

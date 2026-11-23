@@ -3,7 +3,7 @@ import "@fontsource/playfair-display/400.css";
 import "@fontsource/playfair-display/500.css";
 import "@fontsource/playfair-display/600.css";
 import "@fontsource/playfair-display/400-italic.css";
-import "@fontsource/herr-von-muellerhoff/400.css";
+import "@fontsource/mr-dafoe/400.css";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";

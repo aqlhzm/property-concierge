@@ -40,7 +40,7 @@ export function WhatsAppFloat({ context = "general", vars }: { context?: WhatsAp
       aria-label="Chat with Aqil on WhatsApp"
       className="glass fixed right-4 bottom-[calc(88px+env(safe-area-inset-bottom))] z-30 inline-flex h-14 items-center gap-2 rounded-full pr-5 pl-4 text-[15px] font-medium text-text transition-transform duration-200 hover:scale-[1.03] active:scale-95 md:right-6 md:bottom-6"
     >
-      <span className="grid size-8 place-items-center rounded-full bg-emerald text-on-emerald">
+      <span className="pill-active grid size-8 place-items-center rounded-full">
         <WhatsAppIcon size={18} />
       </span>
       <span className="hidden sm:inline">WhatsApp</span>

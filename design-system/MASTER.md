@@ -19,6 +19,8 @@ Built from the ui-ux-pro-max skill (v2.15.0) and adjusted to the owner's brief.
 - Secondary colour changed from brochure golds/yellows to **sage**; every development now sits on the same dark base with emerald (primary actions) and sage (labels, chips, supporting icons). Each development keeps only a subtle green-family accent: Terrace `#8FD9B6`, Garden Homes `#BFCDB3`, Norton `#9CCBB9`.
 - Listing cards: title block lives in a contained Liquid Glass panel (`.glass-photo`) at the bottom of the image; spring press (`.card-press`), hover sheen, and a shared-element morph from card image to project hero (React `<ViewTransition share="morph">`).
 - Photography upscaled to 4K and served as 2560px WebP at quality 85.
+- Buttons use soft vertical gradients sampled from the owner's palette reference: primary `#A7C9B9 → #7BB9A2 → #53AA8F` (emerald), secondary `#C8D1BC → #9EB49B → #78997E` (sage), dark ink text `#06231A` (contrast ≥ 5.3:1 at the darkest stop). Selected tabs use the same emerald gradient (`.pill-active`).
+- Wordmark enlarged: PROPERTY CONCIERGE 13/15px in the header, 18/20px in the footer.
 - No dashes in UI copy: ranges read "X to Y"; em dashes replaced with commas or full stops. Official identifiers (permit numbers, company numbers, phase codes) keep their original format.
 
 ## Colour tokens (platform)
@@ -50,7 +52,7 @@ Platform chrome (nav, WhatsApp, footer) stays on platform tokens so the brand st
 
 - Display: **Playfair Display** (400–600). Headlines, project names, big numbers.
 - UI / body: **Inter** variable. Base 16px, line-height 1.6, max 68ch.
-- Signature: **Herr Von Muellerhoff** — only for "by aqilgotkeys" under the PROPERTY CONCIERGE wordmark.
+- Signature: **Mr Dafoe** (free, OFL), the closest open alternative to the owner's "Onehart" reference (a licensed brush script). Only for "by aqilgotkeys" under the PROPERTY CONCIERGE wordmark.
 - Wordmark: Inter 600, uppercase, letter-spacing 0.28em.
 - Scale: 12 / 14 / 16 / 18 / 22 / 28 / 36 / 48 / 64. No body text below 14px.
 - Numbers in calculator and facts use `font-variant-numeric: tabular-nums`.
