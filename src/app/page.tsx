@@ -139,12 +139,12 @@ export default function HomePage() {
         <div className="card grid overflow-hidden md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <div className="relative aspect-[4/5] md:aspect-auto">
             <Image
-              src={site.consultantPortrait}
-              quality={85}
+              src={site.consultantFeature}
+              quality={90}
               alt={`Portrait of ${site.consultantName}`}
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover object-top"
+              className="object-cover object-[50%_18%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-surface" />
           </div>

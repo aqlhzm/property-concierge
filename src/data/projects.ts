@@ -25,6 +25,10 @@ export const IMAGES = {
   portraitKeys: `${HD}/120b6b04-3156-4b78-9d84-5625b521806d.webp`,
   /** Owner, seated on a stool in his own brown suit against the same sage wall (pose from the owner's reference). Face kept from his real photo; 1520x2688 (9:16). */
   portraitSeated: `${HD}/189f4455-8881-4ab7-92d4-3bb22fd478d5.webp`,
+  /** portraitSeated cropped from just below the chest to above the head, upscaled to 4K (3978x4096) */
+  portraitSeatedChest: `${HD}/f0e79b7b-8a22-4111-a3a4-7b5468fe1c25.webp`,
+  /** Head-and-shoulders crop of portraitSeated, for round avatars (380x380) */
+  portraitSeatedFace: `${HD}/ab01bf0b-f607-496b-a1b1-11add7c38c47.webp`,
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
