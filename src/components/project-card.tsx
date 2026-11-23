@@ -7,7 +7,7 @@ import { formatRMShort, sqftRange } from "@/lib/format";
 
 export function ImageBadge({ label }: { label: ImageLabel }) {
   return (
-    <span className="glass-photo rounded-full px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/90">{label}</span>
+    <span className="glass-photo inline-block rounded-full px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/90">{label}</span>
   );
 }
 
@@ -46,7 +46,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
             />
           </div>
         </ViewTransition>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.32)_34%,rgba(0,0,0,0)_62%),linear-gradient(to_bottom,rgba(0,0,0,0.18),transparent_22%)]" />
         <span className="sheen" aria-hidden />
 
         <div className="absolute top-3 left-3">
@@ -61,7 +61,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
 
         {/* Liquid Glass title panel, contained at the bottom of the image */}
         <div className="glass-photo absolute inset-x-3 bottom-3 rounded-[18px] px-4 py-3 transition-transform duration-500 ease-spring group-hover:-translate-y-1">
-          <p className="truncate text-[11px] font-medium tracking-[0.16em] text-[#d5ddd6] uppercase">
+          <p className="truncate text-[11px] font-medium tracking-[0.16em] text-[#e3e9e3] uppercase">
             {project.township} · {project.location}
           </p>
           <h3 className="mt-0.5 font-display text-[24px] leading-tight text-white">{project.name}</h3>
