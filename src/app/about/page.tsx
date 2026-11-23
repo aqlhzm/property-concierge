@@ -40,7 +40,7 @@ export default function AboutPage() {
   return (
     <div>
       <section className="relative isolate flex min-h-[86svh] items-end overflow-hidden">
-        <Image src={site.consultantPortrait} alt={`Portrait of ${site.consultantName}`} fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" />
+        <Image src={site.consultantPortrait} quality={85} alt={`Portrait of ${site.consultantName}`} fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
         <div className="mx-auto w-full max-w-6xl px-5 pb-12 sm:px-8">
           <p className="eyebrow rise">{site.consultantTitle}</p>
@@ -76,7 +76,7 @@ export default function AboutPage() {
         <ul className="grid gap-5">
           {PRINCIPLES.map((p, i) => (
             <li key={p.title} className="card flex gap-5 p-6">
-              <span className="font-display text-[22px] text-emerald-text tabular">0{i + 1}</span>
+              <span className="font-display text-[22px] text-sage tabular">0{i + 1}</span>
               <div>
                 <h2 className="text-[18px] font-medium">{p.title}</h2>
                 <p className="mt-1.5 text-[15px] text-muted">{p.body}</p>

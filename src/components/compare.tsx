@@ -35,7 +35,7 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
       render: (p) =>
         p.showPrice ? (
           <span className="tabular">
-            {formatRM(p.priceMin)} – {formatRM(p.priceMax)}
+            {formatRM(p.priceMin)} to {formatRM(p.priceMax)}
           </span>
         ) : (
           <span className="text-muted">To be reconfirmed</span>
@@ -43,14 +43,14 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
     },
     { label: "Home type", render: (p) => p.propertyType },
     { label: "Lot size", render: (p) => p.lotSize },
-    { label: "Built-up", render: (p) => <span className="tabular">{sqftRange(p.builtUpMin, p.builtUpMax)}</span> },
+    { label: "Built up", render: (p) => <span className="tabular">{sqftRange(p.builtUpMin, p.builtUpMax)}</span> },
     {
       label: "Price per sq ft (from)",
       render: (p) =>
         p.showPrice ? (
           <span className="tabular">RM{formatNum(Math.round(p.priceMin / p.builtUpMin))}</span>
         ) : (
-          <span className="text-muted">—</span>
+          <span className="text-muted">Not available</span>
         ),
     },
     { label: "Bedrooms · bathrooms", render: (p) => `${p.bedrooms} · ${p.bathrooms}` },
@@ -134,7 +134,7 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
       </div>
       <p className="mt-3 text-[13px] text-subtle">
         Prices are permit ranges from developer brochures, not unit quotes. Price per sq ft divides the lowest permit price
-        by the smallest built-up, so treat it as a rough guide only.
+        by the smallest built up, so treat it as a rough guide only.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3">

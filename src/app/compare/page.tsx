@@ -6,7 +6,7 @@ import { allProjects } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Compare developments",
-  description: "Compare lot size, built-up, tenure, completion and price range across developments side by side.",
+  description: "Compare lot size, built up, tenure, completion and price range across developments side by side.",
 };
 
 export default function ComparePage() {

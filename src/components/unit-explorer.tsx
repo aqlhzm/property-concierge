@@ -15,7 +15,7 @@ function PlanViewer({ unit, projectName }: { unit: UnitType; projectName: string
   const [zoom, setZoom] = useState(1);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const src = floor === "ground" ? unit.floorPlanGround : unit.floorPlanFirst;
-  const alt = `${projectName} ${unit.name} — ${floor === "ground" ? "ground" : "first"} floor plan`;
+  const alt = `${projectName} ${unit.name}, ${floor === "ground" ? "ground" : "first"} floor plan`;
 
   return (
     <div className="flex flex-col gap-3">
@@ -32,7 +32,7 @@ function PlanViewer({ unit, projectName }: { unit: UnitType; projectName: string
                 setZoom(1);
               }}
               className={`min-h-10 rounded-full px-4 text-[14px] font-medium transition-colors duration-200 ${
-                floor === f ? "bg-p-primary text-black" : "text-p-muted hover:text-p-text"
+                floor === f ? "bg-emerald text-on-emerald" : "text-muted hover:text-text"
               }`}
             >
               {f === "ground" ? "Ground floor" : "First floor"}
@@ -42,7 +42,7 @@ function PlanViewer({ unit, projectName }: { unit: UnitType; projectName: string
         <button
           type="button"
           onClick={() => dialogRef.current?.showModal()}
-          className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-white/15 px-3.5 text-[13px] text-p-text hover:bg-white/5"
+          className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-white/15 px-3.5 text-[13px] text-text hover:bg-white/5"
         >
           <Expand aria-hidden size={15} /> Full screen
         </button>
@@ -56,12 +56,12 @@ function PlanViewer({ unit, projectName }: { unit: UnitType; projectName: string
       >
         <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="plan-invert object-contain p-4" />
       </button>
-      <p className="text-[13px] leading-relaxed text-p-muted">{unit.floorPlanNote}</p>
+      <p className="text-[13px] leading-relaxed text-muted">{unit.floorPlanNote}</p>
 
       <dialog
         ref={dialogRef}
         aria-label={alt}
-        className="m-0 h-dvh max-h-none w-screen max-w-none bg-[#0b0d0c] p-0 text-p-text backdrop:bg-black/80"
+        className="m-0 h-dvh max-h-none w-screen max-w-none bg-[#0b0d0c] p-0 text-text backdrop:bg-black/80"
         onClick={(e) => e.target === dialogRef.current && dialogRef.current?.close()}
       >
         <div className="flex h-full flex-col">
@@ -110,7 +110,7 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
             aria-selected={u.id === unit.id}
             onClick={() => setActiveId(u.id)}
             className={`min-h-11 shrink-0 rounded-full border px-5 text-[14px] font-medium transition-colors duration-200 ${
-              u.id === unit.id ? "border-transparent bg-p-primary text-black" : "border-white/15 text-p-muted hover:text-p-text"
+              u.id === unit.id ? "border-transparent bg-emerald text-on-emerald" : "border-white/15 text-muted hover:text-text"
             }`}
           >
             Type {u.code}
@@ -118,10 +118,10 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
         ))}
       </div>
 
-      <div className="mt-6 grid gap-8 rounded-[24px] border border-white/10 bg-p-surface p-5 sm:p-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+      <div className="mt-6 grid gap-8 rounded-[24px] border border-line bg-surface p-5 sm:p-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div className="flex flex-col gap-6">
           <div>
-            <p className="text-[13px] tracking-[0.18em] text-p-muted uppercase">{unit.storeys}</p>
+            <p className="text-[13px] tracking-[0.18em] text-muted uppercase">{unit.storeys}</p>
             <h3 className="mt-1 font-display text-[30px] leading-tight">{unit.name}</h3>
           </div>
           <dl className="grid grid-cols-3 gap-3">
@@ -131,20 +131,20 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
               { icon: Ruler, label: "Lot", value: unit.lotSize },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="rounded-2xl bg-black/25 p-3">
-                <Icon aria-hidden size={18} className="text-p-accent" />
-                <dt className="mt-2 text-[12px] text-p-muted">{label}</dt>
+                <Icon aria-hidden size={18} className="text-sage" />
+                <dt className="mt-2 text-[12px] text-muted">{label}</dt>
                 <dd className="text-[16px] font-medium">{value}</dd>
               </div>
             ))}
           </dl>
 
           <div>
-            <p className="text-[13px] text-p-muted">Built-up</p>
+            <p className="text-[13px] text-muted">Built up</p>
             <p className="font-display text-[28px] tabular">{sqftRange(unit.builtUpMin, unit.builtUpMax)}</p>
             <ul className="mt-2 divide-y divide-white/10 rounded-2xl border border-white/10">
               {unit.variants.map((v) => (
                 <li key={v.position} className="flex items-center justify-between px-4 py-3 text-[14px]">
-                  <span className="text-p-muted">{v.position}</span>
+                  <span className="text-muted">{v.position}</span>
                   <span className="tabular">{formatNum(v.builtUpSqft)} sq ft</span>
                 </li>
               ))}
@@ -152,10 +152,10 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
           </div>
 
           <div>
-            <p className="text-[13px] text-p-muted">Key spaces</p>
+            <p className="text-[13px] text-muted">Key spaces</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {unit.keySpaces.map((s) => (
-                <li key={s} className="rounded-full bg-black/25 px-3 py-1.5 text-[13px]">
+                <li key={s} className="rounded-full bg-sage-deep/70 px-3 py-1.5 text-[13px] text-sage-text">
                   {s}
                 </li>
               ))}
@@ -164,7 +164,7 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
 
           <div className="rounded-2xl border border-white/10 p-4">
             <p className="text-[15px] font-medium">{unit.priceLabel}</p>
-            <p className="mt-1 text-[13px] text-p-muted">{unit.availabilityNote}</p>
+            <p className="mt-1 text-[13px] text-muted">{unit.availabilityNote}</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -177,7 +177,7 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
               })}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn bg-p-primary text-black hover:opacity-90"
+              className="btn btn-primary"
             >
               <WhatsAppIcon size={18} /> Ask about Type {unit.code}
             </a>

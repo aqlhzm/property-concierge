@@ -79,7 +79,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
           <select id="sort" className="field cursor-pointer sm:w-48" value={sort} onChange={(e) => update({ sort: e.target.value })}>
             <option value="featured">Featured</option>
             <option value="price-asc">Price: low to high</option>
-            <option value="size-desc">Largest built-up</option>
+            <option value="size-desc">Largest built up</option>
           </select>
         </div>
       </div>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s · PROPERTY CONCIERGE",
   },
   description:
-    "Premium property advisory by Aqil Hazim. Discover, compare and plan your next home — from first enquiry to receiving your keys.",
+    "Premium property advisory by Aqil Hazim. Discover, compare and plan your next home, from first enquiry to receiving your keys.",
   openGraph: {
     siteName: "PROPERTY CONCIERGE by aqilgotkeys",
     type: "website",

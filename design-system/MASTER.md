@@ -14,6 +14,13 @@ Built from the ui-ux-pro-max skill (v2.15.0) and adjusted to the owner's brief.
 | Minimalism & Swiss, spacious density (dials: variance 3, motion 4, density 3) | **Adopted** | Generous spacing, clear hierarchy |
 | Dark-luxury structure (deep background, raised cards, muted text) | **Adopted, recoloured** | Green-tinted neutrals instead of slate |
 
+## Revision 2 (23 Nov 2026, owner feedback)
+
+- Secondary colour changed from brochure golds/yellows to **sage**; every development now sits on the same dark base with emerald (primary actions) and sage (labels, chips, supporting icons). Each development keeps only a subtle green-family accent: Terrace `#8FD9B6`, Garden Homes `#BFCDB3`, Norton `#9CCBB9`.
+- Listing cards: title block lives in a contained Liquid Glass panel (`.glass-photo`) at the bottom of the image; spring press (`.card-press`), hover sheen, and a shared-element morph from card image to project hero (React `<ViewTransition share="morph">`).
+- Photography upscaled to 4K and served as 2560px WebP at quality 85.
+- No dashes in UI copy: ranges read "X to Y"; em dashes replaced with commas or full stops. Official identifiers (permit numbers, company numbers, phase codes) keep their original format.
+
 ## Colour tokens (platform)
 
 All pairs verified for WCAG AA. Ratios measured against `--bg` unless noted.

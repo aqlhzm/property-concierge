@@ -23,7 +23,7 @@ export function Wordmark({ size = "sm", href = "/" }: { size?: "sm" | "lg"; href
   );
   if (!href) return body;
   return (
-    <Link href={href} aria-label={`${site.brandName} ${site.brandSignature} — home`} className="inline-flex min-h-11 items-center">
+    <Link href={href} aria-label={`${site.brandName} ${site.brandSignature}, home`} className="inline-flex min-h-11 items-center">
       {body}
     </Link>
   );

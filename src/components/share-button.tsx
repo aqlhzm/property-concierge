@@ -17,7 +17,7 @@ export function ShareButton({ title, className = "" }: { title: string; classNam
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // user cancelled share sheet — nothing to do
+      // user cancelled the share sheet, nothing to do
     }
   }
 

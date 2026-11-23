@@ -66,7 +66,7 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
     return (
       <div className="card p-8 text-center sm:p-12" role="status">
         <CheckCircle2 aria-hidden size={44} className="mx-auto text-emerald-text" />
-        <h2 className="mt-4 font-display text-[32px]">Thank you — Aqil will be in touch</h2>
+        <h2 className="mt-4 font-display text-[32px]">Thank you. Aqil will be in touch</h2>
         <p className="mx-auto mt-2 max-w-md text-[15px] text-muted">
           Your reference is <span className="font-medium text-text tabular">{state.leadCode}</span>. If it is urgent, you can
           also message Aqil on WhatsApp now.
@@ -80,7 +80,7 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
 
   return (
     <form
-      // Submit manually so React doesn't reset the fields after the action — a buyer who hits a
+      // Submit manually so React doesn't reset the fields after the action, so a buyer who hits a
       // validation error keeps everything they typed.
       onSubmit={(e) => {
         e.preventDefault();
@@ -169,9 +169,9 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
             {(p) => (
               <select {...p} name="preferredViewingTime" className="field cursor-pointer" defaultValue="">
                 <option value="">Any time</option>
-                <option>Morning (10am – 12pm)</option>
-                <option>Afternoon (12pm – 3pm)</option>
-                <option>Late afternoon (3pm – 6pm)</option>
+                <option>Morning (10am to 12pm)</option>
+                <option>Afternoon (12pm to 3pm)</option>
+                <option>Late afternoon (3pm to 6pm)</option>
               </select>
             )}
           </Field>

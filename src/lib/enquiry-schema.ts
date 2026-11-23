@@ -17,9 +17,9 @@ export const INTENT_FROM_PARAM: Record<string, (typeof INTENTS)[number]> = {
   recommendation: "Recommendation request",
 };
 
-export const READINESS = ["Within 3 months", "3 – 6 months", "6 – 12 months", "More than a year", "Just exploring"] as const;
+export const READINESS = ["Within 3 months", "3 to 6 months", "6 to 12 months", "More than a year", "Just exploring"] as const;
 export const DESIRE = ["Own stay", "Upgrade from current home", "Investment", "For parents / family", "Not sure yet"] as const;
-export const ELIGIBILITY = ["Not checked yet", "Pre-approved / in progress", "Cash buyer", "Would like guidance"] as const;
+export const ELIGIBILITY = ["Not checked yet", "Preapproved or in progress", "Cash buyer", "Would like guidance"] as const;
 
 const optional = (max: number) =>
   z

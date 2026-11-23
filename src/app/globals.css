@@ -2,29 +2,28 @@
 
 /* Tokens: see design-system/MASTER.md */
 :root {
-  --bg: #070b09;
-  --surface: #0f1613;
-  --surface-2: #16201b;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.14);
-  --text: #f2f4f1;
-  --muted: #a3b0a8;
-  --subtle: #6f7c75;
-  --emerald: #3ccb8c;
-  --on-emerald: #04150d;
-  --forest: #1e5a42;
-  --emerald-text: #4ade9b;
+  /* Dark base with an emerald (primary) + sage (secondary) pairing. See design-system/MASTER.md */
+  --bg: #090e0b;
+  --surface: #101712;
+  --surface-2: #172019;
+  --line: rgba(214, 228, 216, 0.08);
+  --line-strong: rgba(214, 228, 216, 0.16);
+  --text: #edf1ec;
+  --muted: #a7b3aa;
+  --subtle: #808d85;
+  --emerald: #34c48c;
+  --on-emerald: #04140c;
+  --emerald-text: #5fdca6;
+  --sage: #a9ba9d;
+  --sage-text: #bfcdb3;
+  --sage-deep: #2f3d33;
+  --forest: #1c4a37;
   --danger: #f87171;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-  /* Project theme defaults (overridden on project pages) */
-  --p-bg: var(--bg);
-  --p-surface: var(--surface);
-  --p-primary: var(--emerald);
-  --p-accent: var(--emerald-text);
-  --p-secondary: var(--forest);
-  --p-text: var(--text);
-  --p-muted: var(--muted);
+  /* Project accents (overridden per development, all within the green family) */
+  --p-accent: var(--sage-text);
 
   color-scheme: dark;
 }
@@ -40,22 +39,20 @@
   --color-subtle: var(--subtle);
   --color-emerald: var(--emerald);
   --color-on-emerald: var(--on-emerald);
-  --color-forest: var(--forest);
   --color-emerald-text: var(--emerald-text);
+  --color-sage: var(--sage);
+  --color-sage-text: var(--sage-text);
+  --color-sage-deep: var(--sage-deep);
+  --color-forest: var(--forest);
   --color-danger: var(--danger);
-  --color-p-bg: var(--p-bg);
-  --color-p-surface: var(--p-surface);
-  --color-p-primary: var(--p-primary);
   --color-p-accent: var(--p-accent);
-  --color-p-secondary: var(--p-secondary);
-  --color-p-text: var(--p-text);
-  --color-p-muted: var(--p-muted);
 
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
   --font-signature: "Herr Von Muellerhoff", cursive;
 
   --ease-apple: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 html {
@@ -75,7 +72,7 @@ body {
 }
 
 ::selection {
-  background: rgba(60, 203, 140, 0.35);
+  background: rgba(52, 196, 140, 0.35);
 }
 
 :focus-visible {
@@ -85,9 +82,9 @@ body {
 }
 
 @layer components {
-  /* Selective Liquid Glass — nav, search, WhatsApp controls only */
+  /* Selective Liquid Glass: nav, search, WhatsApp controls only */
   .glass {
-    background: rgba(22, 32, 27, 0.55);
+    background: rgba(16, 24, 19, 0.58);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -106,7 +103,7 @@ body {
     font-size: 12px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--sage);
     font-weight: 500;
   }
 
@@ -139,7 +136,7 @@ body {
     color: var(--on-emerald);
   }
   .btn-primary:hover {
-    background: #52d69c;
+    background: #4fd29d;
   }
   .btn-ghost {
     border: 1px solid var(--line-strong);
@@ -170,9 +167,62 @@ body {
   .field[aria-invalid="true"] {
     border-color: var(--danger);
   }
+
+  /* Liquid Glass panel on top of photography: darker for legible text over bright skies */
+  .glass-photo {
+    background: linear-gradient(160deg, rgba(14, 22, 17, 0.62), rgba(10, 16, 12, 0.78));
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid rgba(214, 228, 216, 0.16);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 12px 32px -14px rgba(0, 0, 0, 0.7);
+  }
+
+  .btn-sage {
+    background: var(--sage-deep);
+    color: var(--sage-text);
+    border: 1px solid rgba(191, 205, 179, 0.18);
+  }
+  .btn-sage:hover {
+    background: #38483c;
+  }
+
+  /* Premium press: spring scale + soft sheen sweep */
+  .card-press {
+    transition:
+      transform 420ms var(--spring),
+      border-color 240ms var(--ease),
+      box-shadow 420ms var(--ease);
+    will-change: transform;
+  }
+  .card-press:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -24px rgba(52, 196, 140, 0.28);
+  }
+  .card-press:active {
+    transform: scale(0.97);
+    transition-duration: 160ms;
+  }
+  .card-press .sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.14) 48%, transparent 66%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .card-press:hover .sheen {
+    transform: translateX(120%);
+    transition: transform 900ms var(--ease);
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
+  .glass-photo {
+    background: rgba(10, 16, 12, 0.92);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .glass {
     background: var(--surface-2);
     -webkit-backdrop-filter: none;
@@ -274,4 +324,25 @@ body {
 .plan-invert {
   filter: invert(1) sepia(0.15) brightness(0.95);
   mix-blend-mode: screen;
+}
+
+/* Shared-element morph: listing image -> project hero (React <ViewTransition share="morph">) */
+::view-transition-group(.morph) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  35% {
+    filter: blur(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

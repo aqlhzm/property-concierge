@@ -12,7 +12,7 @@ const NG_NOTE =
 const CONFIRM = "Availability requires consultant confirmation.";
 const RECONFIRM = "Availability and pricing must be reconfirmed with the developer.";
 
-const wgImage = { url: IMAGES.wellingtonSemiD, caption: "Garden Home 24' x 55' (Semi-D)", label: "Artist's impression" as const };
+const wgImage = { url: IMAGES.wellingtonSemiD, caption: "Garden Home 24' x 55' (semi detached)", label: "Artist's impression" as const };
 
 const base = {
   storeys: "Double storey",
@@ -22,11 +22,11 @@ const base = {
   availabilityStatus: "To be confirmed" as const,
 };
 
-const WT_SPACES = ["Ground-floor Bedroom 4 with Bath 3", "Living & dining", "Kitchen & yard", "Store", "Car porch"];
+const WT_SPACES = ["Ground floor Bedroom 4 with Bath 3", "Living & dining", "Kitchen & yard", "Store", "Car porch"];
 const WG_SPACES = ["Four bedrooms", "Living & dining", "Kitchen", "Car porch"];
 
 export const units: UnitType[] = [
-  // Wellington Garden — Terrace Homes 18' x 65'
+  // Wellington Garden: Terrace Homes 18' x 65'
   {
     ...base,
     id: "wt-t2",
@@ -83,7 +83,7 @@ export const units: UnitType[] = [
     sortOrder: 3,
   },
 
-  // Wellington Garden — Garden Homes 24' x 55'
+  // Wellington Garden: Garden Homes 24' x 55'
   {
     ...base,
     id: "wg-g1",
@@ -169,7 +169,7 @@ export const units: UnitType[] = [
     sortOrder: 4,
   },
 
-  // Norton Garden — Linked Garden Homes 32' x 65'
+  // Norton Garden: Linked Garden Homes 32' x 65'
   {
     ...base,
     id: "ng-g1",
@@ -183,7 +183,7 @@ export const units: UnitType[] = [
       { position: "Corner / End", builtUpSqft: 2129 },
       { position: "Intermediate", builtUpSqft: 2090 },
     ],
-    keySpaces: ["Double-volume void", "Ground-floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Yard & store", "Car porch"],
+    keySpaces: ["Double volume void", "Ground floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Yard & store", "Car porch"],
     floorPlanGround: `${M}/8649ad056efedf6e7bd4932dff99abf8_plan-norton-g1-ground.webp`,
     floorPlanFirst: `${M}/f7666f6bd7bed742d3e21e53fc10517b_plan-norton-g1-first.webp`,
     floorPlanNote: NG_NOTE,
@@ -204,7 +204,7 @@ export const units: UnitType[] = [
       { position: "Corner / End", builtUpSqft: 2240 },
       { position: "Intermediate", builtUpSqft: 2202 },
     ],
-    keySpaces: ["First-floor family area", "Ground-floor leisure area", "Ground-floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
+    keySpaces: ["First floor family area", "Ground floor leisure area", "Ground floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
     floorPlanGround: `${M}/89410fd6c0d8a6b462a4b4036e2af1a1_plan-norton-g2-ground.webp`,
     floorPlanFirst: `${M}/2ea3c615299f694c20746b75cb75ee6c_plan-norton-g2-first.webp`,
     floorPlanNote: NG_NOTE,
@@ -225,7 +225,7 @@ export const units: UnitType[] = [
       { position: "Corner / End", builtUpSqft: 2143 },
       { position: "Intermediate", builtUpSqft: 2105 },
     ],
-    keySpaces: ["Double-volume void", "Ground-floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
+    keySpaces: ["Double volume void", "Ground floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
     floorPlanGround: `${M}/96956d198e684f368fb66d402054ecb1_plan-norton-g3-ground.webp`,
     floorPlanFirst: `${M}/a7f169536f8b4326cabff19ebf12735b_plan-norton-g3-first.webp`,
     floorPlanNote: NG_NOTE,
@@ -246,7 +246,7 @@ export const units: UnitType[] = [
       { position: "Corner / End", builtUpSqft: 2240 },
       { position: "Intermediate", builtUpSqft: 2201 },
     ],
-    keySpaces: ["First-floor family area", "Ground-floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
+    keySpaces: ["First floor family area", "Ground floor Bedroom 4 with Bath 3", "Living, dining & kitchen", "Car porch"],
     floorPlanGround: `${M}/69d0e3c10691c977a3ae78d6373a14ba_plan-norton-g4-ground.webp`,
     floorPlanFirst: `${M}/6609881bb5af1f3816c3afa264eb82e7_plan-norton-g4-first.webp`,
     floorPlanNote: NG_NOTE,
@@ -267,7 +267,7 @@ export const units: UnitType[] = [
       { position: "Corner / End", builtUpSqft: 2258 },
       { position: "Intermediate", builtUpSqft: 2216 },
     ],
-    keySpaces: ["First-floor family area", "Ground-floor Bedroom 4", "Living, dining & kitchen", "Car porch"],
+    keySpaces: ["First floor family area", "Ground floor Bedroom 4", "Living, dining & kitchen", "Car porch"],
     floorPlanGround: `${M}/46a841f743fbd751a8ec13ef9542be63_plan-norton-g5-ground.webp`,
     floorPlanFirst: `${M}/6ccbada2d285f6139cb821f4f0d723f0_plan-norton-g5-first.webp`,
     floorPlanNote: NG_NOTE,

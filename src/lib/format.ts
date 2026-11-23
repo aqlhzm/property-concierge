@@ -12,11 +12,11 @@ export function formatRMShort(n: number) {
 }
 
 export function sqftRange(min: number, max: number) {
-  return min === max ? `${formatNum(min)} sq ft` : `${formatNum(min)} – ${formatNum(max)} sq ft`;
+  return min === max ? `${formatNum(min)} sq ft` : `${formatNum(min)} to ${formatNum(max)} sq ft`;
 }
 
 export function formatDate(iso: string | null) {
-  if (!iso) return "—";
+  if (!iso) return "Not stated";
   return new Date(`${iso}T00:00:00+08:00`).toLocaleDateString("en-MY", {
     day: "numeric",
     month: "short",

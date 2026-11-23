@@ -3,14 +3,9 @@ export type ImageLabel = "Actual photograph" | "Show unit" | "CGI" | "Artist's i
 export type GalleryImage = { url: string; caption: string; label: ImageLabel };
 export type Spec = { group: string; item: string; value: string };
 
+/** Each development keeps a subtle identity accent inside the emerald/sage family. */
 export type ProjectTheme = {
-  background: string;
-  surface: string;
-  primary: string;
-  secondary: string;
   accent: string;
-  text: string;
-  muted: string;
 };
 
 export type Project = {

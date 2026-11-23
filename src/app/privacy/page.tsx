@@ -13,8 +13,8 @@ export default function PrivacyPage() {
       ) : (
         <div className="card mt-8 space-y-4 p-7 text-[16px] text-muted">
           <p>
-            When you send an enquiry, {site.consultantName} uses the details you provide — your name, phone number, email
-            and the information in your message — only to respond to that enquiry and to help you with your property
+            When you send an enquiry, {site.consultantName} uses the details you provide (your name, phone number, email
+            and the information in your message) only to respond to that enquiry and to help you with your property
             search.
           </p>
           <p>You can ask for your details to be corrected or deleted at any time by contacting {site.consultantName} on WhatsApp.</p>

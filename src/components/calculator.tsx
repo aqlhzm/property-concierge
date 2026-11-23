@@ -139,7 +139,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
         {project && (
           <p className="mt-3 text-[13px] text-subtle">
             {project.showPrice
-              ? `Permit price range ${formatRM(project.priceMin)} – ${formatRM(project.priceMax)}. Unit pricing to be confirmed with Aqil.`
+              ? `Permit price range ${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}. Unit pricing to be confirmed with Aqil.`
               : "Pricing for this development is being reconfirmed. Enter a price to explore."}
           </p>
         )}
@@ -219,7 +219,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
         </div>
 
         <a
-          href={whatsappHref("financial_planner", { project: `${projectLabel} (${formatRM(price)}, ${margin}% margin, ${rate.toFixed(2)}%, ${years} years — est. ${formatRM(est.monthly)}/month)` })}
+          href={whatsappHref("financial_planner", { project: `${projectLabel} (${formatRM(price)}, ${margin}% margin, ${rate.toFixed(2)}%, ${years} years, est. ${formatRM(est.monthly)}/month)` })}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary w-full !min-h-12"

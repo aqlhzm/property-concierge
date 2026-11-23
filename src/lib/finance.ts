@@ -1,5 +1,5 @@
 /**
- * Standard amortising loan maths. Planning estimates only — not a bank quotation.
+ * Standard amortising loan maths. Planning estimates only, not a bank quotation.
  */
 export function monthlyInstalment(principal: number, annualRatePct: number, years: number) {
   const n = Math.round(years * 12);

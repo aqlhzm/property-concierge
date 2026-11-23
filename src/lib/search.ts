@@ -5,7 +5,7 @@ export type Budget = "any" | "under-1m" | "1m-1.3m" | "above-1.3m";
 export const BUDGETS: { value: Budget; label: string }[] = [
   { value: "any", label: "Any budget" },
   { value: "under-1m", label: "From under RM1m" },
-  { value: "1m-1.3m", label: "RM1m – RM1.3m" },
+  { value: "1m-1.3m", label: "RM1m to RM1.3m" },
   { value: "above-1.3m", label: "Above RM1.3m" },
 ];
 

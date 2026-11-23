@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const SUGGESTIONS = ["Terrace", "Garden Home", "Linked", "Puncak Alam"];
 
-/** Liquid Glass search — one of the few glass surfaces in the system. */
+/** Liquid Glass search: one of the few glass surfaces in the system. */
 export function SearchBar({ className = "" }: { className?: string }) {
   const router = useRouter();
   const [q, setQ] = useState("");

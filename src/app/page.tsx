@@ -15,7 +15,7 @@ const JOURNEY = [
   { n: "04", title: "Experience", body: "Personal recommendations and viewings arranged around you.", online: true },
   { n: "05", title: "Purchase", body: "Booking, documents, financing and SPA, coordinated step by step.", online: false },
   { n: "06", title: "Track", body: "Progress on financing, construction and outstanding requirements.", online: false },
-  { n: "07", title: "Handover", body: "Vacant possession, key collection, defect inspection and after-sales.", online: false },
+  { n: "07", title: "Handover", body: "Vacant possession, key collection, defect inspection and after sales.", online: false },
 ];
 
 export default function HomePage() {
@@ -25,20 +25,22 @@ export default function HomePage() {
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
         <Image
           src={IMAGES.gazebo}
+          quality={85}
           alt="Stargazer's Gazebo at Wellington Garden, Eco Grandeur, at dusk"
           fill
           priority
           sizes="100vw"
           className="-z-20 object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/70 to-bg/20" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/60 to-bg/5" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_100%,rgba(52,196,140,0.16),transparent_55%)]" />
         <div className="absolute top-24 right-4 sm:right-8">
           <ImageBadge label="Artist's impression" />
         </div>
         <div className="mx-auto w-full max-w-6xl px-5 pt-40 pb-28 sm:px-8 md:pb-20">
           <p className="eyebrow rise">Personal property advisory · Selangor</p>
           <h1 className="rise-2 mt-4 max-w-3xl font-display text-[44px] leading-[1.05] tracking-tight text-balance sm:text-[64px]">
-            Don’t just find a house. Make the right decision — and receive your keys.
+            Don’t just find a house. Make the right decision. Receive your keys.
           </h1>
           <p className="rise-3 mt-5 max-w-xl text-[17px] text-muted">
             Explore selected developments, compare homes side by side and plan your financing, with Aqil guiding you from
@@ -85,16 +87,16 @@ export default function HomePage() {
           </span>
         </Link>
         <Link href="/compare" className="card group flex flex-col gap-6 p-7 transition-colors duration-200 hover:border-line-strong">
-          <span className="grid size-12 place-items-center rounded-2xl bg-forest text-emerald-text">
+          <span className="grid size-12 place-items-center rounded-2xl bg-sage-deep text-sage-text">
             <GitCompareArrows aria-hidden size={22} />
           </span>
           <div>
             <h3 className="font-display text-[26px]">Compare side by side</h3>
             <p className="mt-2 text-[15px] text-muted">
-              Lot size, built-up, tenure, completion and price range for each development, on one screen.
+              Lot size, built up, tenure, completion and price range for each development, on one screen.
             </p>
           </div>
-          <span className="mt-auto inline-flex items-center gap-1.5 text-[15px] text-emerald-text">
+          <span className="mt-auto inline-flex items-center gap-1.5 text-[15px] text-sage-text">
             Start comparing <ArrowRight aria-hidden size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
           </span>
         </Link>
@@ -110,8 +112,8 @@ export default function HomePage() {
           {JOURNEY.map((s) => (
             <li key={s.n} className="flex flex-col gap-3 bg-surface p-6">
               <div className="flex items-center justify-between">
-                <span className="font-display text-[22px] text-emerald-text tabular">{s.n}</span>
-                <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${s.online ? "bg-forest text-emerald-text" : "bg-white/5 text-muted"}`}>
+                <span className="font-display text-[22px] text-sage tabular">{s.n}</span>
+                <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${s.online ? "bg-forest text-emerald-text" : "bg-sage-deep text-sage-text"}`}>
                   {s.online ? "On this site" : "With Aqil"}
                 </span>
               </div>
@@ -119,7 +121,7 @@ export default function HomePage() {
               <p className="text-[14px] text-muted">{s.body}</p>
             </li>
           ))}
-          <li className="flex flex-col justify-between gap-4 bg-forest/40 p-6">
+          <li className="flex flex-col justify-between gap-4 bg-[linear-gradient(135deg,rgba(28,74,55,0.6),rgba(47,61,51,0.6))] p-6">
             <p className="text-[15px]">Ready to start? Tell Aqil what you need and he will shortlist for you.</p>
             <Link href="/enquire" className="btn btn-primary self-start">
               Get a recommendation
@@ -134,6 +136,7 @@ export default function HomePage() {
           <div className="relative aspect-[4/5] md:aspect-auto">
             <Image
               src={site.consultantPortrait}
+              quality={85}
               alt={`Portrait of ${site.consultantName}`}
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
