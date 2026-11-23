@@ -40,42 +40,45 @@ export default function AboutPage() {
 
   return (
     <div>
-      {/* One responsive hero.
-          Phone: the owner's reference, photo fills the screen, progressive blur under the face,
-          content stacked over it.
-          Desktop: a calm website layout, sharp portrait card on the left, details on the right. */}
-      <section className="relative isolate flex h-[100svh] min-h-[640px] flex-col justify-end overflow-hidden md:mx-auto md:grid md:h-auto md:min-h-0 md:max-w-6xl md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-16 md:overflow-visible md:px-8 md:pt-36 md:pb-10">
-        <div aria-hidden className="absolute inset-0 -z-40 hidden bg-[radial-gradient(ellipse_45%_55%_at_25%_45%,rgba(169,186,157,0.10),transparent_70%)] md:block" />
+      {/* Profile hero after the owner's reference, on every screen size.
+          Phone: the photo fills the screen.
+          Desktop: the whole portrait sits sharp in the centre; the screen's sides continue the
+          photo's own sage wall (colours sampled from its edges), so it reads as one wide photo.
+          Blur only sits low, behind the content, as in the reference. */}
+      <section className="relative isolate flex h-[100svh] min-h-[640px] flex-col justify-end overflow-hidden md:min-h-[780px]">
+        {/* Desktop wall extension (sampled from the photo's left and right edges) */}
+        <div aria-hidden className="absolute inset-y-0 left-0 -z-40 hidden w-1/2 bg-[linear-gradient(to_bottom,#696b58_0%,#727560_22%,#7a7d68_50%,#6c6958_66%,#747762_100%)] md:block" />
+        <div aria-hidden className="absolute inset-y-0 right-0 -z-40 hidden w-1/2 bg-[linear-gradient(to_bottom,#bfc1a2_0%,#b3b697_22%,#c1c3a3_48%,#9a9d84_62%,#776f5e_74%,#666957_100%)] md:block" />
+        <div aria-hidden className="absolute inset-0 -z-40 hidden bg-[radial-gradient(ellipse_70%_90%_at_50%_40%,transparent_55%,rgba(9,14,11,0.55)_100%)] md:block" />
 
-        {/* Portrait: full screen layer on phones, a card on desktop */}
-        <div className="absolute inset-0 -z-30 md:relative md:inset-auto md:z-0 md:aspect-[4/5] md:overflow-hidden md:rounded-[32px] md:border md:border-line md:shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
+        {/* Portrait: fills the phone; centred full height on desktop with feathered sides */}
+        <div className="absolute inset-0 -z-30 md:inset-x-auto md:left-1/2 md:aspect-[3291/4096] md:h-full md:-translate-x-1/2 md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <Image
             src={site.aboutPortrait}
             alt={`${site.consultantName}, ${site.consultantTitle}, holding a house key`}
             fill
             priority
             quality={90}
-            sizes="(min-width: 768px) 42vw, 100vw"
+            sizes="(min-width: 768px) 82vh, 100vw"
             className="object-cover object-[50%_12%] md:object-top"
           />
         </div>
 
-        {/* Phone only: progressive blur and tint, starting just under the face */}
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)] md:hidden" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)] md:hidden" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[28px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_36%,transparent_56%)] md:hidden" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.8)_0%,rgba(12,28,21,0.62)_34%,rgba(12,28,21,0.36)_54%,rgba(12,28,21,0.1)_68%,transparent_78%)] md:hidden" />
-        <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/30 to-transparent md:hidden" />
+        {/* Progressive blur, low and behind the content only */}
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)] md:[mask-image:linear-gradient(to_top,black_40%,transparent_58%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)] md:[mask-image:linear-gradient(to_top,black_30%,transparent_48%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[28px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_36%,transparent_56%)] md:[mask-image:linear-gradient(to_top,black_18%,transparent_38%)]" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.8)_0%,rgba(12,28,21,0.62)_34%,rgba(12,28,21,0.36)_54%,rgba(12,28,21,0.1)_68%,transparent_78%)] md:bg-[linear-gradient(to_top,rgba(9,20,15,0.82)_0%,rgba(12,28,21,0.6)_24%,rgba(12,28,21,0.28)_42%,transparent_58%)]" />
+        <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/30 to-transparent" />
 
-        <div className="mx-auto w-full max-w-[460px] px-5 pb-[calc(88px+env(safe-area-inset-bottom))] text-center [text-shadow:0_1px_2px_rgba(0,0,0,0.5),0_4px_24px_rgba(0,0,0,0.4)] md:mx-0 md:max-w-[480px] md:px-0 md:pb-0 md:text-left md:[text-shadow:none]">
-          <p className="eyebrow rise hidden md:block">{site.consultantTitle}</p>
-          <h1 className="rise text-[40px] leading-[1.05] font-bold tracking-tight text-white sm:text-[48px] md:mt-3 md:text-[64px]">{site.consultantName}</h1>
-          <p className="rise-2 mt-2 text-[15px] text-white/80 md:hidden">{site.consultantTitle}</p>
-          <p className="rise-2 font-signature text-[26px] leading-tight text-sage-text md:mt-1 md:text-[32px]">{site.brandSignature}</p>
-          <p className="rise-2 text-[14px] text-white/70 md:mt-3 md:text-[15px] md:text-muted">{site.serviceAreas.join(", ")}</p>
+        <div className="mx-auto w-full max-w-[460px] px-5 pb-[calc(88px+env(safe-area-inset-bottom))] text-center [text-shadow:0_1px_2px_rgba(0,0,0,0.5),0_4px_24px_rgba(0,0,0,0.4)] md:max-w-[520px] md:pb-10">
+          <h1 className="rise text-[40px] leading-[1.05] font-bold tracking-tight text-white sm:text-[48px] md:text-[56px]">{site.consultantName}</h1>
+          <p className="rise-2 mt-2 text-[15px] text-white/80">{site.consultantTitle}</p>
+          <p className="rise-2 font-signature text-[26px] leading-tight text-sage-text md:text-[28px]">{site.brandSignature}</p>
+          <p className="rise-2 text-[14px] text-white/70">{site.serviceAreas.join(", ")}</p>
 
           {/* Segmented glass control, first segment active (white) as in the reference */}
-          <nav aria-label="Contact Aqil" className="glass-photo rise-3 mt-6 grid grid-cols-3 gap-1 rounded-full p-1 md:mt-8 md:max-w-[420px]">
+          <nav aria-label="Contact Aqil" className="glass-photo rise-3 mx-auto mt-6 grid max-w-[440px] grid-cols-3 gap-1 rounded-full p-1">
             <a
               href={whatsappHref("general")}
               target="_blank"
@@ -103,18 +106,18 @@ export default function AboutPage() {
             </Link>
           </nav>
 
-          {/* Glass card; the avatar only appears on phones, where the portrait is behind the content */}
-          <div className="glass-photo rise-3 mt-3 rounded-[26px] px-5 pt-4 pb-5 md:mt-4 md:max-w-[420px] md:rounded-[22px] md:pt-5 md:[text-shadow:none]">
-            <div className="relative mx-auto size-10 overflow-hidden rounded-full ring-2 ring-white/40 md:hidden">
+          {/* Glass card with avatar, as in the reference */}
+          <div className="glass-photo rise-3 mx-auto mt-3 max-w-[520px] rounded-[26px] px-5 pt-4 pb-5">
+            <div className="relative mx-auto size-10 overflow-hidden rounded-full ring-2 ring-white/40">
               <Image src={site.consultantPortrait} alt="" fill sizes="40px" className="object-cover object-top" />
             </div>
-            <p className="mt-2 text-[14px] font-medium text-sage-text md:mt-0">Your consultant · {site.consultantName}</p>
-            <p className="mt-1.5 text-[14px] leading-relaxed text-white/90 md:text-[15px]">{site.serviceApproach}</p>
+            <p className="mt-2 text-[14px] font-medium text-sage-text">Your consultant · {site.consultantName}</p>
+            <p className="mt-1.5 text-[14px] leading-relaxed text-white/90">{site.serviceApproach}</p>
           </div>
 
           <a
             href="#more"
-            className="glass-photo rise-3 mx-auto mt-4 inline-flex min-h-9 items-center gap-2 rounded-full py-1 pr-1.5 pl-3.5 text-[12px] text-white/90 md:hidden"
+            className="glass-photo rise-3 mx-auto mt-4 inline-flex min-h-9 items-center gap-2 rounded-full py-1 pr-1.5 pl-3.5 text-[12px] text-white/90"
           >
             Scroll down to learn more
             <span className="grid size-6 place-items-center rounded-full bg-white/90 text-[#0b1a13]">
@@ -124,7 +127,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="more" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-14 sm:px-8 md:pt-6">
+      <section id="more" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-14 sm:px-8">
         <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-[20px] border border-line bg-line">
           {stats.map((s) => (
             <div key={s.label} className="bg-surface p-5 text-center sm:p-7">
