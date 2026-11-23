@@ -65,10 +65,10 @@ export default function AboutPage() {
         </div>
 
         {/* Progressive blur, low and behind the content only */}
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)] md:[mask-image:linear-gradient(to_top,black_40%,transparent_58%)]" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)] md:[mask-image:linear-gradient(to_top,black_30%,transparent_48%)]" />
-        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[28px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_36%,transparent_56%)] md:[mask-image:linear-gradient(to_top,black_18%,transparent_38%)]" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.8)_0%,rgba(12,28,21,0.62)_34%,rgba(12,28,21,0.36)_54%,rgba(12,28,21,0.1)_68%,transparent_78%)] md:bg-[linear-gradient(to_top,rgba(9,20,15,0.82)_0%,rgba(12,28,21,0.6)_24%,rgba(12,28,21,0.28)_42%,transparent_58%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[4px] [mask-image:linear-gradient(to_top,black_58%,transparent_76%)] md:[mask-image:linear-gradient(to_top,black_50%,transparent_68%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[12px] [mask-image:linear-gradient(to_top,black_48%,transparent_66%)] md:[mask-image:linear-gradient(to_top,black_40%,transparent_58%)]" />
+        <div aria-hidden className="absolute inset-0 -z-20 backdrop-blur-[28px] saturate-[1.15] [mask-image:linear-gradient(to_top,black_36%,transparent_56%)] md:[mask-image:linear-gradient(to_top,black_28%,transparent_48%)]" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(9,20,15,0.8)_0%,rgba(12,28,21,0.62)_34%,rgba(12,28,21,0.36)_54%,rgba(12,28,21,0.1)_68%,transparent_78%)] md:bg-[linear-gradient(to_top,rgba(9,20,15,0.82)_0%,rgba(12,28,21,0.62)_30%,rgba(12,28,21,0.34)_50%,rgba(12,28,21,0.08)_64%,transparent_72%)]" />
         <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/30 to-transparent" />
 
         <div className="mx-auto w-full max-w-[460px] px-5 pb-[calc(88px+env(safe-area-inset-bottom))] text-center [text-shadow:0_1px_2px_rgba(0,0,0,0.5),0_4px_24px_rgba(0,0,0,0.4)] md:max-w-[520px] md:pb-10">
