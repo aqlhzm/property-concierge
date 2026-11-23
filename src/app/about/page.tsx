@@ -41,8 +41,11 @@ export default function AboutPage() {
     <div>
       <section className="relative isolate flex min-h-[86svh] items-end overflow-hidden">
         <Image src={site.consultantPortrait} quality={85} alt={`Portrait of ${site.consultantName}`} fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.5)_16%,rgba(9,14,11,0.18)_42%,rgba(9,14,11,0.04)_80%)]" />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_75%_65%_at_0%_85%,rgba(9,14,11,0.6),transparent_70%)]" />
+        {/* Mobile: copy spans the full width, so darken more evenly */}
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.74)_26%,rgba(9,14,11,0.5)_56%,rgba(9,14,11,0.2)_85%)] sm:hidden" />
+        {/* Larger screens: lighter overlay so glass buttons show the photo, darker behind the copy on the left */}
+        <div className="absolute inset-0 -z-10 hidden bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.6)_18%,rgba(9,14,11,0.26)_44%,rgba(9,14,11,0.06)_80%)] sm:block" />
+        <div className="absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_70%_70%_at_0%_80%,rgba(9,14,11,0.62),transparent_70%)] sm:block" />
         <div className="hero-copy mx-auto w-full max-w-6xl px-5 pb-12 sm:px-8">
           <p className="eyebrow rise">{site.consultantTitle}</p>
           <h1 className="rise-2 mt-2 font-display text-[52px] leading-none sm:text-[80px]">{site.consultantName}</h1>
