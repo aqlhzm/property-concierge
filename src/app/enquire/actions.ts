@@ -1,5 +1,7 @@
 "use server";
 
+import { createHash } from "node:crypto";
+import { headers } from "next/headers";
 import { site } from "@/data/content";
 import { units } from "@/data/units";
 import { getProject } from "@/lib/data";
@@ -43,8 +45,15 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     };
   }
 
+  // Rate limiting is keyed on a one-way hash of the visitor's IP; the raw IP is never stored.
+  const h = await headers();
+  const ip = (h.get("x-forwarded-for") ?? "").split(",")[0].trim() || h.get("x-real-ip") || "";
+  const salt = process.env.LEAD_HASH_SALT ?? "property-concierge:lead-throttle:v1";
+  const clientKey = ip ? createHash("sha256").update(`${salt}:${ip}`).digest("hex") : null;
+
   const { data: code, error } = await supabase.rpc("submit_lead", {
     payload: {
+      client_key: clientKey,
       full_name: d.fullName,
       phone: d.phone,
       email: d.email ?? null,
@@ -71,6 +80,14 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
       utm_campaign: d.utmCampaign ?? null,
     },
   });
+
+  if (error?.code === "P0429") {
+    return {
+      status: "error",
+      message: "We have received several enquiries from you already. Aqil will be in touch soon, or you can message him on WhatsApp now.",
+      whatsappUrl,
+    };
+  }
 
   if (error || typeof code !== "string") {
     console.error("[enquiry] submit_lead failed", error?.code, error?.message);
