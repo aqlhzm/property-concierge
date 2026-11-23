@@ -60,7 +60,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         </span>
 
         {/* Liquid Glass title panel, contained at the bottom of the image */}
-        <div className="glass-photo absolute inset-x-3 bottom-3 rounded-[18px] px-4 py-3 transition-transform duration-500 ease-spring group-hover:-translate-y-1">
+        <div className="glass-photo glass-clear absolute inset-x-3 bottom-3 rounded-[18px] px-4 py-3 transition-transform duration-500 ease-spring group-hover:-translate-y-1">
           <p className="truncate text-[11px] font-medium tracking-[0.16em] text-[#e3e9e3] uppercase">
             {project.township} · {project.location}
           </p>

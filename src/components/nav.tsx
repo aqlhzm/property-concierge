@@ -32,7 +32,7 @@ export function SiteHeader() {
         </div>
       )}
     <header className={`pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6 ${immersive ? "hidden md:block" : ""}`}>
-      <div className="glass pointer-events-auto mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full pl-5 pr-2">
+      <div className="glass glass-clear pointer-events-auto mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full pl-5 pr-2">
         <Wordmark />
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {items.slice(1).map((it) => {
@@ -43,7 +43,7 @@ export function SiteHeader() {
                 href={it.href}
                 aria-current={active ? "page" : undefined}
                 className={`inline-flex min-h-11 items-center rounded-full px-4 text-[14px] transition-colors duration-200 ${
-                  active ? "bg-white/10 text-text" : "text-muted hover:text-text"
+                  active ? "bg-white/15 text-white" : "text-white/85 hover:text-white"
                 }`}
               >
                 {it.label}
