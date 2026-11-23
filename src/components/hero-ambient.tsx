@@ -1,12 +1,10 @@
 "use client";
 
-import { Volume2, VolumeX } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Living hero: a few birds crossing the sky now and then, drawn in code on top
-   of the real photograph (no generated video), plus an optional nature sound.
-   Nothing moves with reduced motion; nothing plays until the visitor asks.
+   of the real photograph (no generated video). Nothing moves with reduced motion.
    ───────────────────────────────────────────────────────────────────────────── */
 
 type Bird = {
@@ -51,15 +49,15 @@ export function HeroBirds() {
     ro.observe(canvas);
 
     let birds: Bird[] = [];
-    let nextFlockAt = performance.now() + 2200;
+    let nextFlockAt = performance.now() + 6000;
 
     const spawnFlock = () => {
       const fromRight = Math.random() < 0.6;
-      const count = Math.round(rand(2, 5));
+      const count = Math.random() < 0.25 ? 1 : Math.random() < 0.7 ? 2 : 3;
       const depth = rand(0, 1); // 0 far, 1 near
-      const size = (w < 640 ? 4 : 5.5) + depth * (w < 640 ? 3 : 4.5);
-      const speed = (24 + depth * 26) * (w < 640 ? 0.8 : 1);
-      const y0 = h * rand(0.1, 0.32);
+      const size = (w < 640 ? 2.4 : 2.8) + depth * (w < 640 ? 1.2 : 1.6);
+      const speed = (16 + depth * 12) * (w < 640 ? 0.8 : 1);
+      const y0 = h * rand(0.12, 0.28);
       const x0 = fromRight ? w + 40 : -40;
       const dir = fromRight ? -1 : 1;
       for (let i = 0; i < count; i++) {
@@ -75,7 +73,7 @@ export function HeroBirds() {
           freq: rand(2.4, 3.3),
           glideSeed: rand(0, 1000),
           bobSeed: rand(0, 1000),
-          alpha: 0.5 + depth * 0.32,
+          alpha: 0.3 + depth * 0.2,
         });
       }
     };
@@ -86,15 +84,16 @@ export function HeroBirds() {
       const flapping = glide > 0.42 ? 1 : glide / 0.42;
       const flap = Math.sin(t * b.freq * Math.PI * 2 + b.phase) * flapping;
       const s = b.size;
-      const lift = s * (0.15 + 0.55 * flap); // wing tip height above body
+      const lift = s * (0.2 + 0.38 * flap); // wing tip height above body
       const x = b.x;
       const y = b.y + Math.sin(t * 0.8 + b.bobSeed) * s * 0.35;
       ctx.beginPath();
       ctx.moveTo(x - s, y - lift);
       ctx.quadraticCurveTo(x - s * 0.45, y - lift * 0.15 - s * 0.18, x, y);
       ctx.quadraticCurveTo(x + s * 0.45, y - lift * 0.15 - s * 0.18, x + s, y - lift);
-      ctx.strokeStyle = `rgba(24, 30, 26, ${b.alpha})`;
-      ctx.lineWidth = Math.max(1, s * 0.3);
+      // hazy slate, like distant birds against a bright sky (not black)
+      ctx.strokeStyle = `rgba(58, 68, 80, ${b.alpha})`;
+      ctx.lineWidth = Math.max(0.9, s * 0.28);
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.stroke();
@@ -107,9 +106,10 @@ export function HeroBirds() {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const t = now / 1000;
-      if (now >= nextFlockAt) {
+      // one small group at a time, now and then
+      if (now >= nextFlockAt && birds.length === 0) {
         spawnFlock();
-        nextFlockAt = now + rand(9000, 17000);
+        nextFlockAt = now + rand(22000, 40000);
       }
       ctx.clearRect(0, 0, w, h);
       birds = birds.filter((b) => b.x > -80 && b.x < w + 80);
@@ -150,109 +150,4 @@ export function HeroBirds() {
   }, []);
 
   return <canvas ref={ref} aria-hidden className="pointer-events-none absolute inset-0 h-full w-full" style={{ zIndex: -15 }} />;
-}
-
-/** Nature sound toggle. Loads and plays only after a tap; loops without a gap (Web Audio). */
-export function HeroSound({ src }: { src: string }) {
-  const [on, setOn] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const audio = useRef<{ ctx: AudioContext; gain: GainNode; source?: AudioBufferSourceNode; buffer?: AudioBuffer } | null>(
-    null,
-  );
-  const wanted = useRef(false);
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const fadeTo = (value: number, seconds: number) => {
-    const a = audio.current;
-    if (!a) return;
-    const now = a.ctx.currentTime;
-    a.gain.gain.cancelScheduledValues(now);
-    a.gain.gain.setValueAtTime(a.gain.gain.value, now);
-    a.gain.gain.linearRampToValueAtTime(value, now + seconds);
-  };
-
-  const ensureSource = () => {
-    const a = audio.current;
-    if (!a?.buffer || a.source) return;
-    const s = a.ctx.createBufferSource();
-    s.buffer = a.buffer;
-    s.loop = true;
-    s.connect(a.gain);
-    s.start();
-    a.source = s;
-  };
-
-  async function toggle() {
-    if (on) {
-      wanted.current = false;
-      setOn(false);
-      fadeTo(0, 0.8);
-      return;
-    }
-    wanted.current = true;
-    setOn(true);
-    try {
-      if (!audio.current) {
-        setLoading(true);
-        const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        const ctx = new Ctx();
-        const gain = ctx.createGain();
-        gain.gain.value = 0;
-        gain.connect(ctx.destination);
-        audio.current = { ctx, gain };
-        const res = await fetch(src);
-        const data = await res.arrayBuffer();
-        audio.current.buffer = await ctx.decodeAudioData(data);
-        setLoading(false);
-      }
-      await audio.current.ctx.resume();
-      ensureSource();
-      if (wanted.current) fadeTo(0.55, 1.6);
-    } catch {
-      setLoading(false);
-      setOn(false);
-      wanted.current = false;
-    }
-  }
-
-  // Fade out when the hero leaves the screen or the tab is hidden; back in on return.
-  useEffect(() => {
-    const el = btnRef.current;
-    if (!el) return;
-    let inView = true;
-    const apply = () => {
-      if (!audio.current || !wanted.current) return;
-      if (inView && !document.hidden) {
-        audio.current.ctx.resume().then(() => fadeTo(0.55, 1.2));
-      } else {
-        fadeTo(0, 0.6);
-      }
-    };
-    const io = new IntersectionObserver(([e]) => {
-      inView = e.isIntersecting;
-      apply();
-    });
-    io.observe(el.closest("section") ?? el);
-    document.addEventListener("visibilitychange", apply);
-    return () => {
-      io.disconnect();
-      document.removeEventListener("visibilitychange", apply);
-    };
-  }, []);
-
-  useEffect(() => () => void audio.current?.ctx.close(), []);
-
-  return (
-    <button
-      ref={btnRef}
-      type="button"
-      onClick={toggle}
-      aria-pressed={on}
-      aria-label={on ? "Turn nature sound off" : "Turn nature sound on"}
-      className="glass-photo inline-flex min-h-11 items-center gap-2 rounded-full px-3.5 text-[12px] font-medium text-white/90 transition-transform duration-200 active:scale-95"
-    >
-      {on ? <Volume2 aria-hidden size={16} className={loading ? "animate-pulse" : ""} /> : <VolumeX aria-hidden size={16} />}
-      <span className="hidden sm:inline">{on ? "Nature sound on" : "Nature sound"}</span>
-    </button>
-  );
 }

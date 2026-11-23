@@ -514,19 +514,7 @@ body {
   }
 }
 
-/* ── Living hero: slow breath and late sun (photo stays the real render) ─────── */
-.hero-breathe {
-  animation: hero-breathe 42s ease-in-out infinite alternate;
-  will-change: transform;
-}
-@keyframes hero-breathe {
-  from {
-    transform: scale(1.015) translate3d(0, 0, 0);
-  }
-  to {
-    transform: scale(1.06) translate3d(-0.7%, -0.5%, 0);
-  }
-}
+/* ── Living hero: late sun glow (the cinemagraph handles breath, sky and trees) ── */
 .hero-sun {
   background: radial-gradient(28% 34% at 69% 50%, rgba(255, 224, 168, 0.32), rgba(255, 214, 150, 0.1) 45%, transparent 72%);
   mix-blend-mode: screen;
@@ -541,7 +529,6 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-breathe,
   .hero-sun {
     animation: none;
   }

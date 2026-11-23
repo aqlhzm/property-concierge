@@ -15,7 +15,8 @@ import type { GalleryImage, Project, Spec } from "./types";
 const HD = "https://d2ol7oe51mr4n9.cloudfront.net/user_2wyjxahmz9PtKeHoIbEemDKyafc";
 
 export const IMAGES = {
-  gazebo: `${HD}/c227133a-7c91-4359-a3d8-343bd80be021.webp`,
+  /** Home hero: Stargazer's Gazebo, upscaled to 3840x2215 (the gazebo sign is kept from the original so its lettering stays exact) */
+  gazebo: `${HD}/024ad470-fe7a-4ca5-93bf-f01d216beea2.webp`,
   wellingtonSemiD: `${HD}/c46a4708-29a1-4433-97fa-fe3e4f80aa50.webp`,
   wellingtonTerrace: `${HD}/6d81629e-efa6-4b86-be94-89ce0325be62.webp`,
   norton: `${HD}/cd79d036-11b5-4d7a-ab5b-b9f0e7152ab4.webp`,
@@ -31,8 +32,8 @@ export const IMAGES = {
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
-  /** Home hero nature sound: birdsong + soft breeze, 24.5s seamless loop. FLAC (lossless, gapless) despite the .mp3 name the store assigns; decoded by Web Audio. */
-  heroAmbience: `${HD}/fabf5b05-6b88-474f-ae20-c3033a4a7bdd.mp3`,
+  /** Home hero cinemagraph mask, made from the photo: R = sky (drifts), G = trees (sway); gazebo held still */
+  heroMask: `${HD}/ec907008-c283-46b9-97e6-8fd656f98178.png`,
   /** Link previews (Open Graph), 1200x630 JPEG under 110KB so WhatsApp and Facebook show them */
   ogDefault: `${HD}/75bf974c-1d36-4cd4-8e16-7222cc473e92.jpg`,
   ogAbout: `${HD}/8e83fb6a-d931-4d65-bcc0-6093355ccae9.jpg`,

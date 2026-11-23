@@ -4,7 +4,8 @@ import Link from "next/link";
 import { site } from "@/data/content";
 import { IMAGES } from "@/data/projects";
 import { Journey, type JourneyStep } from "@/components/journey";
-import { HeroBirds, HeroSound } from "@/components/hero-ambient";
+import { HeroBirds } from "@/components/hero-ambient";
+import { HeroCinemagraph } from "@/components/hero-cinemagraph";
 import { ImageBadge, ProjectCard } from "@/components/project-card";
 import { SearchBar } from "@/components/search-bar";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
@@ -25,8 +26,8 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
-        {/* The real photograph, breathing very slowly */}
-        <div className="hero-breathe absolute inset-0 -z-20">
+        {/* The real photograph (static fallback; the cinemagraph draws over it) */}
+        <div className="absolute inset-0 -z-20">
           <Image
             src={IMAGES.gazebo}
             quality={85}
@@ -39,6 +40,7 @@ export default function HomePage() {
         </div>
         {/* Late sun behind the trees, glowing softly (where the photo's light is) */}
         <div aria-hidden className="hero-sun pointer-events-none absolute inset-0 hidden sm:block" style={{ zIndex: -16 }} />
+        <HeroCinemagraph imageUrl={IMAGES.gazebo} maskSrc={IMAGES.heroMask} />
         <HeroBirds />
         {/* Mobile: copy spans the full width, so darken more evenly */}
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.74)_26%,rgba(9,14,11,0.5)_56%,rgba(9,14,11,0.2)_85%)] sm:hidden" />
@@ -46,9 +48,8 @@ export default function HomePage() {
         <div className="absolute inset-0 -z-10 hidden bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.6)_18%,rgba(9,14,11,0.26)_44%,rgba(9,14,11,0.06)_80%)] sm:block" />
         <div className="absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_70%_70%_at_0%_80%,rgba(9,14,11,0.62),transparent_70%)] sm:block" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_100%,rgba(52,196,140,0.16),transparent_55%)]" />
-        <div className="absolute top-24 right-4 flex flex-col items-end gap-2 sm:right-8">
+        <div className="absolute top-24 right-4 sm:right-8">
           <ImageBadge label="Artist's impression" />
-          <HeroSound src={IMAGES.heroAmbience} />
         </div>
         <div className="hero-copy mx-auto w-full max-w-6xl px-5 pt-40 pb-28 sm:px-8 md:pb-20">
           <p className="eyebrow rise">Personal property advisory · Selangor</p>
