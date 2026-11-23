@@ -23,6 +23,8 @@ export const IMAGES = {
   portrait: `${HD}/41eeccf2-e265-4d21-a032-5f9c9b498fe5.webp`,
   /** Owner-supplied keys photo: cropped waist to just above the head (4:5), lighting graded, upscaled to 4K */
   portraitKeys: `${HD}/120b6b04-3156-4b78-9d84-5625b521806d.webp`,
+  /** Owner, seated on a stool in his own brown suit against the same sage wall (pose from the owner's reference). Face kept from his real photo; 1520x2688 (9:16). */
+  portraitSeated: `${HD}/189f4455-8881-4ab7-92d4-3bb22fd478d5.webp`,
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,

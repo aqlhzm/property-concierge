@@ -55,6 +55,8 @@ export const site = {
   consultantPortrait: IMAGES.portrait,
   /** About page portrait: owner-supplied keys photo, lighting graded and upscaled to 4K */
   aboutPortrait: IMAGES.portraitKeys,
+  /** About page "Your consultant" card: seated full-length portrait (9:16) */
+  consultantSeated: IMAGES.portraitSeated,
   /** Subtle motion loop of the same portrait: 1080 for desktop, 720 for phones */
   aboutPortraitVideo: { large: IMAGES.portraitKeysLoop, small: IMAGES.portraitKeysLoopSmall },
   /** Owner to supply a verified biography. Leave empty rather than inventing one. */

@@ -113,13 +113,23 @@ export default function AboutPage() {
             </Link>
           </nav>
 
-          {/* Glass card with avatar, as in the reference */}
-          <div className="glass-photo rise-3 mx-auto mt-3 max-w-[520px] rounded-[26px] px-5 pt-4 pb-5">
-            <div className="relative mx-auto size-10 overflow-hidden rounded-full ring-2 ring-white/40">
-              <Image src={site.consultantPortrait} alt="" fill sizes="40px" className="object-cover object-top" />
+          {/* Glass card: seated full-length portrait beside the consultant's approach */}
+          <div className="glass-photo rise-3 mx-auto mt-3 grid max-w-[520px] grid-cols-[104px_1fr] items-center gap-4 rounded-[26px] p-3 pr-5 text-left md:grid-cols-[124px_1fr] md:gap-5">
+            <div className="relative aspect-[9/16] overflow-hidden rounded-[18px] shadow-[0_10px_28px_-12px_rgba(0,0,0,0.7)] ring-1 ring-white/25">
+              <Image
+                src={site.consultantSeated}
+                alt={`${site.consultantName} seated in a brown suit`}
+                fill
+                quality={90}
+                sizes="(min-width: 768px) 124px, 104px"
+                className="object-cover"
+              />
             </div>
-            <p className="mt-2 text-[14px] font-medium text-sage-text">Your consultant · {site.consultantName}</p>
-            <p className="mt-1.5 text-[14px] leading-relaxed text-white/90">{site.serviceApproach}</p>
+            <div>
+              <p className="text-[12px] font-medium tracking-[0.08em] text-sage-text uppercase">Your consultant</p>
+              <p className="mt-0.5 text-[17px] font-semibold text-white">{site.consultantName}</p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-white/85 md:text-[14px]">{site.serviceApproach}</p>
+            </div>
           </div>
 
           <a
