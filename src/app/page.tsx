@@ -107,13 +107,21 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* Journey */}
-      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8" aria-labelledby="journey-title">
-        <p className="eyebrow">The concierge journey</p>
-        <h2 id="journey-title" className="mt-2 max-w-2xl font-display text-[34px] leading-tight sm:text-[40px]">
-          From first discovery to receiving your keys
-        </h2>
-        <Journey steps={JOURNEY} />
+      {/* Journey: heading in the page column, film full width */}
+      <section className="mt-24" aria-labelledby="journey-title">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <p className="eyebrow">The concierge journey</p>
+          <h2 id="journey-title" className="mt-2 max-w-2xl font-display text-[34px] leading-tight sm:text-[40px]">
+            From first discovery to receiving your keys
+          </h2>
+          <p className="mt-3 max-w-xl text-[16px] text-muted">Scroll to watch a home come together, step by step.</p>
+        </div>
+        <div className="mt-10">
+          <Journey
+            steps={JOURNEY}
+            film={{ src: IMAGES.journeyFilm, srcSmall: IMAGES.journeyFilmSmall, srcVp9: IMAGES.journeyFilmVp9, poster: IMAGES.journeyPoster, still: IMAGES.journeyStill }}
+          />
+        </div>
       </section>
 
       {/* Consultant */}

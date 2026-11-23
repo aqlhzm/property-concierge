@@ -32,6 +32,13 @@ export const IMAGES = {
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
+  /** Journey film (scroll-scrubbed): blueprint of Wellington Garden Homes becoming the finished render. Short GOP for smooth seeking. */
+  journeyFilm: `${HD}/edae5c31-ee9b-47bb-b865-720d1f9d0e4f.mp4`,
+  journeyFilmSmall: `${HD}/c984ebfc-d35e-4f7b-962e-283c91b5b293.mp4`,
+  /** VP9 in MP4, for browsers without H.264 */
+  journeyFilmVp9: `${HD}/c1a179af-18ac-4848-9790-aa9d5407c8c8.mp4`,
+  journeyPoster: `${HD}/b076f37b-b1dc-4fd8-9777-2c394d9738df.webp`,
+  journeyStill: `${HD}/eab0ceb2-b75c-4090-81f1-83bec111517a.webp`,
 } as const;
 
 export const MEDIA_BASE = MEDIA;
