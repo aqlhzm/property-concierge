@@ -32,12 +32,13 @@ export default function HomePage() {
           sizes="100vw"
           className="-z-20 object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/60 to-bg/5" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.5)_16%,rgba(9,14,11,0.18)_42%,rgba(9,14,11,0.04)_80%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_75%_65%_at_0%_85%,rgba(9,14,11,0.6),transparent_70%)]" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_100%,rgba(52,196,140,0.16),transparent_55%)]" />
         <div className="absolute top-24 right-4 sm:right-8">
           <ImageBadge label="Artist's impression" />
         </div>
-        <div className="mx-auto w-full max-w-6xl px-5 pt-40 pb-28 sm:px-8 md:pb-20">
+        <div className="hero-copy mx-auto w-full max-w-6xl px-5 pt-40 pb-28 sm:px-8 md:pb-20">
           <p className="eyebrow rise">Personal property advisory · Selangor</p>
           <h1 className="rise-2 mt-4 max-w-3xl font-display text-[44px] leading-[1.05] tracking-tight text-balance sm:text-[64px]">
             Don’t just find a house. Make the right decision. Receive your keys.

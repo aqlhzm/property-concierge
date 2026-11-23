@@ -74,11 +74,12 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <Image src={project.heroImage.url} alt={`${title}: ${project.heroImage.caption}`} fill priority quality={85} sizes="100vw" className="object-cover" />
           </div>
         </ViewTransition>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/75 to-bg/10" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.5)_16%,rgba(9,14,11,0.18)_42%,rgba(9,14,11,0.04)_80%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_75%_65%_at_0%_85%,rgba(9,14,11,0.6),transparent_70%)]" />
         <div className="absolute top-24 right-4 sm:right-8">
           <ImageBadge label={project.heroImage.label} />
         </div>
-        <div className="mx-auto w-full max-w-6xl px-5 pt-40 pb-12 sm:px-8">
+        <div className="hero-copy mx-auto w-full max-w-6xl px-5 pt-40 pb-12 sm:px-8">
           <nav aria-label="Breadcrumb" className="rise text-[13px] text-muted">
             <Link href="/projects" className="hover:text-text">
               Developments
