@@ -1,0 +1,82 @@
+# Property Concierge — Design System (MASTER)
+
+Source of truth for every page. Page-specific overrides go in `design-system/pages/<page>.md`.
+Built from the ui-ux-pro-max skill (v2.15.0) and adjusted to the owner's brief.
+
+## How the skill output was adapted
+
+| Skill recommendation | Decision | Why |
+|---|---|---|
+| Light black + gold palette (`--design-system "luxury real estate advisory"`) | **Rejected** | Brief is dark-mode first with forest green / emerald accents |
+| Cinzel + Josefin Sans | **Rejected** | Too classical for an Apple-inspired interface |
+| Playfair Display + Inter ("Classic Elegant", `--domain typography`) | **Adopted** | Matches brief and the `display_font` already set per project |
+| Liquid Glass (`--domain style`) | **Adopted, selectively** | Only for nav, search bar and WhatsApp controls. Content stays on solid layers. Test reduced transparency. |
+| Minimalism & Swiss, spacious density (dials: variance 3, motion 4, density 3) | **Adopted** | Generous spacing, clear hierarchy |
+| Dark-luxury structure (deep background, raised cards, muted text) | **Adopted, recoloured** | Green-tinted neutrals instead of slate |
+
+## Colour tokens (platform)
+
+All pairs verified for WCAG AA. Ratios measured against `--bg` unless noted.
+
+| Token | Hex | Use | Contrast |
+|---|---|---|---|
+| `--bg` | `#070B09` | Page background | — |
+| `--surface` | `#0F1613` | Cards | — |
+| `--surface-2` | `#16201B` | Raised cards, inputs | — |
+| `--line` | `rgba(255,255,255,0.08)` | Borders, dividers | — |
+| `--text` | `#F2F4F1` | Body & headings | 17.9:1 |
+| `--muted` | `#A3B0A8` | Secondary text | 8.8:1 (7.4:1 on surface-2) |
+| `--subtle` | `#6F7C75` | Captions ≥ 14px only | 4.54:1 |
+| `--emerald` | `#3CCB8C` | Primary CTA fill, active state | 8.8:1 on surface |
+| `--on-emerald` | `#04150D` | Text on emerald | 9.0:1 |
+| `--forest` | `#1E5A42` | Secondary fills, chips | white 8.1:1 |
+| `--emerald-text` | `#4ADE9B` | Links / accents on dark | 11.5:1 |
+
+## Project themes
+
+Each development keeps its own identity (from brochure colours, stored in `src/data/projects.ts`).
+Project pages set `--p-bg`, `--p-surface`, `--p-primary`, `--p-accent`, `--p-text`, `--p-muted` on the page wrapper.
+All three themes pass AA: text ≥ 15.8:1, muted ≥ 8.4:1, primary ≥ 7.8:1, dark text on primary ≥ 8.4:1.
+Platform chrome (nav, WhatsApp, footer) stays on platform tokens so the brand stays consistent.
+
+## Typography
+
+- Display: **Playfair Display** (400–600). Headlines, project names, big numbers.
+- UI / body: **Inter** variable. Base 16px, line-height 1.6, max 68ch.
+- Signature: **Herr Von Muellerhoff** — only for "by aqilgotkeys" under the PROPERTY CONCIERGE wordmark.
+- Wordmark: Inter 600, uppercase, letter-spacing 0.28em.
+- Scale: 12 / 14 / 16 / 18 / 22 / 28 / 36 / 48 / 64. No body text below 14px.
+- Numbers in calculator and facts use `font-variant-numeric: tabular-nums`.
+
+## Spacing, radius, elevation
+
+- Spacing (spacious): 8, 12, 16, 24, 32, 48, 64, 96.
+- Radius: 12 (inputs), 20 (cards), 28 (hero panels), 999 (pills).
+- Elevation by lightness, not heavy shadows. One soft shadow for floating glass only.
+
+## Liquid Glass
+
+```css
+background: rgba(22, 32, 27, 0.55);
+backdrop-filter: blur(20px) saturate(160%);
+border: 1px solid rgba(255,255,255,0.12);
+```
+- `@media (prefers-reduced-transparency: reduce)` → solid `--surface-2`.
+- Never put long text on glass.
+
+## Motion
+
+- 150–250ms for hover and press; 300–400ms for sheet/dialog enter, exits ~30% faster.
+- Easing: `cubic-bezier(0.2, 0.8, 0.2, 1)`.
+- Animate transform and opacity only. Respect `prefers-reduced-motion`.
+
+## Interaction & accessibility checklist
+
+- Touch targets ≥ 44×44px; 8px+ between targets.
+- Visible focus ring: 2px `--emerald-text`, 2px offset.
+- Icons: Lucide SVG only, no emoji. Icon-only buttons have `aria-label`.
+- Every image labelled with its status (Artist's impression / Actual photograph).
+- Forms: visible labels, errors next to fields, consent checkbox unticked by default.
+- Mobile: bottom tab bar ≤ 5 items, safe-area padding, no horizontal scroll at 375px.
+- Deep links: compare state lives in the URL (`/compare?p=a,b`), calculator accepts `?price=`.
+- Prices only show when `showPrice` is true; otherwise "Pricing to be reconfirmed".
