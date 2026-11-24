@@ -25,7 +25,7 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
-        {/* Airria Plus grounds: clubhouse, lake park, lakeside track, playground (nearly still clips, crossfading) */}
+        {/* Garden gazebo, then the Airria Plus grounds: clubhouse, lake park, lakeside track, playground (nearly still clips, crossfading) */}
         <HeroSlideshow slides={HERO_SLIDES} label="Artist's impression" />
         {/* Mobile: copy spans the full width, so darken more evenly */}
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.8)_24%,rgba(9,14,11,0.45)_46%,rgba(9,14,11,0.1)_68%,rgba(9,14,11,0.18)_100%)] sm:hidden" />

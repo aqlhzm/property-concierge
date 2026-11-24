@@ -76,8 +76,18 @@ export const OG_BY_SLUG: Record<string, string> = {
  * Home hero slideshow: Airria Plus grounds. Brochure renders upscaled to 4K, animated with Kling 3.0
  * (4K, locked camera, ambient motion only), then encoded 1920x1080 and 1080x1920 for the web.
  * The playground clips have people and the phone sky held to the first frame (no invented figures or clouds).
+ * Slide 1 is the garden gazebo with the aqilgotkeys dragonfly painted on its oval plaque in place of the
+ * developer lettering (home hero only; the Wellington gallery keeps the original render).
  */
 export const HERO_SLIDES: HeroSlide[] = [
+  {
+    name: "Garden gazebo",
+    alt: "White garden gazebo in a formal park, the aqilgotkeys dragonfly on its plaque",
+    video: `${HD}/6900d99b-656f-460b-addc-aad0ce4adc42.mp4`,
+    poster: `${HD}/84a03812-7d58-49ce-ba18-2f1199f95433.webp`,
+    videoPortrait: `${HD}/ddd27948-c77c-4bb4-b518-a12f070cf772.mp4`,
+    posterPortrait: `${HD}/94ca0298-c509-42ff-99ae-7d6469fb5168.webp`,
+  },
   {
     name: "Clubhouse",
     alt: "Airria Plus clubhouse and infinity pool by the central lake at dusk",

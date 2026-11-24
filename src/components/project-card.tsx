@@ -185,13 +185,15 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
             <dd>{sqftRange(project.builtUpMin, project.builtUpMax)}</dd>
           </div>
         </dl>
-        <div className="mt-auto flex items-end justify-between gap-4 border-t border-line pt-3 sm:pt-5">
-          <div>
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-line pt-3 sm:pt-5">
+          <div className="min-w-0">
             <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : "Availability and pricing"}</p>
             <PriceLine project={project} className="text-[16px] font-medium text-text sm:text-[19px]" />
           </div>
-          <span className="btn btn-primary !min-h-11 !px-5 text-[14px] max-sm:hidden">
-            Explore {project.name} <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-0.5" />
+          {/* One line, never squeezed by the price beside it */}
+          <span className="btn btn-primary !min-h-11 shrink-0 gap-2 !pr-4 !pl-5 text-[14px] leading-none whitespace-nowrap max-sm:hidden">
+            Explore {project.name}
+            <ArrowRight aria-hidden size={16} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
           </span>
           <span aria-hidden className="btn btn-primary !min-h-9 !min-w-9 !px-0 sm:hidden">
             <ArrowRight size={16} />
