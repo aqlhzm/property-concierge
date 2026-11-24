@@ -134,18 +134,27 @@ export default function HomePage() {
       {/* Consultant */}
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8" aria-labelledby="consultant-title">
         <div className="card grid overflow-hidden md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* Portrait 4:5 at every size, so the knee-to-head framing is never cropped */}
-          <div className="relative aspect-[4/5]">
+          {/* Same box as before: on larger screens the height follows the copy, and the photo melts into it */}
+          <div className="relative aspect-[4/5] overflow-hidden md:aspect-auto">
             <Image
               src={site.consultantFeature}
               quality={90}
               alt={`Portrait of ${site.consultantName} in a brown suit, adjusting his watch`}
               fill
               sizes="(min-width: 1152px) 460px, (min-width: 768px) 42vw, 100vw"
-              className="object-cover object-top"
+              className="object-cover object-[50%_26%]"
             />
-            {/* Phones: soft blend into the copy below. Larger screens: a clean edge (a fade over the bright room reads as a grey band). */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_22%)] md:hidden" />
+            {/* Progressive blur toward the copy (larger screens) */}
+            <div
+              aria-hidden
+              className="absolute inset-0 hidden backdrop-blur-[14px] md:block"
+              style={{ maskImage: "linear-gradient(to right, transparent 48%, black 92%)", WebkitMaskImage: "linear-gradient(to right, transparent 48%, black 92%)" }}
+            />
+            {/* Tone blend: into the copy below on phones, into the panel on larger screens */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_24%)] md:bg-[linear-gradient(to_right,transparent_38%,color-mix(in_oklab,var(--surface)_55%,transparent)_70%,var(--surface)_100%)]"
+            />
           </div>
           <div className="flex flex-col justify-center gap-5 p-7 sm:p-10">
             <p className="eyebrow">Your consultant</p>
