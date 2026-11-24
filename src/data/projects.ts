@@ -29,10 +29,11 @@ export const IMAGES = {
   portraitSeatedChest: `${HD}/f0e79b7b-8a22-4111-a3a4-7b5468fe1c25.webp`,
   /**
    * Owner's sofa portrait (brown suit, adjusting his watch): only the watch was redrawn, after the owner's reference
-   * (cushion steel case, silver dial, steel bracelet), then pasted back into the original with a feathered mask;
-   * face and everything else untouched. Cropped knee to just above the head (4:5), upscaled to 4K (3291x4096).
+   * (cushion steel case, silver dial, steel bracelet) and composited only above the line of his fingers, so the
+   * fingers, face and everything else are the original photo. The new watch is pasted from its own high resolution
+   * render after the 4K upscale, so the upscaler cannot redraw the dial. Cropped knee to just above the head (4:5), upscaled to 4K (3291x4096).
    */
-  portraitSofaWatch: `${HD}/0fd22d4f-bb86-4d58-a087-98252e57e765.webp`,
+  portraitSofaWatch: `${HD}/d94ca3a9-5f68-45a2-8b9c-3cc1a2337e26.webp`,
   /** Head-and-shoulders crop of portraitSeated, for round avatars (380x380) */
   portraitSeatedFace: `${HD}/ab01bf0b-f607-496b-a1b1-11add7c38c47.webp`,
   /** The same photo, animated subtly (key sways, pointing finger moves). First and last frames match it, so it loops seamlessly. */
