@@ -46,7 +46,15 @@ async function requestCode(_prev: LoginState, formData: FormData): Promise<Login
     });
     if (error) {
       if (error.status === 429) {
-        return { step: "email", email, error: "A code was sent a moment ago. Please wait a minute, then try again." };
+        // Two different limits share this status: a short per-email wait, and the hourly cap on emails sent.
+        const wait = /after (\d+) seconds?/i.exec(error.message)?.[1];
+        return {
+          step: "email",
+          email,
+          error: wait
+            ? `An email was sent a moment ago. You can ask for another in ${wait} seconds.`
+            : "The sign-in email limit for this hour has been reached. Try again later, or use a device where you are already signed in.",
+        };
       }
       console.error("signInWithOtp failed", error.status, error.code);
       return { step: "email", email, error: "We could not send a code just now. Please try again shortly." };
