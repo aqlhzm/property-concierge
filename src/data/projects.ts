@@ -356,7 +356,9 @@ export const projects: Project[] = [
       "Café",
       "Guard house",
     ],
-    heroImage: { url: IMAGES.airriaClubhouse, caption: "Clubhouse and infinity pool by the central lake", label: "Artist's impression" },
+    // Owner: the listing card shows the clubhouse; the project page opens on the homes themselves.
+    heroImage: { url: IMAGES.airriaFacade, caption: "Double storey terrace homes", label: "Artist's impression" },
+    cardImage: { url: IMAGES.airriaClubhouse, caption: "Clubhouse and infinity pool by the central lake", label: "Artist's impression" },
     gallery: [
       { url: IMAGES.airriaFacade, caption: "Double storey terrace homes", label: "Artist's impression" },
       { url: IMAGES.airriaClubhouse, caption: "Clubhouse and infinity pool by the central lake", label: "Artist's impression" },

@@ -25,6 +25,12 @@ export function PriceLine({ project, className = "" }: { project: Project; class
 /** Shared-element name: the card image morphs into the project hero on navigation. */
 export const heroTransitionName = (slug: string) => `hero-${slug}`;
 
+/** Image shown on listing cards (falls back to the hero). */
+export const cardImage = (p: Project) => p.cardImage ?? p.heroImage;
+
+/** Only morph card to hero when they are the same picture; a different picture just navigates. */
+const cardMorphName = (p: Project) => (cardImage(p).url === p.heroImage.url ? heroTransitionName(p.slug) : undefined);
+
 export function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
   return (
     <Link
@@ -33,11 +39,11 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
       aria-label={`${project.name} ${project.productName}, ${project.location}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
-        <ViewTransition name={heroTransitionName(project.slug)} share="morph" default="none">
+        <ViewTransition name={cardMorphName(project)} share="morph" default="none">
           <div className="absolute inset-0">
             <Image
-              src={project.heroImage.url}
-              alt={`${project.name} ${project.productName}: ${project.heroImage.caption}`}
+              src={cardImage(project).url}
+              alt={`${project.name} ${project.productName}: ${cardImage(project).caption}`}
               fill
               quality={85}
               sizes="(min-width: 1280px) 384px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -50,7 +56,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         <span className="sheen" aria-hidden />
 
         <div className="absolute top-3 left-3">
-          <ImageBadge label={project.heroImage.label} />
+          <ImageBadge label={cardImage(project).label} />
         </div>
         <span
           aria-hidden
@@ -118,11 +124,11 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
       aria-label={`${project.name} ${project.productName}, ${project.township}${spotlight ? `, ${spotlight.label}` : ""}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9] lg:aspect-auto lg:min-h-[440px]">
-        <ViewTransition name={heroTransitionName(project.slug)} share="morph" default="none">
+        <ViewTransition name={cardMorphName(project)} share="morph" default="none">
           <div className="absolute inset-0">
             <Image
-              src={project.heroImage.url}
-              alt={`${project.name} ${project.productName}: ${project.heroImage.caption}`}
+              src={cardImage(project).url}
+              alt={`${project.name} ${project.productName}: ${cardImage(project).caption}`}
               fill
               quality={85}
               sizes="(min-width: 1280px) 680px, (min-width: 1024px) 58vw, 100vw"
@@ -135,7 +141,7 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
         <span className="sheen" aria-hidden />
         <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2">
           {spotlight && <SpotlightBadge label={spotlight.label} />}
-          <ImageBadge label={project.heroImage.label} />
+          <ImageBadge label={cardImage(project).label} />
         </div>
       </div>
 

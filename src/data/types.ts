@@ -25,6 +25,8 @@ export type Project = {
   highlights: string[];
   facilities: string[];
   heroImage: GalleryImage;
+  /** Optional different image for listing cards; the project page hero always uses heroImage */
+  cardImage?: GalleryImage;
   gallery: GalleryImage[];
   lotSize: string;
   builtUpMin: number;
