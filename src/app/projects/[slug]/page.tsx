@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const themeVars = { "--p-accent": t.accent } as React.CSSProperties;
 
   const facts = [
-    { label: project.showPrice ? "Permit price range" : "Price", value: project.showPrice ? `${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}` : "To be reconfirmed" },
+    { label: project.showPrice ? project.priceRangeLabel : "Price", value: project.showPrice ? `${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}` : "To be reconfirmed" },
     { label: "Built up", value: sqftRange(project.builtUpMin, project.builtUpMax) },
     { label: "Lot size", value: project.lotSize },
     { label: "Expected completion", value: project.expectedCompletion.replace(/\s*\(.*\)$/, "") },
@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     ["Land tenure", project.landTenure],
     ["Land encumbrances", project.landEncumbrances ?? "None stated in brochure"],
     ["Restriction in interest", project.restrictionOfInterest],
-    ["Total units", String(project.totalUnits)],
+    ["Total units", project.totalUnitsLabel ?? String(project.totalUnits)],
   ];
 
   return (
@@ -242,7 +242,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <p className="mt-3 text-[12px] text-muted">Distances are not stated in the brochure.</p>
         </div>
         <div className="flex flex-col rounded-[20px] border border-line bg-surface p-6 sm:p-8">
-          <p className="text-[13px] tracking-[0.14em] text-muted uppercase">Sales gallery</p>
+          <p className="text-[13px] tracking-[0.14em] text-muted uppercase">{project.salesGallery.heading ?? "Sales gallery"}</p>
           <h3 className="mt-2 font-display text-[26px] leading-tight">{project.salesGallery.name}</h3>
           <p className="mt-3 text-[15px]">{project.salesGallery.address}</p>
           <p className="mt-2 text-[14px] text-muted">{project.salesGallery.hours}</p>

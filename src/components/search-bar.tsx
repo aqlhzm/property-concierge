@@ -4,7 +4,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const SUGGESTIONS = ["Terrace", "Garden Home", "Linked", "Puncak Alam"];
+const SUGGESTIONS = ["Terrace", "Garden Home", "Kundang", "Puncak Alam"];
 
 /** Liquid Glass search: one of the few glass surfaces in the system. */
 export function SearchBar({ className = "" }: { className?: string }) {

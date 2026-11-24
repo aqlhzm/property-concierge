@@ -139,7 +139,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
         {project && (
           <p className="mt-3 text-[13px] text-subtle">
             {project.showPrice
-              ? `Permit price range ${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}. Unit pricing to be confirmed with Aqil.`
+              ? `${project.priceRangeLabel} ${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}. Unit pricing to be confirmed with Aqil.`
               : "Pricing for this development is being reconfirmed. Enter a price to explore."}
           </p>
         )}

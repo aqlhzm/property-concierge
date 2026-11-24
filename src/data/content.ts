@@ -4,6 +4,9 @@ import type { FAQ, NearbyPlace, UpfrontCostItem, WhatsAppContext } from "./types
 const WT = "wellington-garden-terrace";
 const WG = "wellington-garden-homes";
 const NG = "norton-garden";
+const AP = "airria-plus";
+const AP_SRC = "Airria Plus brochure";
+const AP_PRICE = "Phase 3 price list, 07/09/2026";
 
 export const faqs: FAQ[] = [
   // Wellington Garden: Terrace Homes
@@ -28,6 +31,13 @@ export const faqs: FAQ[] = [
   { projectSlug: NG, sortOrder: 3, source: "Developer brochure", question: "What makes the Norton Garden layout different?", answer: "The linked Garden Home offers a semi detached living experience on a 32' x 65' lot, with 20 ft back lane gardens and an exclusive residents' clubhouse. Types G2, G4 and G5 include a first floor family area." },
   { projectSlug: NG, sortOrder: 4, source: "Developer brochure", question: "How many units are there?", answer: "The brochure lists 192 Garden Home units in Phase 2A-2, with built up sizes from 2,090 to 2,258 sq ft." },
   { projectSlug: NG, sortOrder: 5, source: "Developer brochure", question: "Is the land encumbered?", answer: "The brochure lists Public Bank Berhad (6463-H) as the land encumbrance." },
+  // Airria Plus, Kundang
+  { projectSlug: AP, sortOrder: 1, source: AP_SRC, question: "Where is Airria Plus and who is the developer?", answer: "Airria Plus is a 59 acre residential development in Kundang, Selangor, by Adenland (Kundang) Sdn Bhd (970958-D). It is reached via the LATAR Expressway, the Guthrie Corridor Expressway and the North South Expressway." },
+  { projectSlug: AP, sortOrder: 2, source: AP_PRICE, question: "How much are the Phase 3 homes?", answer: "Net selling prices in the Phase 3 price list run from RM672,100 (Type A intermediate) to RM1,074,200 (Type D corner), across 156 lots in Blocks 24, 25, 31 to 35 and 37 to 43. Prices and availability change, so confirm the unit with the consultant." },
+  { projectSlug: AP, sortOrder: 3, source: AP_PRICE, question: "How does the Bumiputera discount work?", answer: "71 of the 156 Phase 3 lots are Bumiputera lots. They are listed with a gross SPA price and a 7% Bumiputera discount; the net price is what is shown on this page. For example, a Type A intermediate Bumiputera lot is RM722,688 gross, less RM50,588, which is RM672,100 net. The other lots carry no discount." },
+  { projectSlug: AP, sortOrder: 4, source: AP_SRC, question: "Which home types are there?", answer: "All are double storey terrace homes with four bedrooms and three bathrooms. Type A is 20' x 65' (2,046 to 2,094 sq ft), Type B is 20' x 68' (2,165 to 2,213 sq ft), Type C is a 22' x 65' corner (2,308 sq ft) and Type D is 22' x 68' corner or end lot (2,443 sq ft). Every layout has a ground floor bedroom and a first floor study area." },
+  { projectSlug: AP, sortOrder: 5, source: AP_SRC, question: "What facilities are planned?", answer: "A clubhouse with a badminton court, gymnasium, café, kindergarten, surau and management office, beside a 7 acre central lake park with a 25m lap pool, wading pool, BBQ pit, two kids playgrounds, two outdoor gyms, a viewing deck, amphitheatre, tree house, jungle trail, a 1km jogging and cycling track, a community spice garden, sunken lounge, multi purpose sport court, garden park and a guard house." },
+  { projectSlug: AP, sortOrder: 6, source: "Brochure and price list", question: "What is the land tenure and expected completion?", answer: "Neither is stated in the brochure or the price list. Ask Aqil for the tenure, the developer licence, the advertising permit and the expected completion date before you book." },
 ];
 
 const highways = (slug: string, source: string): NearbyPlace[] =>
@@ -45,6 +55,30 @@ export const nearbyPlaces: NearbyPlace[] = [
   ...highways(WT, "Developer digital brochure (no distance stated)"),
   ...highways(WG, "Developer brochure (no distance stated)"),
   ...highways(NG, "Developer brochure (no distance stated)"),
+  ...([
+    ["North South Expressway", "Highway"],
+    ["Guthrie Corridor Expressway", "Highway"],
+    ["LATAR Expressway", "Highway"],
+    ["AEON Rawang", "Shopping"],
+    ["Mydin Rawang", "Shopping"],
+    ["Tesco Rawang", "Shopping"],
+    ["Sungai Buloh Hospital", "Healthcare"],
+    ["KPJ Rawang Specialist Hospital", "Healthcare"],
+    ["Selgate Rawang Hospital", "Healthcare"],
+    ["SJK (C) Kundang", "School"],
+    ["SK Seri Kundang", "School"],
+    ["SJK (C) Kuang", "School"],
+    ["SMK Taman Desa", "School"],
+    ["SMK Taman Desa 2", "School"],
+  ] as const).map(([name, category], i): NearbyPlace => ({
+    projectSlug: AP,
+    name,
+    category,
+    distanceKm: null,
+    travelTimeMin: null,
+    source: "Airria Plus brochure, location map (no distance stated)",
+    sortOrder: i + 1,
+  })),
 ];
 
 export const site = {

@@ -30,10 +30,14 @@ export type Project = {
   builtUpMin: number;
   builtUpMax: number;
   totalUnits: number;
+  /** Optional wording for the units figure when it covers only part of the development */
+  totalUnitsLabel?: string;
   bedrooms: number;
   bathrooms: number;
   priceMin: number;
   priceMax: number;
+  /** What the price range is based on, shown next to it (e.g. "Permit price range", "Phase 3 price list") */
+  priceRangeLabel: string;
   /** Only show prices when verified and permitted */
   showPrice: boolean;
   priceNote: string;
@@ -53,7 +57,7 @@ export type Project = {
   approvingAuthority: string;
   buildingPlanRef: string;
   locationAccessNote: string;
-  salesGallery: { name: string; address: string; hours: string; phone: string; wazeQuery: string };
+  salesGallery: { name: string; address: string; hours: string; phone: string; wazeQuery: string; heading?: string };
   specifications: Spec[];
   disclaimer: string;
   whatsappProjectLine: string;

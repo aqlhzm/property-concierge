@@ -55,7 +55,7 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
     },
     { label: "Bedrooms · bathrooms", render: (p) => `${p.bedrooms} · ${p.bathrooms}` },
     { label: "Unit types", render: (p) => unitCount(p.slug).map((u) => u.code).join(", ") },
-    { label: "Total units", render: (p) => formatNum(p.totalUnits) },
+    { label: "Total units", render: (p) => p.totalUnitsLabel ?? formatNum(p.totalUnits) },
     { label: "Land tenure", render: (p) => p.landTenure },
     { label: "Expected completion", render: (p) => p.expectedCompletion },
     { label: "Status", render: (p) => p.salesStatus },

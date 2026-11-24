@@ -32,7 +32,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
       className="group card card-press relative flex flex-col overflow-hidden hover:border-line-strong"
       aria-label={`${project.name} ${project.productName}, ${project.location}`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden lg:aspect-[16/10]">
         <ViewTransition name={heroTransitionName(project.slug)} share="morph" default="none">
           <div className="absolute inset-0">
             <Image
@@ -40,7 +40,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
               alt={`${project.name} ${project.productName}: ${project.heroImage.caption}`}
               fill
               quality={85}
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 1280px) 576px, (min-width: 640px) 50vw, 100vw"
               priority={priority}
               className="object-cover transition-transform duration-[900ms] ease-apple group-hover:scale-[1.05]"
             />
@@ -91,7 +91,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         </dl>
         <p className="text-[14px] text-muted">{sqftRange(project.builtUpMin, project.builtUpMax)} built up</p>
         <div className="mt-auto border-t border-line pt-4">
-          <p className="text-[12px] text-subtle">{project.showPrice ? "Permit price range" : "Availability and pricing"}</p>
+          <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : "Availability and pricing"}</p>
           <PriceLine project={project} className="text-[17px] font-medium text-text" />
         </div>
       </div>
