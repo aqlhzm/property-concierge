@@ -28,7 +28,7 @@ async function LoginGate({ searchParams }: { searchParams: PageProps<"/admin/log
     params.error === "denied"
       ? "This email does not have access."
       : params.error === "link"
-        ? "That sign-in link has expired or was opened in a different browser. Request a new one here."
+        ? "That sign-in link has already been used, has expired, or was opened in a different browser. Each link works once; request a new one here."
         : undefined;
   return <AdminLoginForm next={next} notice={notice} />;
 }
