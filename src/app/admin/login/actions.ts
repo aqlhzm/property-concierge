@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { safeAdminPath } from "@/lib/auth-cookies";
 import { getAuthClient } from "@/lib/supabase-auth";
-import { SITE_URL } from "@/lib/site";
+import { headers } from "next/headers";
+import { KNOWN_HOSTS, SITE_URL } from "@/lib/site";
 import { getSupabase } from "@/lib/supabase-server";
 
 export type LoginState = { step: "email" | "code"; email?: string; error?: string };
@@ -41,7 +42,7 @@ async function requestCode(_prev: LoginState, formData: FormData): Promise<Login
       options: {
         shouldCreateUser: true,
         // The email carries a sign-in link (default Supabase template). It must be opened in this same browser.
-        emailRedirectTo: `${SITE_URL}/admin/auth/callback?next=${encodeURIComponent(next)}`,
+        emailRedirectTo: `${await siteOrigin()}/admin/auth/callback?next=${encodeURIComponent(next)}`,
       },
     });
     if (error) {
@@ -81,6 +82,18 @@ async function verifyCode(_prev: LoginState, formData: FormData): Promise<LoginS
     return { step: "email", error: "This email does not have access." };
   }
   redirect(safeAdminPath(formData.get("next")));
+}
+
+/**
+ * The sign-in link must come back to the same host the code verifier cookie was set on, so use the visitor's
+ * host when it is one of ours (custom domain, vercel.app, localhost); otherwise the canonical URL.
+ */
+async function siteOrigin() {
+  const h = await headers();
+  const host = (h.get("x-forwarded-host") ?? h.get("host") ?? "").split(",")[0].trim().toLowerCase();
+  if (KNOWN_HOSTS.includes(host)) return `https://${host}`;
+  if (/^localhost(:\d+)?$/.test(host)) return `http://${host}`;
+  return SITE_URL;
 }
 
 /** One action for both steps, chosen by the button that submitted the form. */
