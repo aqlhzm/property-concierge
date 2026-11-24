@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     "Premium property advisory by Aqil Hazim. Discover, compare and plan your next home, from first enquiry to receiving your keys.",
   openGraph: openGraph(IMAGES.ogDefault, "PROPERTY CONCIERGE by aqilgotkeys: Stargazer's Gazebo at Wellington Garden"),
   twitter: { card: "summary_large_image" },
+  // Search Console / Bing Webmaster ownership tags. Set the token (the content="" value only) in Vercel env and redeploy.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
+  },
 };
 
 export const viewport: Viewport = {
