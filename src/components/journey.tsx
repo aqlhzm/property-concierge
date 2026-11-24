@@ -147,7 +147,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
                 className={`film-chapter absolute inset-x-0 top-0 ${i === active && !done ? "is-active" : i < active || done ? "is-past" : ""}`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-display text-[46px] leading-none text-emerald-text tabular md:text-[64px]">{s.n}</span>
+                  <span className="font-display text-[36px] leading-none text-emerald-text tabular md:text-[64px]">{s.n}</span>
                   <span
                     className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
                       s.online ? "bg-forest text-emerald-text" : "bg-sage-deep text-sage-text"
@@ -156,7 +156,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
                     {s.online ? "On this site" : "With Aqil"}
                   </span>
                 </div>
-                <h3 className="mt-3 font-display text-[32px] leading-tight text-white md:text-[46px]">{s.title}</h3>
+                <h3 className="mt-2 font-display text-[26px] leading-tight text-white md:text-[46px]">{s.title}</h3>
                 <p className="mt-2 max-w-md text-[15px] leading-relaxed text-white/80 md:mt-3 md:text-[17px]">{s.body}</p>
               </article>
             ))}
@@ -166,7 +166,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
               <span className="grid size-12 place-items-center rounded-full bg-[#f6e2ad]/15 text-[#f6e2ad] ring-1 ring-[#f6e2ad]/40">
                 <KeyRound size={22} />
               </span>
-              <h3 className="mt-4 font-display text-[32px] leading-tight text-white md:text-[46px]">Your keys, handed over.</h3>
+              <h3 className="mt-3 font-display text-[26px] leading-tight text-white md:text-[46px]">Your keys, handed over.</h3>
               <p className="mt-2 max-w-md text-[15px] text-white/80 md:text-[17px]">
                 Tell Aqil what you need and he will shortlist for you.
               </p>

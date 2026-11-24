@@ -162,7 +162,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
       <div className="flex flex-col gap-4">
         <div className="card p-6 sm:p-8" aria-live="polite">
           <p className="text-[14px] text-muted">Estimated monthly instalment</p>
-          <p className="mt-1 font-display text-[52px] leading-none tabular sm:text-[60px]">{formatRM(est.monthly)}</p>
+          <p className="mt-1 font-display text-[44px] leading-none tabular sm:text-[60px]">{formatRM(est.monthly)}</p>
           <p className="mt-2 text-[14px] text-muted">
             over {est.months} months on a {formatRM(est.loanAmount)} loan
           </p>

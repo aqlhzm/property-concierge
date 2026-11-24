@@ -5,9 +5,9 @@ export const metadata: Metadata = { title: "Privacy notice", robots: { index: fa
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-3xl px-5 pt-32 sm:px-8">
+    <div className="mx-auto max-w-3xl px-5 pt-[84px] sm:px-8 sm:pt-32">
       <p className="eyebrow">Privacy</p>
-      <h1 className="mt-2 font-display text-[40px] leading-tight">Privacy notice</h1>
+      <h1 className="t-title mt-2">Privacy notice</h1>
       {site.privacyNotice ? (
         <div className="mt-8 space-y-4 text-[16px] whitespace-pre-line text-muted">{site.privacyNotice}</div>
       ) : (

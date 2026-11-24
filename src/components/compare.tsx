@@ -60,7 +60,14 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
     { label: "Expected completion", render: (p) => p.expectedCompletion },
     { label: "Status", render: (p) => p.salesStatus },
     { label: "Bumiputra discount", render: (p) => p.bumiputraDiscount },
-    { label: "Facilities", render: (p) => p.facilities.join(", ") },
+    {
+      label: "Facilities",
+      render: (p) => (
+        <span className="line-clamp-4 sm:line-clamp-none" title={p.facilities.join(", ")}>
+          {p.facilities.join(", ")}
+        </span>
+      ),
+    },
     { label: "Developer", render: (p) => `${p.developerBrand} · ${p.developerEntity}` },
   ];
 
@@ -68,9 +75,10 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
 
   return (
     <div>
-      <fieldset>
-        <legend className="text-[14px] text-muted">Choose developments to compare</legend>
-        <div className="mt-3 flex flex-wrap gap-2">
+      <fieldset className="min-w-0">
+        <legend className="text-[13px] text-muted sm:text-[14px]">Choose developments to compare</legend>
+        {/* Phone: one swipeable row of compact toggles instead of a tall stack */}
+        <div className="scroll-row -mx-5 mt-2.5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:mt-3 sm:flex-wrap sm:overflow-visible sm:px-0">
           {projects.map((p) => {
             const on = selected.includes(p.slug);
             return (
@@ -79,22 +87,22 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
                 type="button"
                 aria-pressed={on}
                 onClick={() => toggle(p.slug)}
-                className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-[14px] transition-colors duration-200 ${
+                className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border pr-3.5 pl-2.5 text-[13px] whitespace-nowrap transition-colors duration-200 sm:min-h-11 sm:px-4 sm:text-[14px] ${
                   on ? "border-transparent bg-forest text-text" : "border-line-strong text-muted hover:text-text"
                 }`}
               >
                 <span className={`grid size-5 place-items-center rounded-full ${on ? "pill-active" : "border border-line-strong"}`}>
                   {on && <Check aria-hidden size={13} strokeWidth={3} />}
                 </span>
-                {p.name} {p.productName}
+                {p.name} <span className="text-muted">{p.productName.replace(/ Homes?$/, "")}</span>
               </button>
             );
           })}
         </div>
       </fieldset>
 
-      <div className="card mt-8 overflow-x-auto">
-        <table className="w-full min-w-[560px] border-collapse text-left text-[14px]">
+      <div className="card mt-5 overflow-x-auto sm:mt-8">
+        <table className="w-full min-w-[560px] border-collapse text-left text-[13px] sm:text-[14px]">
           <caption className="sr-only">Comparison of {shortlist}</caption>
           <thead>
             <tr>
@@ -102,13 +110,13 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
                 Development
               </th>
               {shown.map((p) => (
-                <th key={p.slug} scope="col" className="min-w-[200px] p-3 align-top font-normal sm:p-4">
+                <th key={p.slug} scope="col" className="min-w-[184px] p-3 align-top font-normal sm:min-w-[200px] sm:p-4">
                   <Link href={`/projects/${p.slug}`} className="group block">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
                       <Image src={p.heroImage.url} alt={p.heroImage.caption} fill sizes="260px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                     </div>
-                    <p className="mt-3 font-display text-[20px] leading-tight">{p.name}</p>
-                    <p className="text-[14px]" style={{ color: p.theme.accent }}>
+                    <p className="mt-2.5 font-display text-[18px] leading-tight sm:mt-3 sm:text-[20px]">{p.name}</p>
+                    <p className="text-[13px] sm:text-[14px]" style={{ color: p.theme.accent }}>
                       {p.productName}
                     </p>
                   </Link>
@@ -119,7 +127,7 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
           <tbody>
             {rows.map((r) => (
               <tr key={r.label} className="border-t border-line">
-                <th scope="row" className="sticky left-0 z-10 bg-surface p-3 align-top text-[13px] font-normal text-muted sm:p-4 sm:text-[14px]">
+                <th scope="row" className="sticky left-0 z-10 bg-surface p-3 align-top text-[12px] font-normal text-muted sm:p-4 sm:text-[14px]">
                   {r.label}
                 </th>
                 {shown.map((p) => (
@@ -132,17 +140,18 @@ export function CompareView({ projects, units }: { projects: Project[]; units: U
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-[13px] text-subtle">
+      <p className="mt-3 text-[12px] leading-relaxed text-subtle sm:text-[13px]">
         Prices are permit ranges from developer brochures, not unit quotes. Price per sq ft divides the lowest permit price
         by the smallest built up, so treat it as a rough guide only.
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        <a href={whatsappHref("comparison", { shortlist })} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-          <WhatsAppIcon size={18} /> Help me decide
+      <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:flex sm:flex-wrap sm:gap-3">
+        <a href={whatsappHref("comparison", { shortlist })} target="_blank" rel="noopener noreferrer" className="btn btn-primary !px-3 sm:!px-5">
+          <WhatsAppIcon size={17} /> Help me decide
         </a>
-        <Link href="/enquire?intent=recommendation" className="btn btn-ghost">
-          Request a recommendation
+        <Link href="/enquire?intent=recommendation" className="btn btn-ghost !px-3 sm:!px-5">
+          <span className="sm:hidden">Recommendation</span>
+          <span className="max-sm:hidden">Request a recommendation</span>
         </Link>
       </div>
     </div>

@@ -41,9 +41,9 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
 
   return (
     <div>
-      <div className="card grid gap-3 p-3 sm:grid-cols-[1fr_auto_auto]">
-        <div className="relative">
-          <Search aria-hidden size={18} className="absolute top-1/2 left-4 -translate-y-1/2 text-subtle" />
+      <div className="grid grid-cols-2 gap-2 sm:rounded-[20px] sm:border sm:border-line sm:bg-surface sm:grid-cols-[1fr_auto_auto] sm:gap-3 sm:p-3">
+        <div className="relative col-span-2 sm:col-span-1">
+          <Search aria-hidden size={17} className="absolute top-1/2 left-4 -translate-y-1/2 text-subtle" />
           <label htmlFor="q" className="sr-only">
             Search developments
           </label>
@@ -52,8 +52,8 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
             type="search"
             defaultValue={q}
             key={q}
-            placeholder="Area, home type, development"
-            className="field !pl-11 focus:!border-white/35 focus-visible:!outline-none"
+            placeholder="Search developments"
+            className="field !min-h-11 !rounded-full !pl-11 sm:!min-h-12 sm:!rounded-xl focus:!border-white/35 focus-visible:!outline-none"
             onKeyDown={(e) => {
               if (e.key === "Enter") update({ q: e.currentTarget.value.trim() });
             }}
@@ -64,7 +64,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
           <label htmlFor="budget" className="sr-only">
             Budget
           </label>
-          <select id="budget" className="field cursor-pointer sm:w-52" value={budget} onChange={(e) => update({ budget: e.target.value })}>
+          <select id="budget" className="field !min-h-10 cursor-pointer !rounded-full !py-0 sm:!min-h-12 sm:w-52 sm:!rounded-xl" value={budget} onChange={(e) => update({ budget: e.target.value })}>
             {BUDGETS.map((b) => (
               <option key={b.value} value={b.value}>
                 {b.label}
@@ -76,7 +76,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
           <label htmlFor="sort" className="sr-only">
             Sort
           </label>
-          <select id="sort" className="field cursor-pointer sm:w-48" value={sort} onChange={(e) => update({ sort: e.target.value })}>
+          <select id="sort" className="field !min-h-10 cursor-pointer !rounded-full !py-0 sm:!min-h-12 sm:w-48 sm:!rounded-xl" value={sort} onChange={(e) => update({ sort: e.target.value })}>
             <option value="featured">Featured</option>
             <option value="price-asc">Price: low to high</option>
             <option value="size-desc">Largest built up</option>
@@ -84,8 +84,8 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
         </div>
       </div>
 
-      <div className="mt-6 flex min-h-9 items-center justify-between gap-3">
-        <p className="text-[14px] text-muted" aria-live="polite">
+      <div className="mt-4 flex min-h-9 items-center justify-between gap-3 sm:mt-6">
+        <p className="text-[13px] text-muted sm:text-[14px]" aria-live="polite">
           {results.length} {results.length === 1 ? "development" : "developments"}
           {q && (
             <>
@@ -111,7 +111,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
           {!q && budget === "any" && sort === "featured" ? (
             <ProjectGrid projects={results} />
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
               {results.map((p, i) => (
                 <ProjectCard key={p.slug} project={p} priority={i === 0} />
               ))}

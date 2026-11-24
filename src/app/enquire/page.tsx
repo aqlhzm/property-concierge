@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function EnquirePage() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-32 sm:px-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]">
+    <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-[84px] sm:px-8 sm:pt-32 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]">
       <div>
         <p className="eyebrow">Speak to Aqil</p>
-        <h1 className="mt-2 font-display text-[40px] leading-tight sm:text-[48px]">Let’s find the right home together</h1>
-        <p className="mt-4 text-[17px] text-muted">
+        <h1 className="t-title mt-2">Let’s find the right home together</h1>
+        <p className="t-lead mt-2 sm:mt-3">
           Arrange a viewing, ask about the latest prices and availability, or tell Aqil what you need and he will put
           together a shortlist.
         </p>

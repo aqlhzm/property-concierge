@@ -101,15 +101,67 @@ body {
   }
 
   .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.22em;
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--sage);
     font-weight: 500;
   }
+  @media (min-width: 640px) {
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+    }
+  }
 
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Type scale after Apple's iOS text styles (Large: Large Title 34, Title 1 28, Title 2 22,
+     Body 17, Subhead 15, Footnote 13). On phones the body steps down one notch (16) because the
+     serif display face reads larger than SF; desktop opens up. Few sizes, hierarchy from size,
+     weight and colour together. */
+  .t-hero {
+    font-family: var(--font-display);
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .t-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+  }
+  .t-section {
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.18;
+    letter-spacing: -0.005em;
+  }
+  .t-lead {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  @media (min-width: 640px) {
+    .t-hero {
+      font-size: 64px;
+      line-height: 1.04;
+    }
+    .t-title {
+      font-size: 48px;
+      line-height: 1.08;
+    }
+    .t-section {
+      font-size: 38px;
+      line-height: 1.12;
+    }
+    .t-lead {
+      font-size: 17px;
+      line-height: 1.6;
+    }
   }
 
   .btn {
@@ -384,12 +436,36 @@ body {
     0 4px 24px rgba(0, 0, 0, 0.4);
 }
 .hero-copy .text-muted,
+.hero-copy .t-lead,
 .hero-copy .eyebrow {
   color: rgba(237, 241, 236, 0.88);
 }
 
 .pb-safe {
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Floating chrome offsets (iOS 26 style capsule tab bar, see MobileTabBar) */
+:root {
+  --tabbar-h: 58px;
+  --tabbar-gap: max(10px, env(safe-area-inset-bottom));
+}
+.above-tabbar {
+  bottom: calc(var(--tabbar-h) + var(--tabbar-gap) + 12px);
+}
+@media (min-width: 768px) {
+  .above-tabbar {
+    bottom: 1.5rem;
+  }
+}
+
+/* Horizontal chip rows that scroll instead of wrapping on phones */
+.scroll-row {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-row::-webkit-scrollbar {
+  display: none;
 }
 
 /* Apple-style range slider: filled track + large thumb (44px hit area via padding) */

@@ -8,13 +8,13 @@ export function Wordmark({ size = "sm", href = "/" }: { size?: "sm" | "lg"; href
         className={
           size === "lg"
             ? "text-[18px] font-semibold tracking-[0.3em] text-text sm:text-[20px]"
-            : "text-[13px] font-semibold tracking-[0.26em] text-text sm:text-[15px]"
+            : "text-[10.5px] font-semibold tracking-[0.24em] text-text sm:text-[15px] sm:tracking-[0.26em]"
         }
       >
         {site.brandName}
       </span>
       <span
-        className={`font-signature leading-none text-sage-text ${size === "lg" ? "mt-1 ml-auto pr-1 text-[30px]" : "mt-0.5 ml-auto pr-0.5 text-[21px] sm:text-[23px]"}`}
+        className={`font-signature leading-none text-sage-text ${size === "lg" ? "mt-1 ml-auto pr-1 text-[30px]" : "mt-0.5 ml-auto pr-0.5 text-[16px] sm:text-[23px]"}`}
         aria-label={site.brandSignature}
       >
         {site.brandSignature}

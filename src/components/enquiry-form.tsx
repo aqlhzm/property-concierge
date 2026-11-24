@@ -66,7 +66,7 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
     return (
       <div className="card p-8 text-center sm:p-12" role="status">
         <CheckCircle2 aria-hidden size={44} className="mx-auto text-emerald-text" />
-        <h2 className="mt-4 font-display text-[32px]">Thank you. Aqil will be in touch</h2>
+        <h2 className="mt-4 font-display text-[26px] sm:text-[32px]">Thank you. Aqil will be in touch</h2>
         <p className="mx-auto mt-2 max-w-md text-[15px] text-muted">
           Your reference is <span className="font-medium text-text tabular">{state.leadCode}</span>. If it is urgent, you can
           also message Aqil on WhatsApp now.
