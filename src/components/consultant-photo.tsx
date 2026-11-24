@@ -193,7 +193,7 @@ export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: s
             <div ref={backdropRef} className="absolute inset-0 bg-[rgba(6,10,8,0.78)]" onClick={closePhoto} />
             <div ref={boxRef} className="fixed overflow-hidden" style={{ borderRadius: 24 }} onClick={closePhoto}>
               <div ref={imgWrapRef} className="absolute inset-0" style={{ objectPosition: THUMB_POSITION }}>
-                <Image src={src} alt={alt} fill quality={92} sizes="(min-width: 1024px) 720px, 92vw" className="object-cover" style={{ objectPosition: "inherit" }} priority />
+                <Image src={src} alt={alt} fill quality={90} sizes="(min-width: 1024px) 720px, 92vw" className="object-cover" style={{ objectPosition: "inherit" }} priority />
               </div>
             </div>
             <div

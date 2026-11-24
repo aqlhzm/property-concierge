@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
     // Local visual QA only: lets the browser fetch remote images directly.
     unoptimized: process.env.LOCAL_QA === "1",
   },
+  // One address for everything: the old vercel.app address (and its query strings) moves to the custom domain.
+  // aqilgotkeys.com without www is redirected to www by Vercel's domain settings.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "property-concierge-ten.vercel.app" }],
+        destination: "https://www.aqilgotkeys.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
