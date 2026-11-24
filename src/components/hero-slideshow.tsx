@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 export type HeroSlide = {
-  /** Short place name shown in the corner label */
+  /** Development and location shown in the corner label */
   name: string;
   alt: string;
   /** 16:9 clip and its first frame (larger screens) */
@@ -45,7 +45,7 @@ function videoAllowed(): boolean {
   return !reduce && !conn?.saveData;
 }
 
-export function HeroSlideshow({ slides, label }: { slides: HeroSlide[]; label: string }) {
+export function HeroSlideshow({ slides, note }: { slides: HeroSlide[]; note?: string }) {
   const [active, setActive] = useState(0);
   const [failed, setFailed] = useState(false);
   const portrait = useSyncExternalStore(subscribePortrait, () => window.matchMedia(PORTRAIT_MQ).matches, () => false);
@@ -158,15 +158,21 @@ export function HeroSlideshow({ slides, label }: { slides: HeroSlide[]; label: s
           })}
       </div>
 
-      {/* Which place is on screen; the footage is an artist's impression */}
-      <span className="absolute top-[68px] right-4 sm:top-24 sm:right-8">
-        <span
-          key={active}
-          className="hero-slide-label inline-block rounded-full border border-white/10 bg-black/35 px-2 py-[2px] text-[10px] font-medium tracking-[0.02em] text-white/80 backdrop-blur-md sm:px-2.5 sm:py-[3px] sm:text-[11px]"
-        >
-          {label} · {slides[active].name}
-        </span>
-      </span>
+      {/* Which development is on screen; aligned with the right edge of the nav pill */}
+      <div className="pointer-events-none absolute inset-x-0 top-[66px] px-3 sm:top-[92px] sm:px-6">
+        <div className="mx-auto flex max-w-6xl justify-end pr-1.5 sm:pr-2">
+          <span
+            key={slides[active].name}
+            title={note}
+            className="hero-slide-label pointer-events-auto inline-flex h-7 items-center gap-1.5 rounded-full border border-white/15 bg-black/40 pr-3 pl-2.5 text-[12px] leading-none font-medium text-white/90 shadow-[0_4px_16px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:h-8 sm:text-[13px]"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3.5 shrink-0 text-emerald-300" fill="currentColor">
+              <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
+            </svg>
+            <span className="whitespace-nowrap">{slides[active].name}</span>
+          </span>
+        </div>
+      </div>
     </>
   );
 }

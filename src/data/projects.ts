@@ -81,7 +81,7 @@ export const OG_BY_SLUG: Record<string, string> = {
  */
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    name: "Garden gazebo",
+    name: "Eco Grandeur, Puncak Alam",
     alt: "White garden gazebo in a formal park, the aqilgotkeys dragonfly on its plaque",
     video: `${HD}/6900d99b-656f-460b-addc-aad0ce4adc42.mp4`,
     poster: `${HD}/84a03812-7d58-49ce-ba18-2f1199f95433.webp`,
@@ -89,7 +89,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     posterPortrait: `${HD}/94ca0298-c509-42ff-99ae-7d6469fb5168.webp`,
   },
   {
-    name: "Clubhouse",
+    name: "Airria Plus, Kundang",
     alt: "Airria Plus clubhouse and infinity pool by the central lake at dusk",
     video: `${HD}/08fcfd8b-3851-4033-a24a-2613a77f6903.mp4`,
     poster: `${HD}/5090aa2a-a398-4967-8305-3b94370ad88c.webp`,
@@ -97,7 +97,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     posterPortrait: `${HD}/e7b1ef92-41a1-4da8-9ec6-50ec998a3990.webp`,
   },
   {
-    name: "Lake park",
+    name: "Airria Plus, Kundang",
     alt: "Airria Plus central lake park with swans, willows and the amphitheatre deck",
     video: `${HD}/8a062847-d431-4f00-a3ff-26deefca1a77.mp4`,
     poster: `${HD}/250277b6-78dd-42fc-b374-cedf43f063a6.webp`,
@@ -105,7 +105,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     posterPortrait: `${HD}/a7b5f4e7-98b1-43d1-83fb-f47bbb02f50c.webp`,
   },
   {
-    name: "Jogging track",
+    name: "Airria Plus, Kundang",
     alt: "Airria Plus lakeside jogging and cycling track at golden hour, seen from the tree house",
     video: `${HD}/3739e9db-17b7-4fcd-b2da-e144480d45fa.mp4`,
     poster: `${HD}/920eaae4-bfb9-4ec3-a902-9137902d933e.webp`,
@@ -113,7 +113,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     posterPortrait: `${HD}/93169e30-8f55-4a27-90eb-3920da63d2eb.webp`,
   },
   {
-    name: "Playground",
+    name: "Airria Plus, Kundang",
     alt: "Airria Plus kids playground beside the clubhouse",
     video: `${HD}/617c1136-15f1-48be-8636-3dbf3d735b73.mp4`,
     poster: `${HD}/8587ef9b-6959-4fcb-8c91-e13c8efe18a8.webp`,
