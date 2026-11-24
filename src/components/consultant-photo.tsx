@@ -18,10 +18,10 @@ const THUMB_POSITION = "50% 26%";
 
 /** Stepped blur: each layer blurs a little more and starts a little further right, so the edge is seamless. */
 const BLUR_STEPS = [
-  { blur: 2, from: 40, to: 60 },
-  { blur: 5, from: 52, to: 72 },
-  { blur: 10, from: 62, to: 84 },
-  { blur: 24, from: 72, to: 98 },
+  { blur: 2, from: 62, to: 76 },
+  { blur: 5, from: 70, to: 84 },
+  { blur: 10, from: 78, to: 92 },
+  { blur: 24, from: 86, to: 100 },
 ];
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -180,7 +180,7 @@ export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: s
         {/* Tone: into the copy below on phones, into the panel on larger screens */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_24%)] md:bg-[linear-gradient(to_right,transparent_42%,color-mix(in_oklab,var(--surface)_40%,transparent)_68%,color-mix(in_oklab,var(--surface)_85%,transparent)_88%,var(--surface)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_24%)] md:bg-[linear-gradient(to_right,transparent_58%,color-mix(in_oklab,var(--surface)_35%,transparent)_76%,color-mix(in_oklab,var(--surface)_82%,transparent)_92%,var(--surface)_100%)]"
         />
         <span className="glass-photo pointer-events-none absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-medium text-white/90 transition-all duration-300 ease-apple md:translate-y-1 md:opacity-0 md:group-hover/photo:translate-y-0 md:group-hover/photo:opacity-100 md:group-focus-visible/photo:translate-y-0 md:group-focus-visible/photo:opacity-100">
           <Expand aria-hidden size={13} /> View portrait
