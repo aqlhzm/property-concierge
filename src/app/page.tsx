@@ -144,8 +144,8 @@ export default function HomePage() {
               sizes="(min-width: 1152px) 460px, (min-width: 768px) 42vw, 100vw"
               className="object-cover object-top"
             />
-            {/* Soft blend into the card: bottom edge on phones, right edge on larger screens */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_22%)] md:bg-[linear-gradient(to_right,transparent_80%,var(--surface)_100%)]" />
+            {/* Phones: soft blend into the copy below. Larger screens: a clean edge (a fade over the bright room reads as a grey band). */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_22%)] md:hidden" />
           </div>
           <div className="flex flex-col justify-center gap-5 p-7 sm:p-10">
             <p className="eyebrow">Your consultant</p>
