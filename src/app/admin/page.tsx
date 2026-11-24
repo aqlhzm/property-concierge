@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BarList, EmptyState, PriorityBadge, SectionTitle, StatusBadge } from "@/components/admin/ui";
-import { endOfTodayMYT, formatDateTime, relativeTime, startOfWeekMYT, STATUSES, TZ, type Lead } from "@/lib/crm";
+import { endOfTodayMYT, formatDateTime, relativeTime, SOURCE_CHANNELS, sourceLabel, startOfWeekMYT, STATUSES, TZ, type Lead } from "@/lib/crm";
+import { allProjects } from "@/lib/data";
 import { requireStaff } from "@/lib/supabase-auth";
 
 export const metadata: Metadata = { title: "Today" };
@@ -35,7 +36,7 @@ async function Today() {
     supabase.from("leads").select(COLUMNS).is("archived_at", null).lt("next_follow_up_at", endOfToday).order("next_follow_up_at").limit(100),
     supabase.from("leads").select(COLUMNS).is("archived_at", null).eq("status", "new").order("created_at").limit(100),
     supabase.from("leads").select("status").is("archived_at", null),
-    supabase.from("leads").select("project_name, utm_source, cta_source, source_channel").gte("created_at", weekStart),
+    supabase.from("leads").select("project_slug, project_name, utm_source, source_channel").gte("created_at", weekStart),
   ]);
 
   if (dueRes.error || newRes.error || statusRes.error || weekRes.error) {
@@ -75,12 +76,32 @@ async function Today() {
   for (const r of (statusRes.data ?? []) as { status: string }[]) statusCounts.set(r.status, (statusCounts.get(r.status) ?? 0) + 1);
   const active = statusRes.data?.length ?? 0;
 
-  const week = (weekRes.data ?? []) as { project_name: string | null; utm_source: string | null; cta_source: string | null; source_channel: string | null }[];
-  const tally = (pick: (r: (typeof week)[number]) => string) => {
-    const m = new Map<string, number>();
-    for (const r of week) m.set(pick(r), (m.get(pick(r)) ?? 0) + 1);
-    return [...m.entries()].sort((a, b) => b[1] - a[1]).map(([label, value]) => ({ label, value }));
-  };
+  const week = (weekRes.data ?? []) as { project_slug: string | null; project_name: string | null; utm_source: string | null; source_channel: string | null }[];
+
+  // Every development, always listed (zero included), then enquiries with no development chosen
+  const devCount = (slug: string) => week.filter((r) => r.project_slug === slug).length;
+  const byDevelopment = [
+    ...allProjects.map((p) => ({
+      label: `${p.name} · ${p.productName.replace(/ Homes?$/, "")}`,
+      value: devCount(p.slug),
+      href: `/admin/leads?project=${p.slug}`,
+    })),
+    { label: "Not chosen", value: week.filter((r) => !r.project_slug || !allProjects.some((p) => p.slug === r.project_slug)).length },
+  ];
+
+  // Every main channel, always listed; anything else that turns up is added after them
+  const srcCounts = new Map<string, number>();
+  for (const r of week) {
+    const k = sourceLabel(r.utm_source, r.source_channel);
+    srcCounts.set(k, (srcCounts.get(k) ?? 0) + 1);
+  }
+  const bySource = [
+    ...SOURCE_CHANNELS.map((label) => ({ label, value: srcCounts.get(label) ?? 0 })),
+    ...[...srcCounts.entries()]
+      .filter(([k]) => !(SOURCE_CHANNELS as readonly string[]).includes(k))
+      .sort((a, b) => b[1] - a[1])
+      .map(([label, value]) => ({ label, value })),
+  ];
 
   const overdueCount = attention.filter((r) => r.rank === 0).length;
   const waitingCount = attention.filter((r) => r.rank === 1).length;
@@ -166,7 +187,7 @@ async function Today() {
             <span id="dev-h">This week by development</span>
           </SectionTitle>
           <div className="mt-4">
-            <BarList total={week.length} rows={tally((r) => r.project_name ?? "Not chosen")} />
+            <BarList total={week.length} rows={byDevelopment} />
           </div>
         </section>
         <section aria-labelledby="src-h" className="card p-5 sm:p-6">
@@ -174,7 +195,7 @@ async function Today() {
             <span id="src-h">This week by source</span>
           </SectionTitle>
           <div className="mt-4">
-            <BarList total={week.length} rows={tally((r) => r.utm_source ?? r.source_channel ?? r.cta_source ?? "Website")} />
+            <BarList total={week.length} rows={bySource} />
           </div>
         </section>
       </div>

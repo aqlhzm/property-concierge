@@ -47,12 +47,12 @@ export function BarList({ rows, total }: { rows: { label: string; value: number;
   return (
     <ul className="space-y-2.5">
       {rows.map((r) => {
-        const pct = total ? Math.max(4, Math.round((r.value / total) * 100)) : 0;
+        const pct = total && r.value ? Math.max(4, Math.round((r.value / total) * 100)) : 0;
         const inner = (
           <>
             <div className="flex items-baseline justify-between gap-3 text-[14px]">
-              <span className="truncate">{r.label}</span>
-              <span className="tabular-nums text-muted">{r.value}</span>
+              <span className={`truncate ${r.value ? "" : "text-muted"}`}>{r.label}</span>
+              <span className={`tabular-nums ${r.value ? "text-muted" : "text-subtle"}`}>{r.value}</span>
             </div>
             <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
               <div className="h-full rounded-full bg-emerald" style={{ width: `${pct}%` }} />

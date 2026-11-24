@@ -212,3 +212,39 @@ export function describeActivity(a: Pick<Activity, "type" | "meta">) {
       return LOG_TYPES.find((t) => t.key === a.type)?.label ?? a.type;
   }
 }
+
+/** Channels always listed on the Today view, in this order (even at zero) */
+export const SOURCE_CHANNELS = ["Website", "Instagram", "Facebook", "Threads", "TikTok"] as const;
+
+const SOURCE_ALIASES: Record<string, string> = {
+  ig: "Instagram",
+  insta: "Instagram",
+  instagram: "Instagram",
+  fb: "Facebook",
+  facebook: "Facebook",
+  meta: "Facebook",
+  threads: "Threads",
+  "threads.net": "Threads",
+  tiktok: "TikTok",
+  "tik tok": "TikTok",
+  "tik-tok": "TikTok",
+  tt: "TikTok",
+  whatsapp: "WhatsApp",
+  wa: "WhatsApp",
+  google: "Google",
+  youtube: "YouTube",
+  yt: "YouTube",
+  website: "Website",
+  web: "Website",
+  direct: "Website",
+};
+
+/** Turn a lead's utm_source / source_channel into one clean channel name */
+export function sourceLabel(utmSource: string | null, sourceChannel: string | null): string {
+  const raw = (utmSource ?? sourceChannel ?? "").trim().toLowerCase();
+  if (!raw) return "Website";
+  if (SOURCE_ALIASES[raw]) return SOURCE_ALIASES[raw];
+  const hit = Object.keys(SOURCE_ALIASES).find((k) => k.length > 2 && raw.includes(k));
+  if (hit) return SOURCE_ALIASES[hit];
+  return raw.charAt(0).toUpperCase() + raw.slice(1);
+}
