@@ -7,11 +7,12 @@ import "@fontsource/mr-dafoe/400.css";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { IMAGES } from "@/data/projects";
 import { SITE_URL, openGraph } from "@/lib/site";
 import { SiteFooter } from "@/components/footer";
-import { MobileTabBar, SiteHeader } from "@/components/nav";
+import { MobileTabBar, SiteHeader, PublicOnly } from "@/components/nav";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -41,12 +42,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <SiteHeader />
+        {/* Suspense: on routes with request-time params (staff lead pages) the pathname is only known per request. */}
+        <Suspense fallback={null}>
+          <SiteHeader />
+        </Suspense>
         <main id="main" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
-        <MobileTabBar />
+        <Suspense fallback={null}>
+          <PublicOnly>
+            <SiteFooter />
+          </PublicOnly>
+          <MobileTabBar />
+        </Suspense>
         <Analytics />
       </body>
     </html>

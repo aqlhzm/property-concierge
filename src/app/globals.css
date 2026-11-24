@@ -533,3 +533,58 @@ body {
     animation: none;
   }
 }
+
+/* Staff area: status and priority badges */
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 999px;
+    padding: 0.25rem 0.625rem;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+  .tone-emerald {
+    background: color-mix(in oklab, var(--emerald) 24%, transparent);
+    color: var(--emerald-text);
+  }
+  .tone-sage {
+    background: color-mix(in oklab, var(--sage) 18%, transparent);
+    color: var(--sage-text);
+  }
+  .tone-gold {
+    background: rgb(214 178 94 / 0.16);
+    color: rgb(232 205 140);
+  }
+  .tone-muted {
+    background: rgb(255 255 255 / 0.07);
+    color: var(--muted);
+  }
+  .tone-danger {
+    background: color-mix(in oklab, var(--danger) 18%, transparent);
+    color: var(--danger);
+  }
+}
+
+/* "Saved" confirmation that fades by itself */
+@keyframes saved-flash {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.saved-flash {
+  animation: saved-flash 3s var(--ease-apple) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .saved-flash {
+    animation-duration: 0.01s;
+    animation-delay: 3s;
+  }
+}
