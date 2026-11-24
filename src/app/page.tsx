@@ -134,16 +134,18 @@ export default function HomePage() {
       {/* Consultant */}
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8" aria-labelledby="consultant-title">
         <div className="card grid overflow-hidden md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          <div className="relative aspect-[4/5] md:aspect-auto">
+          {/* Portrait 4:5 at every size, so the knee-to-head framing is never cropped */}
+          <div className="relative aspect-[4/5]">
             <Image
               src={site.consultantFeature}
               quality={90}
-              alt={`Portrait of ${site.consultantName}`}
+              alt={`Portrait of ${site.consultantName} in a brown suit, adjusting his watch`}
               fill
-              sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover object-[50%_18%]"
+              sizes="(min-width: 1152px) 460px, (min-width: 768px) 42vw, 100vw"
+              className="object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-surface" />
+            {/* Soft blend into the card: bottom edge on phones, right edge on larger screens */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_22%)] md:bg-[linear-gradient(to_right,transparent_80%,var(--surface)_100%)]" />
           </div>
           <div className="flex flex-col justify-center gap-5 p-7 sm:p-10">
             <p className="eyebrow">Your consultant</p>

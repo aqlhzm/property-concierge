@@ -90,7 +90,7 @@ export const site = {
   /** About page portrait: owner-supplied keys photo, lighting graded and upscaled to 4K */
   aboutPortrait: IMAGES.portraitKeys,
   /** Home page "Your consultant" panel: seated portrait cropped below the chest, upscaled */
-  consultantFeature: IMAGES.portraitSeatedChest,
+  consultantFeature: IMAGES.portraitSofaWatch,
   /** Round avatar (About page consultant card): face crop of the seated portrait */
   consultantAvatar: IMAGES.portraitSeatedFace,
   /** Subtle motion loop of the same portrait: 1080 for desktop, 720 for phones */
