@@ -1,20 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <title>aqilgotkeys</title>
-  <style>
-    .s0 { stop-color: #348560; }
-    .s1 { stop-color: #0f4a33; }
-    .s2 { stop-color: #021c12; }
-    @media (prefers-color-scheme: dark) {
-      .s0 { stop-color: #6fd3a2; }
-      .s1 { stop-color: #3a9a6c; }
-      .s2 { stop-color: #23744f; }
-    }
-  </style>
   <defs>
     <linearGradient id="g" x1="0.78" y1="0" x2="0.22" y2="1">
-      <stop offset="0" class="s0"/>
-      <stop offset="0.48" class="s1"/>
-      <stop offset="1" class="s2"/>
+      <stop offset="0" stop-color="#3ECF8E"/>
+      <stop offset="1" stop-color="#249361"/>
     </linearGradient>
   </defs>
   <path fill="url(#g)" d="M256 9.5 500 150.5V259.5L256 121.5 12 259.5V150.5Z"/>
