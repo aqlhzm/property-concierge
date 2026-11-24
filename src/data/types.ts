@@ -64,6 +64,8 @@ export type Project = {
   dataSource: string;
   contentLastUpdated: string;
   featuredOrder: number;
+  /** Optional spotlight: shown as a wide featured card at the top of listings and a badge on the project page */
+  spotlight?: { label: string; reasons: string[] };
   theme: ProjectTheme;
 };
 

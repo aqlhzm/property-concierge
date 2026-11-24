@@ -173,7 +173,7 @@ export const projects: Project[] = [
     whatsappProjectLine: "Wellington Garden Terrace Homes (18' x 65') at Eco Grandeur, Bandar Puncak Alam",
     dataSource: "EG Wellington Garden Terrace Home digital brochure",
     contentLastUpdated: "2026-11-23",
-    featuredOrder: 1,
+    featuredOrder: 2,
     theme: { accent: "#8FD9B6" },
   },
   {
@@ -237,7 +237,7 @@ export const projects: Project[] = [
     whatsappProjectLine: "Wellington Garden Garden Homes (24' x 55') at Eco Grandeur, Bandar Puncak Alam",
     dataSource: "EG Wellington Garden Home brochure",
     contentLastUpdated: "2026-11-23",
-    featuredOrder: 2,
+    featuredOrder: 3,
     theme: { accent: "#BFCDB3" },
   },
   {
@@ -316,7 +316,7 @@ export const projects: Project[] = [
     whatsappProjectLine: "Norton Garden Linked Garden Homes (32' x 65') at Eco Grandeur, Bandar Puncak Alam",
     dataSource: "EG Norton Garden Homes brochure",
     contentLastUpdated: "2026-11-23",
-    featuredOrder: 3,
+    featuredOrder: 4,
     theme: { accent: "#9CCBB9" },
   },
   {
@@ -431,7 +431,16 @@ export const projects: Project[] = [
     whatsappProjectLine: "Airria Plus terrace homes (20' x 65' to 22' x 68') in Kundang",
     dataSource: "Airria Plus Kundang brochure and Phase 3 selling price list (07/09/2026)",
     contentLastUpdated: "2026-11-24",
-    featuredOrder: 4,
+    featuredOrder: 1,
+    // Owner, 24 Nov 2026: selling fast, for its facilities and buyers moving away from city congestion.
+    spotlight: {
+      label: "Hot selling",
+      reasons: [
+        "26 facilities around a 7 acre central lake park",
+        "A calmer pace of life, away from city traffic",
+        "4 bedroom terrace homes from RM672,100",
+      ],
+    },
     theme: { accent: "#C9D58C" },
   },
 ];

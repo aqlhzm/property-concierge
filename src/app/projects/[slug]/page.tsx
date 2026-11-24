@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
-import { heroTransitionName, ImageBadge } from "@/components/project-card";
+import { heroTransitionName, ImageBadge, SpotlightBadge } from "@/components/project-card";
 import { UnitExplorer } from "@/components/unit-explorer";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects, getFaqs, getNearby, getProject, getUnits } from "@/lib/data";
@@ -92,6 +92,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             </Link>{" "}
             / {project.township}
           </nav>
+          {project.spotlight && (
+            <div className="rise mt-4">
+              <SpotlightBadge label={project.spotlight.label} />
+            </div>
+          )}
           <h1 className="rise-2 mt-3 font-display text-[48px] leading-[1.02] sm:text-[72px]">{project.name}</h1>
           <p className="rise-2 mt-1 text-[20px] text-p-accent sm:text-[24px]">{project.productLabel.replace(/ x /g, "\u00a0x\u00a0")}</p>
           <p className="rise-3 mt-4 max-w-xl font-display text-[19px] italic text-muted">{project.tagline}</p>

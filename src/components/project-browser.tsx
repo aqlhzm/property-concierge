@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import type { Project } from "@/data/types";
 import { BUDGETS, type Budget, matchesBudget, matchesQuery } from "@/lib/search";
-import { ProjectCard } from "./project-card";
+import { ProjectCard, ProjectGrid } from "./project-card";
 
 type Sort = "featured" | "price-asc" | "size-desc";
 
@@ -106,10 +106,17 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
       </div>
 
       {results.length ? (
-        <div className="mt-4 grid gap-5 sm:grid-cols-2">
-          {results.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} priority={i === 0} />
-          ))}
+        <div className="mt-4">
+          {/* Unfiltered, featured order: the spotlight development leads as a wide card. */}
+          {!q && budget === "any" && sort === "featured" ? (
+            <ProjectGrid projects={results} />
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2">
+              {results.map((p, i) => (
+                <ProjectCard key={p.slug} project={p} priority={i === 0} />
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <div className="card mt-4 p-10 text-center">

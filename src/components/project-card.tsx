@@ -1,4 +1,4 @@
-import { ArrowUpRight, Bath, BedDouble, Ruler } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bath, BedDouble, Flame, Ruler } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
@@ -32,7 +32,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
       className="group card card-press relative flex flex-col overflow-hidden hover:border-line-strong"
       aria-label={`${project.name} ${project.productName}, ${project.location}`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden lg:aspect-[16/10]">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <ViewTransition name={heroTransitionName(project.slug)} share="morph" default="none">
           <div className="absolute inset-0">
             <Image
@@ -40,7 +40,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
               alt={`${project.name} ${project.productName}: ${project.heroImage.caption}`}
               fill
               quality={85}
-              sizes="(min-width: 1280px) 576px, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 1280px) 384px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
               priority={priority}
               className="object-cover transition-transform duration-[900ms] ease-apple group-hover:scale-[1.05]"
             />
@@ -96,5 +96,116 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         </div>
       </div>
     </Link>
+  );
+}
+
+export function SpotlightBadge({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#f2b35b,#e0763d)] px-3 py-1 text-[12px] font-semibold tracking-wide text-[#1d1208] shadow-[0_6px_20px_-6px_rgba(224,118,61,0.65)]">
+      <Flame aria-hidden size={14} strokeWidth={2.4} />
+      {label}
+    </span>
+  );
+}
+
+/** Wide card for the spotlight development, at the top of listings. */
+export function FeaturedProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
+  const spotlight = project.spotlight;
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group card card-press relative grid overflow-hidden hover:border-line-strong lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
+      aria-label={`${project.name} ${project.productName}, ${project.township}${spotlight ? `, ${spotlight.label}` : ""}`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9] lg:aspect-auto lg:min-h-[440px]">
+        <ViewTransition name={heroTransitionName(project.slug)} share="morph" default="none">
+          <div className="absolute inset-0">
+            <Image
+              src={project.heroImage.url}
+              alt={`${project.name} ${project.productName}: ${project.heroImage.caption}`}
+              fill
+              quality={85}
+              sizes="(min-width: 1280px) 680px, (min-width: 1024px) 58vw, 100vw"
+              priority={priority}
+              className="object-cover transition-transform duration-[900ms] ease-apple group-hover:scale-[1.04]"
+            />
+          </div>
+        </ViewTransition>
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.28),transparent_30%)]" />
+        <span className="sheen" aria-hidden />
+        <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2">
+          {spotlight && <SpotlightBadge label={spotlight.label} />}
+          <ImageBadge label={project.heroImage.label} />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-5 p-6 sm:p-8">
+        <div>
+          <p className="text-[11px] font-medium tracking-[0.16em] text-muted uppercase">
+            {project.township} · {project.location} · {project.state}
+          </p>
+          <h3 className="mt-1.5 font-display text-[34px] leading-[1.05] sm:text-[40px]">{project.name}</h3>
+          <p className="mt-1 text-[15px] font-medium" style={{ color: project.theme.accent }}>
+            {project.productName} · {project.lotSize}
+          </p>
+        </div>
+        {spotlight && (
+          <ul className="space-y-2.5 text-[15px]">
+            {spotlight.reasons.map((r) => (
+              <li key={r} className="flex gap-3">
+                <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-emerald" />
+                {r}
+              </li>
+            ))}
+          </ul>
+        )}
+        <dl className="grid grid-cols-3 gap-2 text-[13px] text-muted">
+          <div className="flex items-center gap-1.5">
+            <BedDouble aria-hidden size={16} className="text-sage" />
+            <dt className="sr-only">Bedrooms</dt>
+            <dd>{project.bedrooms} bed</dd>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Bath aria-hidden size={16} className="text-sage" />
+            <dt className="sr-only">Bathrooms</dt>
+            <dd>{project.bathrooms} bath</dd>
+          </div>
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
+            <Ruler aria-hidden size={16} className="text-sage" />
+            <dt className="sr-only">Built up</dt>
+            <dd>{sqftRange(project.builtUpMin, project.builtUpMax)}</dd>
+          </div>
+        </dl>
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-4 border-t border-line pt-5">
+          <div>
+            <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : "Availability and pricing"}</p>
+            <PriceLine project={project} className="text-[19px] font-medium text-text" />
+          </div>
+          <span className="btn btn-primary !min-h-11 !px-5 text-[14px]">
+            Explore {project.name} <ArrowRight aria-hidden size={16} className="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+/** Listing grid: the spotlight development (if it leads the list) as a wide card, the rest three across. */
+export function ProjectGrid({ projects }: { projects: Project[] }) {
+  const [first, ...rest] = projects;
+  if (!first) return null;
+  const lead = first.spotlight ? first : null;
+  const others = lead ? rest : projects;
+  return (
+    <div className="flex flex-col gap-5">
+      {lead && <FeaturedProjectCard project={lead} priority />}
+      {others.length > 0 && (
+        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+          {others.map((p, i) => (
+            <ProjectCard key={p.slug} project={p} priority={!lead && i === 0} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

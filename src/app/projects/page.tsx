@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ProjectBrowser } from "@/components/project-browser";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectGrid } from "@/components/project-card";
 import { WhatsAppFloat } from "@/components/whatsapp";
 import { allProjects } from "@/lib/data";
 
@@ -21,11 +21,7 @@ export default function ProjectsPage() {
       <div className="mt-10">
         <Suspense
           fallback={
-            <div className="grid gap-5 sm:grid-cols-2">
-              {allProjects.map((p) => (
-                <ProjectCard key={p.slug} project={p} />
-              ))}
-            </div>
+            <ProjectGrid projects={allProjects} />
           }
         >
           <ProjectBrowser projects={allProjects} />

@@ -6,7 +6,7 @@ import { IMAGES } from "@/data/projects";
 import { Journey, type JourneyStep } from "@/components/journey";
 import { HeroBirds } from "@/components/hero-ambient";
 import { HeroCinemagraph } from "@/components/hero-cinemagraph";
-import { ImageBadge, ProjectCard } from "@/components/project-card";
+import { ImageBadge, ProjectGrid } from "@/components/project-card";
 import { SearchBar } from "@/components/search-bar";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects } from "@/lib/data";
@@ -77,10 +77,8 @@ export default function HomePage() {
             View all <ArrowRight aria-hidden size={16} />
           </Link>
         </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          {allProjects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
+        <div className="mt-8">
+          <ProjectGrid projects={allProjects} />
         </div>
       </section>
 
