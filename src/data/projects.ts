@@ -1,3 +1,4 @@
+import type { HeroSlide } from "@/components/hero-slideshow";
 import type { GalleryImage, Project, Spec } from "./types";
 
 /**
@@ -40,7 +41,6 @@ export const IMAGES = {
   portraitKeysLoop: `${HD}/dcc7f0be-799d-4e85-a4d3-19aa7fcf6832.mp4`,
   portraitKeysLoopSmall: `${HD}/2ed4494d-9bf4-4855-8cec-fd01b3effc54.mp4`,
   /** Home hero cinemagraph mask, made from the photo: R = sky (drifts), G = trees (sway); gazebo held still */
-  heroMask: `${HD}/ec907008-c283-46b9-97e6-8fd656f98178.png`,
   /** Link previews (Open Graph), 1200x630 JPEG under 110KB so WhatsApp and Facebook show them */
   ogDefault: `${HD}/75bf974c-1d36-4cd4-8e16-7222cc473e92.jpg`,
   ogAbout: `${HD}/8e83fb6a-d931-4d65-bcc0-6093355ccae9.jpg`,
@@ -71,6 +71,46 @@ export const OG_BY_SLUG: Record<string, string> = {
   "norton-garden": `${HD}/e08cdf74-7133-41a8-bcb6-7f2bbd5e8d31.jpg`,
   "airria-plus": `${HD}/a207083f-d0d9-466c-8eab-bf6338b09157.jpg`,
 };
+
+/**
+ * Home hero slideshow: Airria Plus grounds. Brochure renders upscaled to 4K, animated with Kling 3.0
+ * (4K, locked camera, ambient motion only), then encoded 1920x1080 and 1080x1920 for the web.
+ * The playground clips have people and the phone sky held to the first frame (no invented figures or clouds).
+ */
+export const HERO_SLIDES: HeroSlide[] = [
+  {
+    name: "Clubhouse",
+    alt: "Airria Plus clubhouse and infinity pool by the central lake at dusk",
+    video: `${HD}/08fcfd8b-3851-4033-a24a-2613a77f6903.mp4`,
+    poster: `${HD}/5090aa2a-a398-4967-8305-3b94370ad88c.webp`,
+    videoPortrait: `${HD}/fa3087ad-c988-4b81-8e9a-3d0314c1d2f8.mp4`,
+    posterPortrait: `${HD}/e7b1ef92-41a1-4da8-9ec6-50ec998a3990.webp`,
+  },
+  {
+    name: "Lake park",
+    alt: "Airria Plus central lake park with swans, willows and the amphitheatre deck",
+    video: `${HD}/8a062847-d431-4f00-a3ff-26deefca1a77.mp4`,
+    poster: `${HD}/250277b6-78dd-42fc-b374-cedf43f063a6.webp`,
+    videoPortrait: `${HD}/cab3fbe0-ee40-4706-a21d-b9f2585ea8a2.mp4`,
+    posterPortrait: `${HD}/a7b5f4e7-98b1-43d1-83fb-f47bbb02f50c.webp`,
+  },
+  {
+    name: "Jogging track",
+    alt: "Airria Plus lakeside jogging and cycling track at golden hour, seen from the tree house",
+    video: `${HD}/3739e9db-17b7-4fcd-b2da-e144480d45fa.mp4`,
+    poster: `${HD}/920eaae4-bfb9-4ec3-a902-9137902d933e.webp`,
+    videoPortrait: `${HD}/a7543618-f427-475b-98ee-085a33eec99d.mp4`,
+    posterPortrait: `${HD}/93169e30-8f55-4a27-90eb-3920da63d2eb.webp`,
+  },
+  {
+    name: "Playground",
+    alt: "Airria Plus kids playground beside the clubhouse",
+    video: `${HD}/617c1136-15f1-48be-8636-3dbf3d735b73.mp4`,
+    poster: `${HD}/8587ef9b-6959-4fcb-8c91-e13c8efe18a8.webp`,
+    videoPortrait: `${HD}/27e0f7dd-c53b-4eac-85c0-8c68f48743b8.mp4`,
+    posterPortrait: `${HD}/888ead8e-4fe4-44c5-80ec-fc217a185e72.webp`,
+  },
+];
 
 /** Base for floor plans: owner's media storage (moved off Base44, 24 Nov 2026; byte-identical copies). */
 export const MEDIA_BASE = HD;

@@ -1,13 +1,11 @@
 import { ArrowRight, Calculator, ChevronRight, GitCompareArrows } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/content";
-import { IMAGES } from "@/data/projects";
+import { HERO_SLIDES, IMAGES } from "@/data/projects";
 import { ConsultantPhoto } from "@/components/consultant-photo";
 import { Journey, type JourneyStep } from "@/components/journey";
-import { HeroBirds } from "@/components/hero-ambient";
-import { HeroCinemagraph } from "@/components/hero-cinemagraph";
-import { ImageBadge, ProjectGrid } from "@/components/project-card";
+import { HeroSlideshow } from "@/components/hero-slideshow";
+import { ProjectGrid } from "@/components/project-card";
 import { SearchBar } from "@/components/search-bar";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects } from "@/lib/data";
@@ -27,31 +25,14 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
-        {/* The real photograph (static fallback; the cinemagraph draws over it) */}
-        <div className="absolute inset-0 -z-20">
-          <Image
-            src={IMAGES.gazebo}
-            quality={85}
-            alt="Stargazer's Gazebo at Wellington Garden, Eco Grandeur, at dusk"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        {/* Late sun behind the trees, glowing softly (where the photo's light is) */}
-        <div aria-hidden className="hero-sun pointer-events-none absolute inset-0 hidden sm:block" style={{ zIndex: -16 }} />
-        <HeroCinemagraph imageUrl={IMAGES.gazebo} maskSrc={IMAGES.heroMask} />
-        <HeroBirds />
+        {/* Airria Plus grounds: clubhouse, lake park, lakeside track, playground (nearly still clips, crossfading) */}
+        <HeroSlideshow slides={HERO_SLIDES} label="Artist's impression" />
         {/* Mobile: copy spans the full width, so darken more evenly */}
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.74)_26%,rgba(9,14,11,0.5)_56%,rgba(9,14,11,0.2)_85%)] sm:hidden" />
         {/* Larger screens: lighter overlay so glass buttons show the photo, darker behind the copy on the left */}
         <div className="absolute inset-0 -z-10 hidden bg-[linear-gradient(to_top,#090e0b_0%,rgba(9,14,11,0.6)_18%,rgba(9,14,11,0.26)_44%,rgba(9,14,11,0.06)_80%)] sm:block" />
         <div className="absolute inset-0 -z-10 hidden bg-[radial-gradient(ellipse_70%_70%_at_0%_80%,rgba(9,14,11,0.62),transparent_70%)] sm:block" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_100%,rgba(52,196,140,0.16),transparent_55%)]" />
-        <div className="absolute top-[68px] right-4 sm:top-24 sm:right-8">
-          <ImageBadge label="Artist's impression" />
-        </div>
         <div className="hero-copy mx-auto w-full max-w-6xl px-5 pt-32 pb-[calc(var(--tabbar-h)+var(--tabbar-gap)+24px)] sm:px-8 md:pt-40 md:pb-20">
           <p className="eyebrow rise">Property advisory · Selangor</p>
           <h1 className="t-hero rise-2 mt-2.5 max-w-[17ch] text-balance sm:mt-3 sm:max-w-3xl">Good living starts somewhere.</h1>
