@@ -15,9 +15,11 @@ export type HeroSlide = {
   posterPortrait: string;
 };
 
-const FADE_MS = 1400;
-/** Start the crossfade this long before a clip ends, so motion never stops on screen */
-const LEAD_S = FADE_MS / 1000 + 0.15;
+const FADE_MS = 1600;
+/** Clips play a touch slower than recorded: calmer, and each place stays on screen about 6 seconds */
+const RATE = 0.85;
+/** Start the crossfade this long (in clip time) before a clip ends, so motion never stops on screen */
+const LEAD_S = (FADE_MS / 1000) * RATE + 0.15;
 /** Without video (reduced motion, data saver), stills change at this pace */
 const STILL_MS = 6500;
 
@@ -69,6 +71,8 @@ export function HeroSlideshow({ slides, label }: { slides: HeroSlide[]; label: s
     if (!v) return;
     let handed = false;
     v.currentTime = 0;
+    v.playbackRate = RATE;
+    v.defaultPlaybackRate = RATE;
     if (visible.current && !document.hidden) v.play().catch((e: Error) => e.name === "NotAllowedError" && setFailed(true));
     const onTime = () => {
       if (handed || !v.duration) return;
