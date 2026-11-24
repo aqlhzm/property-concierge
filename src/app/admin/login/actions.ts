@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { safeAdminPath } from "@/lib/auth-cookies";
 import { getAuthClient } from "@/lib/supabase-auth";
+import { SITE_URL } from "@/lib/site";
 import { getSupabase } from "@/lib/supabase-server";
 
 export type LoginState = { step: "email" | "code"; email?: string; error?: string };
@@ -34,7 +35,15 @@ async function requestCode(_prev: LoginState, formData: FormData): Promise<Login
   }
 
   if (allowed === true) {
-    const { error } = await auth.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+    const next = safeAdminPath(formData.get("next"));
+    const { error } = await auth.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true,
+        // The email carries a sign-in link (default Supabase template). It must be opened in this same browser.
+        emailRedirectTo: `${SITE_URL}/admin/auth/callback?next=${encodeURIComponent(next)}`,
+      },
+    });
     if (error) {
       if (error.status === 429) {
         return { step: "email", email, error: "A code was sent a moment ago. Please wait a minute, then try again." };

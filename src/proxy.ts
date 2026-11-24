@@ -30,7 +30,8 @@ export async function proxy(request: NextRequest) {
   }
 
   const { pathname } = request.nextUrl;
-  if (!signedIn && pathname !== "/admin/login") {
+  const isPublic = pathname === "/admin/login" || pathname.startsWith("/admin/auth/");
+  if (!signedIn && !isPublic) {
     const to = request.nextUrl.clone();
     to.pathname = "/admin/login";
     to.search = "";
