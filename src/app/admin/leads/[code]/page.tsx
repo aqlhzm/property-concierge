@@ -8,6 +8,7 @@ import { LeadEditor } from "@/components/admin/lead-editor";
 import { LogForm } from "@/components/admin/log-form";
 import { PriorityBadge, SectionTitle, StatusBadge } from "@/components/admin/ui";
 import { units } from "@/data/units";
+import { allProjects } from "@/lib/data";
 import {
   currentTime,
   describeActivity,
@@ -59,7 +60,12 @@ async function LeadDetail({ params }: { params: PageProps<"/admin/leads/[code]">
 
   const now = currentTime();
   const firstName = staff.fullName.split(" ")[0] ?? staff.fullName;
-  const shortlist = (lead.shortlist ?? []).map((id) => units.find((u) => u.id === id)?.name ?? id);
+  const shortlist = (lead.shortlist ?? []).map((id) => {
+    const u = units.find((x) => x.id === id);
+    if (u) return `${allProjects.find((p) => p.slug === u.projectSlug)?.name ?? ""} ${u.name}`.trim();
+    const p = allProjects.find((x) => x.slug === id);
+    return p ? `${p.name} ${p.productName}` : id;
+  });
   const source = [lead.utm_source, lead.utm_medium, lead.utm_campaign].filter(Boolean).join(" / ");
 
   return (

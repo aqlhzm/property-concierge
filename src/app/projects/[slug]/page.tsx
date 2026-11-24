@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import { heroTransitionName, ImageBadge, SpotlightBadge } from "@/components/project-card";
+import { SaveButton } from "@/components/save-button";
 import { UnitExplorer } from "@/components/unit-explorer";
 import { WhatsAppFloat, WhatsAppLink } from "@/components/whatsapp";
 import { allProjects, getFaqs, getNearby, getProject, getUnits } from "@/lib/data";
@@ -108,7 +109,10 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               <SpotlightBadge label={project.spotlight.label} />
             </div>
           )}
-          <h1 className="rise-2 mt-2.5 font-display text-[34px] leading-[1.05] tracking-[-0.015em] sm:mt-3 sm:text-[72px]">{project.name}</h1>
+          <div className="rise-2 mt-2.5 flex items-end justify-between gap-4 sm:mt-3">
+            <h1 className="font-display text-[34px] leading-[1.05] tracking-[-0.015em] sm:text-[72px]">{project.name}</h1>
+            <SaveButton id={project.slug} name={project.name} variant="icon" className="mb-0.5 sm:hidden" />
+          </div>
           <p className="rise-2 mt-1 text-[15px] leading-snug text-p-accent sm:text-[24px]">{project.productLabel.replace(/ x /g, "\u00a0x\u00a0")}</p>
           <p className="rise-3 mt-2.5 max-w-xl font-display text-[15px] italic text-muted sm:mt-4 sm:text-[19px]">{project.tagline}</p>
           <div className="rise-3 mt-5 grid grid-cols-2 gap-2.5 sm:mt-8 sm:flex sm:flex-wrap sm:gap-3">
@@ -124,6 +128,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               <CalendarDays aria-hidden size={17} /> <span className="sm:hidden">Viewing</span>
               <span className="max-sm:hidden">Arrange a viewing</span>
             </Link>
+            <SaveButton id={project.slug} name={project.name} className="max-sm:hidden" />
           </div>
         </div>
       </section>

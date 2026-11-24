@@ -61,6 +61,8 @@ export const enquirySchema = z.object({
   dreamMatch: optional(200),
   consent: z.literal("on", { error: "Please agree so Aqil can contact you" }),
   ctaSource: optional(120),
+  // Saved homes sent with the enquiry: comma separated unit type ids and development slugs
+  shortlist: optional(600),
   utmSource: optional(100),
   utmMedium: optional(100),
   utmCampaign: optional(100),

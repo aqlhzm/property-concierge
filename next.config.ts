@@ -1,6 +1,34 @@
 import type { NextConfig } from "next";
 
+const MEDIA = "https://d2ol7oe51mr4n9.cloudfront.net";
+
+/**
+ * Content Security Policy. Everything is served from this origin except photography and video on the media CDN.
+ * Scripts allow 'unsafe-inline' because Next.js streams small inline bootstrap scripts and pages are prerendered
+ * (a per-request nonce would turn every page dynamic). No third-party script origins are allowed at all.
+ * Development keeps 'unsafe-eval' for React Refresh only.
+ */
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${MEDIA}`,
+  `media-src 'self' blob: ${MEDIA}`,
+  "font-src 'self' data:",
+  "connect-src 'self'",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const securityHeaders = [
+  { key: "Content-Security-Policy", value: csp },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },

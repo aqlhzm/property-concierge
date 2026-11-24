@@ -59,6 +59,19 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
   const projectUnits = units.filter((u) => u.projectSlug === projectSlug);
   const initialUnit = projectUnits.find((u) => u.id === params.get("unit"))?.id ?? "";
 
+  // Homes sent from the shortlist page (?shortlist=ap-a1,airria-plus)
+  const shortlist = (params.get("shortlist") ?? "")
+    .split(",")
+    .filter((id, i, all) => id && all.indexOf(id) === i)
+    .map((id) => {
+      const u = units.find((x) => x.id === id);
+      if (u) return { id, label: `${projects.find((p) => p.slug === u.projectSlug)?.name ?? ""} ${u.name}`.trim() };
+      const p = projects.find((x) => x.slug === id);
+      return p ? { id, label: `${p.name} ${p.productName}` } : null;
+    })
+    .filter((x): x is { id: string; label: string } => x !== null)
+    .slice(0, 12);
+
   const errs = state.status === "error" ? (state.fieldErrors ?? {}) : {};
   const today = new Date().toISOString().slice(0, 10);
 
@@ -239,7 +252,24 @@ export function EnquiryForm({ projects, units }: { projects: Project[]; units: U
           <input name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
-      <input type="hidden" name="ctaSource" value={`enquire${params.get("intent") ? `:${params.get("intent")}` : ""}`} />
+      {shortlist.length > 0 && (
+        <div className="rounded-2xl border border-line bg-black/20 p-4">
+          <p className="text-[13px] text-muted">Your shortlist goes with this enquiry</p>
+          <ul className="mt-2 flex flex-wrap gap-1.5">
+            {shortlist.map((s) => (
+              <li key={s.id} className="rounded-full bg-sage-deep/70 px-2.5 py-1 text-[13px] text-sage-text">
+                {s.label}
+              </li>
+            ))}
+          </ul>
+          <input type="hidden" name="shortlist" value={shortlist.map((s) => s.id).join(",")} />
+        </div>
+      )}
+      <input
+        type="hidden"
+        name="ctaSource"
+        value={shortlist.length ? "shortlist" : `enquire${params.get("intent") ? `:${params.get("intent")}` : ""}`}
+      />
       <input type="hidden" name="utmSource" value={params.get("utm_source") ?? ""} />
       <input type="hidden" name="utmMedium" value={params.get("utm_medium") ?? ""} />
       <input type="hidden" name="utmCampaign" value={params.get("utm_campaign") ?? ""} />

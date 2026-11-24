@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import type { Project, UnitType } from "@/data/types";
 import { formatNum, sqftRange } from "@/lib/format";
 import { whatsappHref } from "@/lib/whatsapp";
+import { SaveButton } from "./save-button";
 import { WhatsAppIcon } from "./whatsapp";
 
 type Floor = "ground" | "first";
@@ -121,9 +122,13 @@ export function UnitExplorer({ project, units }: { project: Project; units: Unit
 
       <div className="mt-5 grid gap-7 rounded-[24px] border border-line bg-surface p-4 sm:mt-6 sm:gap-8 sm:p-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div className="flex flex-col gap-5 sm:gap-6">
-          <div>
-            <p className="text-[11px] tracking-[0.16em] text-muted uppercase sm:text-[13px] sm:tracking-[0.18em]">{unit.storeys}</p>
-            <h3 className="mt-1 font-display text-[22px] leading-tight sm:text-[30px]">{unit.name}</h3>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[11px] tracking-[0.16em] text-muted uppercase sm:text-[13px] sm:tracking-[0.18em]">{unit.storeys}</p>
+              <h3 className="mt-1 font-display text-[22px] leading-tight sm:text-[30px]">{unit.name}</h3>
+            </div>
+            <SaveButton id={unit.id} name={`${title} ${unit.name}`} variant="icon" className="sm:hidden" />
+            <SaveButton id={unit.id} name={`${title} ${unit.name}`} className="max-sm:hidden" />
           </div>
           <dl className="grid grid-cols-3 gap-2 sm:gap-3">
             {[

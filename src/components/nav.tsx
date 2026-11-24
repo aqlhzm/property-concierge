@@ -1,11 +1,12 @@
 "use client";
 
-import { Building2, Calculator, CalendarCheck, ExternalLink, GitCompareArrows, Home, LogOut, UserRound, Users, X } from "lucide-react";
+import { Bookmark, Building2, Calculator, CalendarCheck, ExternalLink, GitCompareArrows, Home, LogOut, UserRound, Users, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut } from "@/app/admin/login/actions";
 import { Wordmark } from "./brand";
+import { ShortlistCount } from "./save-button";
 import { ShareButton } from "./share-button";
 
 const items = [
@@ -130,6 +131,23 @@ function useHideOnScroll() {
   return hidden;
 }
 
+/** Saved homes; shown in the header only once the buyer has saved something */
+function ShortlistLink({ count, active }: { count: number; active: boolean }) {
+  return (
+    <Link
+      href="/shortlist"
+      aria-label={`Your shortlist, ${count} saved`}
+      aria-current={active ? "page" : undefined}
+      className={`relative grid size-11 place-items-center rounded-full transition-colors duration-200 ${active ? "bg-white/15 text-white" : "text-white/85 hover:text-white"}`}
+    >
+      <Bookmark aria-hidden size={18} />
+      <span className="absolute top-1.5 right-1 grid min-w-[17px] place-items-center rounded-full bg-emerald px-1 text-[10px] leading-[17px] font-semibold text-[#06120c] tabular">
+        {count}
+      </span>
+    </Link>
+  );
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const hidden = useHideOnScroll();
@@ -168,14 +186,18 @@ export function SiteHeader() {
                 </Link>
               );
             })}
+            <ShortlistCount render={(n) => <ShortlistLink count={n} active={pathname === "/shortlist"} />} />
             <Link href="/enquire" className="btn btn-primary ml-2 !min-h-11 !px-5 text-[14px]">
               Speak to Aqil
             </Link>
           </nav>
-          {/* 36px visual inside a 48px bar, so the tap target stays generous */}
-          <Link href="/enquire" className="btn btn-primary !min-h-9 !px-3.5 !text-[13.5px] md:hidden">
-            Enquire
-          </Link>
+          <div className="flex items-center gap-1 md:hidden">
+            <ShortlistCount render={(n) => <ShortlistLink count={n} active={pathname === "/shortlist"} />} />
+            {/* 36px visual inside a 48px bar, so the tap target stays generous */}
+            <Link href="/enquire" className="btn btn-primary !min-h-9 !px-3.5 !text-[13.5px]">
+              Enquire
+            </Link>
+          </div>
         </div>
       </header>
     </>

@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { headers } from "next/headers";
 import { site } from "@/data/content";
 import { units } from "@/data/units";
-import { getProject } from "@/lib/data";
+import { allProjects, getProject } from "@/lib/data";
 import { enquirySchema, type EnquiryState } from "@/lib/enquiry-schema";
 import { getSupabase } from "@/lib/supabase-server";
 import { whatsappHref } from "@/lib/whatsapp";
@@ -34,6 +34,13 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
       : project
         ? whatsappHref("project_overview", { project: project.whatsappProjectLine, location: `${project.location}, ${project.state}` })
         : whatsappHref("general");
+
+  // Only ids we know (unit types, developments) are kept, at most 12
+  const shortlist = (d.shortlist ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((id, i, all) => all.indexOf(id) === i && (units.some((u) => u.id === id) || allProjects.some((p) => p.slug === id)))
+    .slice(0, 12);
 
   const supabase = getSupabase();
   if (!supabase) {
@@ -78,6 +85,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
       utm_source: d.utmSource ?? null,
       utm_medium: d.utmMedium ?? null,
       utm_campaign: d.utmCampaign ?? null,
+      shortlist: shortlist.length ? shortlist : null,
     },
   });
 
