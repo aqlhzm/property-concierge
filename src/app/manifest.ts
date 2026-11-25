@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
     name: "PROPERTY CONCIERGE by aqilgotkeys",
-    short_name: "Concierge",
+    short_name: "Got Keys",
     description: "Discover, compare and plan your next home with Aqil Hazim, from first enquiry to receiving your keys.",
     start_url: "/",
     scope: "/",

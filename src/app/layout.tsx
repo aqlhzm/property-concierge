@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: openGraph(IMAGES.ogDefault, "PROPERTY CONCIERGE by aqilgotkeys: Stargazer's Gazebo at Wellington Garden"),
   twitter: { card: "summary_large_image" },
   // Home screen app on iPhone: opens full screen with a dark status bar
-  appleWebApp: { capable: true, title: "Concierge", statusBarStyle: "black" },
+  appleWebApp: { capable: true, title: "Got Keys", statusBarStyle: "black" },
   // Search Console / Bing Webmaster ownership tags. Set the token (the content="" value only) in Vercel env and redeploy.
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
