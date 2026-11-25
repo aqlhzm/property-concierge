@@ -159,7 +159,7 @@ export function HeroSlideshow({ slides, note }: { slides: HeroSlide[]; note?: st
       </div>
 
       {/* Which development is on screen; aligned with the right edge of the nav pill */}
-      <div className="pointer-events-none absolute inset-x-0 top-[66px] px-3 sm:top-[92px] sm:px-6">
+      <div className="pointer-events-none absolute inset-x-0 top-[calc(58px+var(--safe-top))] px-3 sm:top-[92px] sm:px-6">
         <div className="mx-auto flex max-w-6xl justify-end pr-1.5 sm:pr-2">
           <span
             key={slides[active].name}

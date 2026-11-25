@@ -2,6 +2,11 @@
 
 /* Tokens: see design-system/MASTER.md */
 :root {
+  /* Space under the status bar. Zero in the browser; the clock and notch height when the site runs as a
+     home screen app that draws edge to edge (iOS black-translucent, Android fullscreen). */
+  --safe-top: max(0.5rem, env(safe-area-inset-top, 0px));
+  /* Where page content starts on phones: below the floating 48px header */
+  --page-top: calc(76px + var(--safe-top));
   /* Dark base with an emerald (primary) + sage (secondary) pairing. See design-system/MASTER.md */
   --bg: #090e0b;
   --surface: #101712;

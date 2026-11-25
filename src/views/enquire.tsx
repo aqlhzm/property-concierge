@@ -8,7 +8,7 @@ import { getAllUnits, getProjects } from "@/lib/data";
 export function EnquireView({ lang }: { lang: Lang }) {
   const t = dict(lang).enquire;
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-[84px] sm:px-8 sm:pt-32 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]">
+    <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-[var(--page-top)] sm:px-8 sm:pt-32 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]">
       <div>
         <p className="eyebrow">{t.eyebrow}</p>
         <h1 className="t-title mt-2">{t.title}</h1>

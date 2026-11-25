@@ -13,6 +13,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Discover, compare and plan your next home with Aqil Hazim, from first enquiry to receiving your keys.",
     start_url: "/",
     scope: "/",
+    // Android: the app takes the whole screen, no status bar strip. Browsers without fullscreen fall back to standalone.
+    display_override: ["fullscreen", "standalone"],
     display: "standalone",
     orientation: "portrait",
     background_color: "#070B09",

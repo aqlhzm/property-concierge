@@ -8,7 +8,7 @@ export default function NotFound() {
   const lang = useLang();
   const t = useT().notFound;
   return (
-    <div className="mx-auto flex min-h-[70svh] max-w-xl flex-col items-center justify-center px-5 pt-[84px] text-center">
+    <div className="mx-auto flex min-h-[70svh] max-w-xl flex-col items-center justify-center px-5 pt-[var(--page-top)] text-center">
       <p className="eyebrow">404</p>
       <h1 className="t-title mt-2">{t.title}</h1>
       <p className="t-lead mt-3">{t.lead}</p>

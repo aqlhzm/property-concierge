@@ -37,7 +37,7 @@ const isAdminActive = (pathname: string, href: string) => (href === "/admin" ? p
 function AdminHeader({ pathname }: { pathname: string }) {
   const signedOutPage = pathname === "/admin/login";
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-6">
       <div className="glass glass-clear pointer-events-auto mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full pl-5 pr-2">
         <div className="flex items-center gap-3">
           <Wordmark href={signedOutPage ? "/" : "/admin"} />
@@ -178,7 +178,7 @@ export function SiteHeader() {
       )}
       <header
         lang={lang === "ms" ? "ms-MY" : undefined}
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] transition-transform duration-300 ease-apple sm:px-6 sm:pt-3 ${
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-[var(--safe-top)] transition-transform duration-300 ease-apple sm:px-6 sm:pt-3 ${
           immersive ? "hidden md:block" : ""
         } ${hidden ? "max-md:-translate-y-[calc(100%+8px)]" : ""}`}
       >

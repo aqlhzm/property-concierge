@@ -120,7 +120,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
     <div ref={wrapRef} className="journey-film relative" style={{ height: `${(total + 1) * 85}svh` }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#0b120e]">
         {/* Film: full bleed on desktop; full width 16:9 on phones so both homes stay in view */}
-        <div className="film-frame absolute inset-x-0 top-[92px] aspect-video md:inset-0 md:top-0 md:aspect-auto">
+        <div className="film-frame absolute inset-x-0 top-[calc(84px+var(--safe-top))] aspect-video md:inset-0 md:top-0 md:aspect-auto">
           <video
             ref={videoRef}
             poster={film.poster}

@@ -5,7 +5,7 @@ import { dict } from "@/i18n/dict";
 export function PrivacyView({ lang }: { lang: Lang }) {
   const t = dict(lang).privacy;
   return (
-    <div className="mx-auto max-w-3xl px-5 pt-[84px] sm:px-8 sm:pt-32">
+    <div className="mx-auto max-w-3xl px-5 pt-[var(--page-top)] sm:px-8 sm:pt-32">
       <p className="eyebrow">{t.eyebrow}</p>
       <h1 className="t-title mt-2">{t.title}</h1>
       {site.privacyNotice ? (
