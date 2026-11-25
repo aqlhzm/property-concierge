@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { WhatsAppContext } from "@/data/types";
+import { useLang, useT } from "@/i18n/client";
 import { whatsappHref } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
@@ -13,6 +14,8 @@ type Vars = Parameters<typeof whatsappHref>[1];
  */
 export function WhatsAppFloat({ context = "general", vars }: { context?: WhatsAppContext; vars?: Vars }) {
   const [shown, setShown] = useState(false);
+  const lang = useLang();
+  const t = useT();
   useEffect(() => {
     const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.7);
     onScroll();
@@ -21,10 +24,10 @@ export function WhatsAppFloat({ context = "general", vars }: { context?: WhatsAp
   }, []);
   return (
     <a
-      href={whatsappHref(context, vars)}
+      href={whatsappHref(context, vars, lang)}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Aqil on WhatsApp"
+      aria-label={t.whatsappFloat}
       className={`glass above-tabbar fixed right-4 z-30 inline-flex size-12 items-center justify-center rounded-full text-text transition-[opacity,transform] duration-300 ease-apple active:scale-95 md:right-6 md:h-14 md:w-auto md:gap-2 md:pr-5 md:pl-4 md:hover:scale-[1.03] ${
         shown ? "opacity-100" : "pointer-events-none translate-y-3 opacity-0 md:pointer-events-auto md:translate-y-0 md:opacity-100"
       }`}

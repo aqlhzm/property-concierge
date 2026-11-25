@@ -1,6 +1,7 @@
 "use client";
 
 import { Bookmark, BookmarkCheck } from "lucide-react";
+import { useT } from "@/i18n/client";
 import { toggleShortlist, useShortlist } from "@/lib/shortlist";
 
 /**
@@ -19,8 +20,9 @@ export function SaveButton({
   className?: string;
 }) {
   const saved = useShortlist().includes(id);
+  const t = useT();
   const Icon = saved ? BookmarkCheck : Bookmark;
-  const label = saved ? `Remove ${name} from your shortlist` : `Save ${name} to your shortlist`;
+  const label = saved ? t.save.remove(name) : t.save.add(name);
 
   return (
     <button
@@ -34,7 +36,7 @@ export function SaveButton({
       } ${variant === "icon" ? "size-11" : "min-h-11 px-4 text-[14px] font-medium"} ${className}`}
     >
       <Icon aria-hidden size={variant === "icon" ? 18 : 16} strokeWidth={saved ? 2.2 : 1.8} />
-      {variant === "pill" && <span>{saved ? "Saved" : "Save"}</span>}
+      {variant === "pill" && <span>{saved ? t.save.saved : t.save.save}</span>}
     </button>
   );
 }

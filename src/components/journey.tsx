@@ -3,6 +3,8 @@
 import { ArrowRight, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { lp } from "@/i18n/config";
+import { useLang, useT } from "@/i18n/client";
 
 export type JourneyStep = { n: string; title: string; body: string; online: boolean };
 
@@ -35,6 +37,8 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
   const [mode, setMode] = useState<"film" | "still">("film");
   const [active, setActive] = useState(0);
   const [done, setDone] = useState(false);
+  const lang = useLang();
+  const t = useT();
   const total = steps.length;
 
   useEffect(() => {
@@ -153,7 +157,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
                       s.online ? "bg-forest text-emerald-text" : "bg-sage-deep text-sage-text"
                     }`}
                   >
-                    {s.online ? "On this site" : "With Aqil"}
+                    {s.online ? t.journey.onSite : t.journey.withAqil}
                   </span>
                 </div>
                 <h3 className="mt-2 font-display text-[26px] leading-tight text-white md:text-[46px]">{s.title}</h3>
@@ -166,12 +170,10 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
               <span className="grid size-12 place-items-center rounded-full bg-[#f6e2ad]/15 text-[#f6e2ad] ring-1 ring-[#f6e2ad]/40">
                 <KeyRound size={22} />
               </span>
-              <h3 className="mt-3 font-display text-[26px] leading-tight text-white md:text-[46px]">Your keys, handed over.</h3>
-              <p className="mt-2 max-w-md text-[15px] text-white/80 md:text-[17px]">
-                Tell Aqil what you need and he will shortlist for you.
-              </p>
-              <Link href="/enquire" tabIndex={done ? 0 : -1} className="btn btn-primary mt-5">
-                Get a recommendation <ArrowRight aria-hidden size={16} />
+              <h3 className="mt-3 font-display text-[26px] leading-tight text-white md:text-[46px]">{t.journey.finaleTitle}</h3>
+              <p className="mt-2 max-w-md text-[15px] text-white/80 md:text-[17px]">{t.journey.finaleBody}</p>
+              <Link href={lp(lang, "/enquire")} tabIndex={done ? 0 : -1} className="btn btn-primary mt-5">
+                {t.journey.cta} <ArrowRight aria-hidden size={16} />
               </Link>
             </div>
           </div>
@@ -179,7 +181,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
 
         {/* Progress: one segment per step, tap to jump */}
         <nav
-          aria-label="Journey steps"
+          aria-label={t.journey.stepsLabel}
           className="absolute inset-x-0 bottom-[calc(76px+env(safe-area-inset-bottom))] mx-auto max-w-6xl px-5 sm:px-8 md:bottom-8"
         >
           <ol className="grid grid-cols-7 gap-1.5">
@@ -188,7 +190,7 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
                 <button
                   type="button"
                   onClick={() => goTo(i)}
-                  aria-label={`Step ${s.n}: ${s.title}`}
+                  aria-label={t.journey.stepLabel(s.n, s.title)}
                   aria-current={i === active && !done ? "step" : undefined}
                   className="group block w-full py-2 text-left"
                 >
@@ -214,10 +216,12 @@ export function Journey({ steps, film }: { steps: JourneyStep[]; film: JourneyFi
 
 /** Reduced motion: the finished home and every step, still. */
 function JourneyStill({ steps, film }: { steps: JourneyStep[]; film: JourneyFilm }) {
+  const lang = useLang();
+  const t = useT();
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
       {/* eslint-disable-next-line @next/next/no-img-element -- still frame of the film, already sized */}
-      <img src={film.still} alt="The finished home, Wellington Garden" className="aspect-video w-full rounded-[24px] object-cover" />
+      <img src={film.still} alt={t.journey.stillAlt} className="aspect-video w-full rounded-[24px] object-cover" />
       <ol className="mt-6 grid gap-px overflow-hidden rounded-[20px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s) => (
           <li key={s.n} className="flex flex-col gap-3 bg-surface p-6">
@@ -227,9 +231,9 @@ function JourneyStill({ steps, film }: { steps: JourneyStep[]; film: JourneyFilm
           </li>
         ))}
         <li className="flex flex-col justify-between gap-4 bg-[linear-gradient(135deg,rgba(28,74,55,0.6),rgba(47,61,51,0.6))] p-6">
-          <p className="text-[15px]">Ready to start? Tell Aqil what you need and he will shortlist for you.</p>
-          <Link href="/enquire" className="btn btn-primary self-start">
-            Get a recommendation
+          <p className="text-[15px]">{t.journey.ready}</p>
+          <Link href={lp(lang, "/enquire")} className="btn btn-primary self-start">
+            {t.journey.cta}
           </Link>
         </li>
       </ol>

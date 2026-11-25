@@ -13,6 +13,7 @@ import { IMAGES } from "@/data/projects";
 import { SITE_URL, openGraph } from "@/lib/site";
 import { SiteFooter } from "@/components/footer";
 import { MobileTabBar, SiteHeader, PublicOnly } from "@/components/nav";
+import { HtmlLang, SkipLink } from "@/components/html-lang";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -40,13 +41,19 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-MY" className="h-full">
+      <head>
+        {/* Bahasa Melayu pages live under /ms: set the document language before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(/^\\/ms(\\/|$)/.test(location.pathname))document.documentElement.lang="ms-MY"`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-emerald focus:px-4 focus:py-2 focus:text-on-emerald"
-        >
-          Skip to content
-        </a>
+        <Suspense fallback={null}>
+          <SkipLink />
+          <HtmlLang />
+        </Suspense>
         {/* Suspense: on routes with request-time params (staff lead pages) the pathname is only known per request. */}
         <Suspense fallback={null}>
           <SiteHeader />

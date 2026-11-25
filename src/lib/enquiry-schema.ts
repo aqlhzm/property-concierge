@@ -20,6 +20,8 @@ export const INTENT_FROM_PARAM: Record<string, (typeof INTENTS)[number]> = {
 export const READINESS = ["Within 3 months", "3 to 6 months", "6 to 12 months", "More than a year", "Just exploring"] as const;
 export const DESIRE = ["Own stay", "Upgrade from current home", "Investment", "For parents / family", "Not sure yet"] as const;
 export const ELIGIBILITY = ["Not checked yet", "Preapproved or in progress", "Cash buyer", "Would like guidance"] as const;
+/** Stored in English for the CRM; the form shows each in the reader's language */
+export const VIEWING_TIMES = ["Morning (10am to 12pm)", "Afternoon (12pm to 3pm)", "Late afternoon (3pm to 6pm)"] as const;
 
 const optional = (max: number) =>
   z
@@ -66,6 +68,8 @@ export const enquirySchema = z.object({
   utmSource: optional(100),
   utmMedium: optional(100),
   utmCampaign: optional(100),
+  // Language the form was filled in: messages and the WhatsApp follow up use it
+  lang: z.enum(["en", "ms"]).catch("en"),
   // Honeypot: real users never see or fill this
   company: z.string().max(0).optional(),
 });

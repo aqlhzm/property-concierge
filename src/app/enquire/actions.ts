@@ -4,23 +4,26 @@ import { createHash } from "node:crypto";
 import { headers } from "next/headers";
 import { site } from "@/data/content";
 import { units } from "@/data/units";
-import { allProjects, getProject } from "@/lib/data";
+import { dict } from "@/i18n/dict";
+import { allProjects, getProject, localizeUnit, siteText } from "@/lib/data";
 import { enquirySchema, type EnquiryState } from "@/lib/enquiry-schema";
 import { getSupabase } from "@/lib/supabase-server";
 import { whatsappHref } from "@/lib/whatsapp";
 
 export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Promise<EnquiryState> {
   const raw = Object.fromEntries(formData.entries());
+  const lang = raw.lang === "ms" ? "ms" : "en";
+  const t = dict(lang).form;
   const parsed = enquirySchema.safeParse(raw);
 
   if (!parsed.success) {
     const fieldErrors: Record<string, string> = {};
     for (const issue of parsed.error.issues) {
       const key = String(issue.path[0] ?? "form");
-      if (key === "company") return { status: "error", message: "Something went wrong. Please try again." };
-      fieldErrors[key] ??= issue.message;
+      if (key === "company") return { status: "error", message: t.msg.wrong };
+      fieldErrors[key] ??= t.errors[key] ?? t.errors.generic;
     }
-    return { status: "error", message: "Please check the highlighted fields.", fieldErrors };
+    return { status: "error", message: t.msg.check, fieldErrors };
   }
 
   const d = parsed.data;
@@ -30,10 +33,10 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
 
   const whatsappUrl =
     d.intent === "Viewing request" && project
-      ? whatsappHref("viewing", { project: projectName, unit: unit ? ` (${unit.name})` : "" })
+      ? whatsappHref("viewing", { project: projectName, unit: unit ? ` (${localizeUnit(unit, lang).name})` : "" }, lang)
       : project
-        ? whatsappHref("project_overview", { project: project.whatsappProjectLine, location: `${project.location}, ${project.state}` })
-        : whatsappHref("general");
+        ? whatsappHref("project_overview", { project: getProject(project.slug, lang)?.whatsappProjectLine, location: `${project.location}, ${project.state}` }, lang)
+        : whatsappHref("general", {}, lang);
 
   // Only ids we know (unit types, developments) are kept, at most 12
   const shortlist = (d.shortlist ?? "")
@@ -47,7 +50,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     console.error("[enquiry] Supabase env vars are not configured");
     return {
       status: "error",
-      message: "Online enquiries are temporarily unavailable. Please message Aqil on WhatsApp instead.",
+      message: t.msg.unavailable,
       whatsappUrl,
     };
   }
@@ -79,9 +82,10 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
       dream_affordability: d.dreamAffordability ?? null,
       dream_match: d.dreamMatch ?? null,
       consent_given: true,
-      consent_text: site.consentText,
+      consent_text: siteText(lang).consentText,
       consent_version: site.consentVersion,
-      cta_source: d.ctaSource ?? null,
+      // Tells Aqil the buyer used the Malay site, so he can reply in Malay
+      cta_source: d.ctaSource ? `${d.ctaSource}${lang === "ms" ? " · BM" : ""}` : lang === "ms" ? "BM" : null,
       utm_source: d.utmSource ?? null,
       utm_medium: d.utmMedium ?? null,
       utm_campaign: d.utmCampaign ?? null,
@@ -92,7 +96,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
   if (error?.code === "P0429") {
     return {
       status: "error",
-      message: "We have received several enquiries from you already. Aqil will be in touch soon, or you can message him on WhatsApp now.",
+      message: t.msg.throttled,
       whatsappUrl,
     };
   }
@@ -101,7 +105,7 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     console.error("[enquiry] submit_lead failed", error?.code, error?.message);
     return {
       status: "error",
-      message: "We couldn't send your enquiry just now. Please try again, or message Aqil on WhatsApp.",
+      message: t.msg.failed,
       whatsappUrl,
     };
   }

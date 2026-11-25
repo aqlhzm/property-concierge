@@ -4,6 +4,7 @@ import { Expand, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useT } from "@/i18n/client";
 
 /**
  * Consultant photo for the home panel.
@@ -38,6 +39,7 @@ function targetRect(): Rect {
 
 export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: string; name: string; title: string }) {
   const [open, setOpen] = useState(false);
+  const t = useT();
   const [closing, setClosing] = useState(false);
   const thumbRef = useRef<HTMLButtonElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -149,7 +151,7 @@ export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: s
         ref={thumbRef}
         type="button"
         onClick={openPhoto}
-        aria-label={`View ${name}'s portrait`}
+        aria-label={t.consultantPhoto.viewLabel(name)}
         aria-haspopup="dialog"
         className="group/photo relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden text-left md:absolute md:inset-0 md:aspect-auto"
         style={{ opacity: open ? 0 : 1 }}
@@ -183,13 +185,13 @@ export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: s
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--surface)_0%,transparent_24%)] md:bg-[linear-gradient(to_right,transparent_58%,color-mix(in_oklab,var(--surface)_35%,transparent)_76%,color-mix(in_oklab,var(--surface)_82%,transparent)_92%,var(--surface)_100%)]"
         />
         <span className="glass-photo pointer-events-none absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-medium text-white/90 transition-all duration-300 ease-apple md:translate-y-1 md:opacity-0 md:group-hover/photo:translate-y-0 md:group-hover/photo:opacity-100 md:group-focus-visible/photo:translate-y-0 md:group-focus-visible/photo:opacity-100">
-          <Expand aria-hidden size={13} /> View portrait
+          <Expand aria-hidden size={13} /> {t.consultantPhoto.view}
         </span>
       </button>
 
       {open &&
         createPortal(
-          <div role="dialog" aria-modal="true" aria-label={`${name}, portrait`} className="fixed inset-0 z-[60]">
+          <div role="dialog" aria-modal="true" aria-label={t.consultantPhoto.dialog(name)} className="fixed inset-0 z-[60]">
             <div ref={backdropRef} className="absolute inset-0 bg-[rgba(6,10,8,0.78)]" onClick={closePhoto} />
             <div ref={boxRef} className="fixed overflow-hidden" style={{ borderRadius: 24 }} onClick={closePhoto}>
               <div ref={imgWrapRef} className="absolute inset-0" style={{ objectPosition: THUMB_POSITION }}>
@@ -208,7 +210,7 @@ export function ConsultantPhoto({ src, alt, name, title }: { src: string; alt: s
                   ref={closeRef}
                   type="button"
                   onClick={closePhoto}
-                  aria-label="Close portrait"
+                  aria-label={t.consultantPhoto.close}
                   className="grid size-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
                 >
                   <X aria-hidden size={18} />

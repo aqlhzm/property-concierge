@@ -3,23 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import type { ImageLabel, Project } from "@/data/types";
+import { lp, type Lang } from "@/i18n/config";
+import { dict } from "@/i18n/dict";
 import { formatRMShort, sqftRange } from "@/lib/format";
 
-export function ImageBadge({ label }: { label: ImageLabel }) {
+export function ImageBadge({ label, lang = "en" }: { label: ImageLabel; lang?: Lang }) {
   return (
     <span className="inline-block rounded-full border border-white/10 bg-black/35 px-2 py-[2px] text-[10px] font-medium tracking-[0.02em] text-white/80 backdrop-blur-md sm:px-2.5 sm:py-[3px] sm:text-[11px]">
-      {label}
+      {dict(lang).imageLabel[label]}
     </span>
   );
 }
 
-export function PriceLine({ project, className = "" }: { project: Project; className?: string }) {
+export function PriceLine({ project, className = "", lang = "en" }: { project: Project; className?: string; lang?: Lang }) {
+  const t = dict(lang).card;
   if (!project.showPrice) {
-    return <span className={className}>Pricing to be reconfirmed</span>;
+    return <span className={className}>{t.toReconfirm}</span>;
   }
   return (
     <span className={`tabular ${className}`}>
-      {formatRMShort(project.priceMin)} to {formatRMShort(project.priceMax)}
+      {formatRMShort(project.priceMin, lang)} {t.to} {formatRMShort(project.priceMax, lang)}
     </span>
   );
 }
@@ -33,10 +36,11 @@ export const cardImage = (p: Project) => p.cardImage ?? p.heroImage;
 /** Only morph card to hero when they are the same picture; a different picture just navigates. */
 const cardMorphName = (p: Project) => (cardImage(p).url === p.heroImage.url ? heroTransitionName(p.slug) : undefined);
 
-export function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
+export function ProjectCard({ project, priority = false, lang = "en" }: { project: Project; priority?: boolean; lang?: Lang }) {
+  const t = dict(lang).card;
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={lp(lang, `/projects/${project.slug}`)}
       className="group card card-press relative flex flex-col overflow-hidden hover:border-line-strong"
       aria-label={`${project.name} ${project.productName}, ${project.location}`}
     >
@@ -58,7 +62,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
         <span className="sheen" aria-hidden />
 
         <div className="absolute top-3 left-3">
-          <ImageBadge label={cardImage(project).label} />
+          <ImageBadge label={cardImage(project).label} lang={lang} />
         </div>
         {/* The whole card is the button; the arrow only appears where there is a pointer to hover with */}
         <span
@@ -82,26 +86,32 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
 
       <div className="flex flex-1 flex-col gap-2.5 p-4 sm:gap-4 sm:p-5">
         <dl className="grid grid-cols-3 gap-2 text-[13px] text-muted">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
             <BedDouble aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Bedrooms</dt>
-            <dd>{project.bedrooms} bed</dd>
+            <dt className="sr-only">{t.bedrooms}</dt>
+            <dd>
+              {project.bedrooms} {t.bed}
+            </dd>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
             <Bath aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Bathrooms</dt>
-            <dd>{project.bathrooms} bath</dd>
+            <dt className="sr-only">{t.bathrooms}</dt>
+            <dd>
+              {project.bathrooms} {t.bath}
+            </dd>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
             <Ruler aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Lot size</dt>
+            <dt className="sr-only">{t.lotSize}</dt>
             <dd>{project.lotSize}</dd>
           </div>
         </dl>
-        <p className="text-[13px] text-muted sm:text-[14px]">{sqftRange(project.builtUpMin, project.builtUpMax)} built up</p>
+        <p className="text-[13px] text-muted sm:text-[14px]">
+          {lang === "ms" ? `${t.builtUp} ${sqftRange(project.builtUpMin, project.builtUpMax, lang)}` : `${sqftRange(project.builtUpMin, project.builtUpMax)} ${t.builtUpSuffix}`}
+        </p>
         <div className="mt-auto border-t border-line pt-3 sm:pt-4">
-          <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : "Availability and pricing"}</p>
-          <PriceLine project={project} className="text-[16px] font-medium text-text sm:text-[17px]" />
+          <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : t.availability}</p>
+          <PriceLine project={project} lang={lang} className="text-[16px] font-medium text-text sm:text-[17px]" />
         </div>
       </div>
     </Link>
@@ -118,11 +128,12 @@ export function SpotlightBadge({ label }: { label: string }) {
 }
 
 /** Wide card for the spotlight development, at the top of listings. */
-export function FeaturedProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
+export function FeaturedProjectCard({ project, priority = false, lang = "en" }: { project: Project; priority?: boolean; lang?: Lang }) {
   const spotlight = project.spotlight;
+  const t = dict(lang).card;
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={lp(lang, `/projects/${project.slug}`)}
       className="group card card-press relative grid overflow-hidden hover:border-line-strong lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
       aria-label={`${project.name} ${project.productName}, ${project.township}${spotlight ? `, ${spotlight.label}` : ""}`}
     >
@@ -144,7 +155,7 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
         <span className="sheen" aria-hidden />
         <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2">
           {spotlight && <SpotlightBadge label={spotlight.label} />}
-          <ImageBadge label={cardImage(project).label} />
+          <ImageBadge label={cardImage(project).label} lang={lang} />
         </div>
       </div>
 
@@ -169,30 +180,34 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
           </ul>
         )}
         <dl className="flex flex-wrap gap-x-5 gap-y-1.5 text-[13px] text-muted">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
             <BedDouble aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Bedrooms</dt>
-            <dd>{project.bedrooms} bed</dd>
+            <dt className="sr-only">{t.bedrooms}</dt>
+            <dd>
+              {project.bedrooms} {t.bed}
+            </dd>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 whitespace-nowrap">
             <Bath aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Bathrooms</dt>
-            <dd>{project.bathrooms} bath</dd>
+            <dt className="sr-only">{t.bathrooms}</dt>
+            <dd>
+              {project.bathrooms} {t.bath}
+            </dd>
           </div>
           <div className="flex items-center gap-1.5 whitespace-nowrap">
             <Ruler aria-hidden size={16} className="text-sage" />
-            <dt className="sr-only">Built up</dt>
-            <dd>{sqftRange(project.builtUpMin, project.builtUpMax)}</dd>
+            <dt className="sr-only">{t.builtUp}</dt>
+            <dd>{sqftRange(project.builtUpMin, project.builtUpMax, lang)}</dd>
           </div>
         </dl>
         <div className="mt-auto flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-t border-line pt-3 sm:pt-5">
           <div className="min-w-0">
-            <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : "Availability and pricing"}</p>
-            <PriceLine project={project} className="text-[16px] font-medium text-text sm:text-[19px]" />
+            <p className="text-[12px] text-subtle">{project.showPrice ? project.priceRangeLabel : t.availability}</p>
+            <PriceLine project={project} lang={lang} className="text-[16px] font-medium text-text sm:text-[19px]" />
           </div>
           {/* One line, never squeezed by the price beside it */}
           <span className="btn btn-primary !min-h-11 shrink-0 gap-2 !pr-4 !pl-5 text-[14px] leading-none whitespace-nowrap max-sm:hidden">
-            Explore {project.name}
+            {t.explore(project.name)}
             <ArrowRight aria-hidden size={16} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
           </span>
           <span aria-hidden className="btn btn-primary !min-h-9 !min-w-9 !px-0 sm:hidden">
@@ -205,18 +220,18 @@ export function FeaturedProjectCard({ project, priority = false }: { project: Pr
 }
 
 /** Listing grid: the spotlight development (if it leads the list) as a wide card, the rest three across. */
-export function ProjectGrid({ projects }: { projects: Project[] }) {
+export function ProjectGrid({ projects, lang = "en" }: { projects: Project[]; lang?: Lang }) {
   const [first, ...rest] = projects;
   if (!first) return null;
   const lead = first.spotlight ? first : null;
   const others = lead ? rest : projects;
   return (
     <div className="flex flex-col gap-4 sm:gap-5">
-      {lead && <FeaturedProjectCard project={lead} priority />}
+      {lead && <FeaturedProjectCard project={lead} priority lang={lang} />}
       {others.length > 0 && (
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3">
           {others.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} priority={!lead && i === 0} />
+            <ProjectCard key={p.slug} project={p} priority={!lead && i === 0} lang={lang} />
           ))}
         </div>
       )}

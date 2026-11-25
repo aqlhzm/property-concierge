@@ -2,6 +2,7 @@
 
 import { Check, Share } from "lucide-react";
 import { useState } from "react";
+import { useT } from "@/i18n/client";
 
 export function ShareButton({
   title,
@@ -18,6 +19,7 @@ export function ShareButton({
   label?: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const t = useT();
 
   async function share() {
     const target = url ? new URL(url, window.location.origin).toString() : window.location.href;
@@ -35,10 +37,10 @@ export function ShareButton({
   }
 
   return (
-    <button type="button" onClick={share} className={className} aria-label={copied ? "Link copied" : (label ?? "Share this page")}>
+    <button type="button" onClick={share} className={className} aria-label={copied ? t.share.copied : (label ?? t.share.sharePage)}>
       {copied ? <Check aria-hidden size={18} /> : <Share aria-hidden size={18} />}
       <span aria-live="polite" className={iconOnly ? "sr-only" : undefined}>
-        {copied ? "Link copied" : (label ?? "Share")}
+        {copied ? t.share.copied : (label ?? t.share.share)}
       </span>
     </button>
   );

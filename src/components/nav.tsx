@@ -5,20 +5,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut } from "@/app/admin/login/actions";
+import { lp, stripLang } from "@/i18n/config";
+import { useLang, useT } from "@/i18n/client";
+import { LangSwitch } from "./lang-switch";
 import { Wordmark } from "./brand";
 import { ShortlistCount } from "./save-button";
 import { ShareButton } from "./share-button";
 
 const items = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/projects", label: "Projects", icon: Building2 },
-  { href: "/compare", label: "Compare", icon: GitCompareArrows },
-  { href: "/calculator", label: "Calculator", icon: Calculator },
-  { href: "/about", label: "About", icon: UserRound },
+  { href: "/", key: "home", icon: Home },
+  { href: "/projects", key: "projects", icon: Building2 },
+  { href: "/compare", key: "compare", icon: GitCompareArrows },
+  { href: "/calculator", key: "calculator", icon: Calculator },
+  { href: "/about", key: "about", icon: UserRound },
 ] as const;
 
+/** Compares without the /ms prefix, so the same tab lights up in both languages */
 function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const path = stripLang(pathname);
+  return href === "/" ? path === "/" : path.startsWith(href);
 }
 
 const adminItems = [
@@ -133,12 +138,14 @@ function useHideOnScroll() {
 
 /** Saved homes; shown in the header only once the buyer has saved something */
 function ShortlistLink({ count, active }: { count: number; active: boolean }) {
+  const lang = useLang();
+  const t = useT();
   return (
     <Link
-      href="/shortlist"
-      aria-label={`Your shortlist, ${count} saved`}
+      href={lp(lang, "/shortlist")}
+      aria-label={t.nav.shortlist(count)}
       aria-current={active ? "page" : undefined}
-      className={`relative grid size-11 place-items-center rounded-full transition-colors duration-200 ${active ? "bg-white/15 text-white" : "text-white/85 hover:text-white"}`}
+      className={`relative grid h-11 w-10 shrink-0 place-items-center rounded-full transition-colors duration-200 md:w-11 ${active ? "bg-white/15 text-white" : "text-white/85 hover:text-white"}`}
     >
       <Bookmark aria-hidden size={18} />
       <span className="absolute top-1.5 right-1 grid min-w-[17px] place-items-center rounded-full bg-emerald px-1 text-[10px] leading-[17px] font-semibold text-[#06120c] tabular">
@@ -151,51 +158,60 @@ function ShortlistLink({ count, active }: { count: number; active: boolean }) {
 export function SiteHeader() {
   const pathname = usePathname();
   const hidden = useHideOnScroll();
+  const lang = useLang();
+  const t = useT();
   if (isAdminPath(pathname)) return <AdminHeader pathname={pathname} />;
-  const immersive = pathname === "/about";
+  const path = stripLang(pathname);
+  const immersive = path === "/about";
   return (
     <>
       {immersive && (
         <div className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 pt-[max(0.75rem,env(safe-area-inset-top))] md:hidden">
-          <Link href="/" aria-label="Close and go home" className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white">
+          <Link href={lp(lang, "/")} aria-label={t.nav.close} className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white">
             <X aria-hidden size={18} />
           </Link>
-          <ShareButton title="Aqil Hazim · PROPERTY CONCIERGE" iconOnly className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white" />
+          <div className="flex items-center gap-2">
+            <LangSwitch photo />
+            <ShareButton title="Aqil Hazim · PROPERTY CONCIERGE" iconOnly className="glass-photo pointer-events-auto grid size-11 place-items-center rounded-full text-white" />
+          </div>
         </div>
       )}
       <header
+        lang={lang === "ms" ? "ms-MY" : undefined}
         className={`pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] transition-transform duration-300 ease-apple sm:px-6 sm:pt-3 ${
           immersive ? "hidden md:block" : ""
         } ${hidden ? "max-md:-translate-y-[calc(100%+8px)]" : ""}`}
       >
         <div className="glass glass-clear pointer-events-auto mx-auto flex h-12 max-w-6xl items-center justify-between rounded-full pr-1.5 pl-4 sm:h-16 sm:pr-2 sm:pl-5">
           <Wordmark />
-          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          <nav aria-label={t.nav.primary} className="hidden items-center gap-1 md:flex">
             {items.slice(1).map((it) => {
               const active = isActive(pathname, it.href);
               return (
                 <Link
                   key={it.href}
-                  href={it.href}
+                  href={lp(lang, it.href)}
                   aria-current={active ? "page" : undefined}
                   className={`inline-flex min-h-11 items-center rounded-full px-4 text-[14px] transition-colors duration-200 ${
                     active ? "bg-white/15 text-white" : "text-white/85 hover:text-white"
                   }`}
                 >
-                  {it.label}
+                  {t.nav[it.key]}
                 </Link>
               );
             })}
-            <ShortlistCount render={(n) => <ShortlistLink count={n} active={pathname === "/shortlist"} />} />
-            <Link href="/enquire" className="btn btn-primary ml-2 !min-h-11 !px-5 text-[14px]">
-              Speak to Aqil
+            <ShortlistCount render={(n) => <ShortlistLink count={n} active={path === "/shortlist"} />} />
+            <LangSwitch />
+            <Link href={lp(lang, "/enquire")} className="btn btn-primary ml-1 !min-h-11 !px-5 text-[14px]">
+              {t.nav.speak}
             </Link>
           </nav>
-          <div className="flex items-center gap-1 md:hidden">
-            <ShortlistCount render={(n) => <ShortlistLink count={n} active={pathname === "/shortlist"} />} />
+          <div className="flex items-center md:hidden">
+            <ShortlistCount render={(n) => <ShortlistLink count={n} active={path === "/shortlist"} />} />
+            <LangSwitch compact />
             {/* 36px visual inside a 48px bar, so the tap target stays generous */}
-            <Link href="/enquire" className="btn btn-primary !min-h-9 !px-3.5 !text-[13.5px]">
-              Enquire
+            <Link href={lp(lang, "/enquire")} className="btn btn-primary !min-h-9 shrink-0 !px-3 !text-[13.5px] min-[400px]:!px-3.5">
+              {t.nav.enquire}
             </Link>
           </div>
         </div>
@@ -212,10 +228,12 @@ export function SiteHeader() {
 export function MobileTabBar() {
   const pathname = usePathname();
   const compact = useHideOnScroll();
+  const lang = useLang();
+  const t = useT();
   if (isAdminPath(pathname)) return <AdminTabBar pathname={pathname} />;
   return (
     <nav
-      aria-label="Primary"
+      aria-label={t.nav.primary}
       data-compact={compact || undefined}
       className="glass group/tab fixed inset-x-4 bottom-[var(--tabbar-gap)] z-40 mx-auto h-[var(--tabbar-h)] max-w-[400px] rounded-full p-1 transition-[height,inset] duration-300 ease-apple data-[compact]:inset-x-10 data-[compact]:h-12 md:hidden"
     >
@@ -226,16 +244,16 @@ export function MobileTabBar() {
           return (
             <li key={it.href}>
               <Link
-                href={it.href}
+                href={lp(lang, it.href)}
                 aria-current={active ? "page" : undefined}
-                aria-label={it.label}
+                aria-label={t.nav[it.key]}
                 className={`flex h-full flex-col items-center justify-center gap-[3px] rounded-full transition-colors duration-200 group-data-[compact]/tab:gap-0 ${
                   active ? "bg-white/[0.09] text-emerald-text" : "text-muted active:bg-white/5"
                 }`}
               >
                 <Icon aria-hidden size={21} strokeWidth={active ? 2.1 : 1.6} />
                 <span className="text-[10px] leading-none font-medium tracking-[0.01em] transition-[opacity,max-height] duration-200 group-data-[compact]/tab:max-h-0 group-data-[compact]/tab:opacity-0 max-h-3">
-                  {it.label}
+                  {t.nav[it.key]}
                 </span>
               </Link>
             </li>

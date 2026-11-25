@@ -5,8 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { useId, useMemo, useState } from "react";
 import { site } from "@/data/content";
 import type { Project } from "@/data/types";
+import { useLang, useT } from "@/i18n/client";
+import { siteText } from "@/lib/data";
 import { estimateLoan } from "@/lib/finance";
-import { formatNum, formatRM } from "@/lib/format";
+import { formatDate, formatNum, formatRM } from "@/lib/format";
 import { whatsappHref } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./whatsapp";
 
@@ -61,6 +63,9 @@ function Slider({
 
 export function FinancialPlanner({ projects }: { projects: Project[] }) {
   const params = useSearchParams();
+  const lang = useLang();
+  const t = useT().calc;
+  const st = siteText(lang);
   const initialSlug = params.get("project") ?? "";
   const initialProject = projects.find((p) => p.slug === initialSlug);
   const qp = Number(params.get("price"));
@@ -98,7 +103,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
   }
 
   const interestShare = est.totalRepayment > 0 ? (est.totalInterest / est.totalRepayment) * 100 : 0;
-  const projectLabel = project ? `${project.name} ${project.productName}` : "a property";
+  const projectLabel = project ? `${project.name} ${project.productName}` : t.aProperty;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
@@ -107,10 +112,10 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor={projectId} className="text-[14px] text-muted">
-              Development (optional)
+              {t.development}
             </label>
             <select id={projectId} className="field mt-1.5 cursor-pointer" value={slug} onChange={(e) => pickProject(e.target.value)}>
-              <option value="">Any property</option>
+              <option value="">{t.anyProperty}</option>
               {projects.map((p) => (
                 <option key={p.slug} value={p.slug}>
                   {p.name} {p.productName}
@@ -120,7 +125,7 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
           </div>
           <div>
             <label htmlFor={priceId} className="text-[14px] text-muted">
-              Property price (RM)
+              {t.price}
             </label>
             <input
               id={priceId}
@@ -138,34 +143,29 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
         </div>
         {project && (
           <p className="mt-3 text-[13px] text-subtle">
-            {project.showPrice
-              ? `${project.priceRangeLabel} ${formatRM(project.priceMin)} to ${formatRM(project.priceMax)}. Unit pricing to be confirmed with Aqil.`
-              : "Pricing for this development is being reconfirmed. Enter a price to explore."}
+            {project.showPrice ? t.rangeNote(project.priceRangeLabel, formatRM(project.priceMin), formatRM(project.priceMax)) : t.reconfirmNote}
           </p>
         )}
 
         <div className="mt-4 divide-y divide-line">
-          <Slider label="Margin of finance" value={margin} min={50} max={100} step={5} onChange={setMargin} display={`${margin}%`} hint={`Down payment ${formatRM(est.downPayment)}`} />
-          <Slider label="Interest rate" value={rate} min={2} max={7} step={0.05} onChange={(n) => setRate(Math.round(n * 100) / 100)} display={`${rate.toFixed(2)}% p.a.`} />
-          <Slider label="Loan tenure" value={years} min={5} max={35} step={1} onChange={setYears} display={`${years} years`} />
+          <Slider label={t.margin} value={margin} min={50} max={100} step={5} onChange={setMargin} display={`${margin}%`} hint={t.downPaymentHint(formatRM(est.downPayment))} />
+          <Slider label={t.rate} value={rate} min={2} max={7} step={0.05} onChange={(n) => setRate(Math.round(n * 100) / 100)} display={`${rate.toFixed(2)}% ${t.perAnnum}`} />
+          <Slider label={t.tenure} value={years} min={5} max={35} step={1} onChange={setYears} display={t.years(years)} />
         </div>
         <button type="button" onClick={reset} className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-[14px] text-muted hover:text-text">
-          <RotateCcw aria-hidden size={15} /> Reset assumptions
+          <RotateCcw aria-hidden size={15} /> {t.reset}
         </button>
         <p className="mt-2 text-[13px] text-subtle">
-          Defaults ({D.defaultInterestRate}% p.a., {D.defaultTenureYears} years, {D.defaultMarginOfFinance}% margin) are planning
-          assumptions reviewed {D.assumptionsLastReviewed}, not bank rates.
+          {t.defaults(D.defaultInterestRate, D.defaultTenureYears, D.defaultMarginOfFinance, formatDate(D.assumptionsLastReviewed, lang))}
         </p>
       </div>
 
       {/* Results */}
       <div className="flex flex-col gap-4">
         <div className="card p-6 sm:p-8" aria-live="polite">
-          <p className="text-[14px] text-muted">Estimated monthly instalment</p>
+          <p className="text-[14px] text-muted">{t.monthly}</p>
           <p className="mt-1 font-display text-[44px] leading-none tabular sm:text-[60px]">{formatRM(est.monthly)}</p>
-          <p className="mt-2 text-[14px] text-muted">
-            over {est.months} months on a {formatRM(est.loanAmount)} loan
-          </p>
+          <p className="mt-2 text-[14px] text-muted">{t.over(est.months, formatRM(est.loanAmount))}</p>
 
           <div className="mt-6" aria-hidden>
             <div className="flex h-2.5 overflow-hidden rounded-full bg-surface-2">
@@ -176,57 +176,59 @@ export function FinancialPlanner({ projects }: { projects: Project[] }) {
           <dl className="mt-4 grid grid-cols-2 gap-4 text-[14px]">
             <div>
               <dt className="flex items-center gap-2 text-muted">
-                <span className="size-2.5 rounded-full bg-emerald" /> Principal
+                <span className="size-2.5 rounded-full bg-emerald" /> {t.principal}
               </dt>
               <dd className="mt-1 text-[17px] tabular">{formatRM(est.loanAmount)}</dd>
             </div>
             <div>
               <dt className="flex items-center gap-2 text-muted">
-                <span className="size-2.5 rounded-full bg-[#d9b45a]" /> Total interest
+                <span className="size-2.5 rounded-full bg-[#d9b45a]" /> {t.totalInterest}
               </dt>
               <dd className="mt-1 text-[17px] tabular">{formatRM(est.totalInterest)}</dd>
             </div>
             <div>
-              <dt className="text-muted">Down payment</dt>
+              <dt className="text-muted">{t.downPayment}</dt>
               <dd className="mt-1 text-[17px] tabular">{formatRM(est.downPayment)}</dd>
             </div>
             <div>
-              <dt className="text-muted">Total repayment</dt>
+              <dt className="text-muted">{t.totalRepayment}</dt>
               <dd className="mt-1 text-[17px] tabular">{formatRM(est.totalRepayment)}</dd>
             </div>
           </dl>
         </div>
 
         <div className="card p-6">
-          <p className="text-[15px] font-medium">Other upfront costs</p>
+          <p className="text-[15px] font-medium">{t.upfront}</p>
           <ul className="mt-3 divide-y divide-line text-[14px]">
             <li className="flex justify-between gap-4 py-2.5">
-              <span className="text-muted">Down payment ({100 - margin}%)</span>
+              <span className="text-muted">{t.downPaymentPct(100 - margin)}</span>
               <span className="tabular">{formatRM(est.downPayment)}</span>
             </li>
             {site.upfrontCostItems
               .filter((i) => i.name !== "Down payment")
               .map((i) => (
                 <li key={i.name} className="flex justify-between gap-4 py-2.5">
-                  <span className="text-muted">{i.name}</span>
-                  <span className="text-subtle">To confirm</span>
+                  <span className="text-muted">{st.upfrontName(i.name)}</span>
+                  <span className="text-subtle">{t.toConfirm}</span>
                 </li>
               ))}
           </ul>
-          <p className="mt-2 text-[12px] text-subtle">
-            Legal fees and stamp duty are not estimated here until the rules are verified by a qualified professional. Developer packages may cover some costs.
-          </p>
+          <p className="mt-2 text-[12px] text-subtle">{t.upfrontNote}</p>
         </div>
 
         <a
-          href={whatsappHref("financial_planner", { project: `${projectLabel} (${formatRM(price)}, ${margin}% margin, ${rate.toFixed(2)}%, ${years} years, est. ${formatRM(est.monthly)}/month)` })}
+          href={whatsappHref(
+            "financial_planner",
+            { project: t.whatsappSummary(projectLabel, formatRM(price), margin, rate.toFixed(2), years, formatRM(est.monthly)) },
+            lang,
+          )}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary w-full !min-h-12"
         >
-          <WhatsAppIcon size={18} /> Discuss this estimate with Aqil
+          <WhatsAppIcon size={18} /> {t.discuss}
         </a>
-        <p className="text-[12px] leading-relaxed text-subtle">{D.disclaimer}</p>
+        <p className="text-[12px] leading-relaxed text-subtle">{st.calculatorDisclaimer}</p>
       </div>
     </div>
   );

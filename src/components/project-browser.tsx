@@ -4,6 +4,7 @@ import { Search, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import type { Project } from "@/data/types";
+import { useLang, useT } from "@/i18n/client";
 import { BUDGETS, type Budget, matchesBudget, matchesQuery } from "@/lib/search";
 import { ProjectCard, ProjectGrid } from "./project-card";
 
@@ -13,6 +14,8 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const lang = useLang();
+  const t = useT();
 
   const q = params.get("q") ?? "";
   const budget = (params.get("budget") as Budget) ?? "any";
@@ -45,14 +48,14 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
         <div className="relative col-span-2 sm:col-span-1">
           <Search aria-hidden size={17} className="absolute top-1/2 left-4 -translate-y-1/2 text-subtle" />
           <label htmlFor="q" className="sr-only">
-            Search developments
+            {t.search.label}
           </label>
           <input
             id="q"
             type="search"
             defaultValue={q}
             key={q}
-            placeholder="Search developments"
+            placeholder={t.search.placeholder}
             className="field !min-h-11 !rounded-full !pl-11 sm:!min-h-12 sm:!rounded-xl focus:!border-white/35 focus-visible:!outline-none"
             onKeyDown={(e) => {
               if (e.key === "Enter") update({ q: e.currentTarget.value.trim() });
@@ -62,35 +65,35 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
         </div>
         <div>
           <label htmlFor="budget" className="sr-only">
-            Budget
+            {t.browser.budgetLabel}
           </label>
           <select id="budget" className="field !min-h-10 cursor-pointer !rounded-full !py-0 sm:!min-h-12 sm:w-52 sm:!rounded-xl" value={budget} onChange={(e) => update({ budget: e.target.value })}>
             {BUDGETS.map((b) => (
               <option key={b.value} value={b.value}>
-                {b.label}
+                {t.browser.budgets[b.value]}
               </option>
             ))}
           </select>
         </div>
         <div>
           <label htmlFor="sort" className="sr-only">
-            Sort
+            {t.browser.sortLabel}
           </label>
           <select id="sort" className="field !min-h-10 cursor-pointer !rounded-full !py-0 sm:!min-h-12 sm:w-48 sm:!rounded-xl" value={sort} onChange={(e) => update({ sort: e.target.value })}>
-            <option value="featured">Featured</option>
-            <option value="price-asc">Price: low to high</option>
-            <option value="size-desc">Largest built up</option>
+            <option value="featured">{t.browser.sorts.featured}</option>
+            <option value="price-asc">{t.browser.sorts["price-asc"]}</option>
+            <option value="size-desc">{t.browser.sorts["size-desc"]}</option>
           </select>
         </div>
       </div>
 
       <div className="mt-4 flex min-h-9 items-center justify-between gap-3 sm:mt-6">
         <p className="text-[13px] text-muted sm:text-[14px]" aria-live="polite">
-          {results.length} {results.length === 1 ? "development" : "developments"}
+          {t.browser.count(results.length)}
           {q && (
             <>
               {" "}
-              for “<span className="text-text">{q}</span>”
+              {t.browser.for} “<span className="text-text">{q}</span>”
             </>
           )}
         </p>
@@ -100,7 +103,7 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
             onClick={() => router.replace(pathname, { scroll: false })}
             className="inline-flex min-h-9 items-center gap-1 rounded-full px-3 text-[13px] text-muted hover:text-text"
           >
-            <X aria-hidden size={14} /> Clear
+            <X aria-hidden size={14} /> {t.browser.clear}
           </button>
         )}
       </div>
@@ -109,21 +112,19 @@ export function ProjectBrowser({ projects }: { projects: Project[] }) {
         <div className="mt-4">
           {/* Unfiltered, featured order: the spotlight development leads as a wide card. */}
           {!q && budget === "any" && sort === "featured" ? (
-            <ProjectGrid projects={results} />
+            <ProjectGrid projects={results} lang={lang} />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
               {results.map((p, i) => (
-                <ProjectCard key={p.slug} project={p} priority={i === 0} />
+                <ProjectCard key={p.slug} project={p} priority={i === 0} lang={lang} />
               ))}
             </div>
           )}
         </div>
       ) : (
         <div className="card mt-4 p-10 text-center">
-          <p className="font-display text-2xl">No developments match yet</p>
-          <p className="mx-auto mt-2 max-w-md text-[15px] text-muted">
-            Try a broader search, or tell Aqil what you are looking for and he will shortlist options for you.
-          </p>
+          <p className="font-display text-2xl">{t.browser.emptyTitle}</p>
+          <p className="mx-auto mt-2 max-w-md text-[15px] text-muted">{t.browser.emptyBody}</p>
         </div>
       )}
     </div>
